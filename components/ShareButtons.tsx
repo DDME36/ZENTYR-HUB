@@ -6,11 +6,10 @@ import { Share2, Check, Facebook, Link as LinkIcon } from 'lucide-react';
 import { SiLine, SiDiscord } from 'react-icons/si';
 
 interface ShareButtonsProps {
-  title: string;
   url?: string;
 }
 
-export function ShareButtons({ title, url }: ShareButtonsProps) {
+export function ShareButtons({ url }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
   const [discordCopied, setDiscordCopied] = useState(false);
 
@@ -39,8 +38,6 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
 
   const handleShare = (platform: string) => {
     const encodedUrl = encodeURIComponent(shareUrl);
-    const encodedTitle = encodeURIComponent(title);
-
     const urls: Record<string, string> = {
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
       line: `https://social-plugins.line.me/lineit/share?url=${encodedUrl}`,
@@ -52,22 +49,24 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
   };
 
   return (
-    <div className="mt-16 rounded-3xl border border-rose-100/50 bg-gradient-to-r from-rose-50 via-purple-50 to-blue-50 p-6 text-center sm:p-8">
+    <div className="mx-auto mt-10 max-w-4xl rounded-2xl border border-rose-100/50 bg-gradient-to-r from-rose-50 via-purple-50 to-blue-50 p-5 text-center sm:mt-16 sm:rounded-3xl sm:p-8">
       <div className="mb-4 flex items-center justify-center gap-3 sm:mb-6">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-rose-400 to-purple-400 shadow-lg sm:h-12 sm:w-12">
           <Share2 size={18} className="text-white sm:h-5 sm:w-5" />
         </div>
-        <h3 className="text-xl font-bold text-gray-800 sm:text-2xl">แชร์บทความนี้</h3>
+        <h3 className="text-[20px] font-semibold leading-7 text-gray-800 sm:text-[24px] sm:leading-8">
+          แชร์บทความนี้
+        </h3>
       </div>
-      <p className="mb-6 text-sm text-gray-600 sm:mb-8 sm:text-base">
+      <p className="mb-6 text-[14px] leading-6 text-gray-600 sm:mb-8 sm:text-[16px]">
         ช่วยแชร์ความรู้ให้เพื่อนๆ ได้อ่านกัน
       </p>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => handleShare('facebook')}
-          className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-medium text-white shadow-md transition-all hover:bg-blue-700"
+          className="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-[14px] font-medium leading-5 text-white shadow-md transition-all hover:bg-blue-700"
         >
           <Facebook size={18} />
           Facebook
@@ -76,7 +75,7 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => handleShare('line')}
-          className="flex items-center justify-center gap-2 rounded-xl bg-green-500 px-4 py-3 text-sm font-medium text-white shadow-md transition-all hover:bg-green-600"
+          className="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-green-500 px-4 py-3 text-[14px] font-medium leading-5 text-white shadow-md transition-all hover:bg-green-600"
         >
           <SiLine size={18} />
           LINE
@@ -87,7 +86,7 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
           onClick={handleCopyDiscord}
           className={`${
             discordCopied ? 'bg-green-600 hover:bg-green-700' : 'bg-[#5865F2] hover:bg-[#4752C4]'
-          } flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-white shadow-md transition-all`}
+          } flex min-h-12 items-center justify-center gap-2 rounded-xl px-4 py-3 text-[14px] font-medium leading-5 text-white shadow-md transition-all`}
         >
           {discordCopied ? (
             <>
@@ -107,7 +106,7 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
           onClick={handleCopyLink}
           className={`${
             copied ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-700 hover:bg-gray-800'
-          } flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-white shadow-md transition-all`}
+          } flex min-h-12 items-center justify-center gap-2 rounded-xl px-4 py-3 text-[14px] font-medium leading-5 text-white shadow-md transition-all`}
         >
           {copied ? (
             <>

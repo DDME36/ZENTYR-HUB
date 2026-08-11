@@ -1,64 +1,19 @@
 // Shared types for the application
 
-export interface Post {
+export interface PostSummary {
   id: string;
   title: string;
   slug: string;
   tags: string[];
   date: string;
   cover: string | null;
-  content?: string;
+  excerpt?: string;
   isParent?: boolean;
   parentSlug?: string;
   episodeNumber?: number;
   coverPosition?: string;
 }
 
-export interface NotionPage {
-  id: string;
-  properties: {
-    Name: {
-      title: Array<{
-        plain_text: string;
-      }>;
-    };
-    Slug: {
-      rich_text: Array<{
-        plain_text: string;
-      }>;
-    };
-    Tags: {
-      multi_select: Array<{
-        name: string;
-      }>;
-    };
-    Date: {
-      date: {
-        start: string;
-      } | null;
-    };
-    Published: {
-      checkbox: boolean;
-    };
-    IsParent?: {
-      checkbox: boolean;
-    };
-    ParentSlug?: {
-      rich_text: Array<{
-        plain_text: string;
-      }>;
-    };
-    EpisodeNumber?: {
-      number: number;
-    };
-  };
-  cover: {
-    type: string;
-    external?: {
-      url: string;
-    };
-    file?: {
-      url: string;
-    };
-  } | null;
+export interface Post extends PostSummary {
+  content: string;
 }

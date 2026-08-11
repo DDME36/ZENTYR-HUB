@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 
 export default function Loading() {
   const skeletonItems = [
-    { className: "col-span-1 row-span-2 sm:col-span-2 md:col-span-2 lg:col-span-2" }, // PUNN INVESTING
-    { className: "col-span-1 row-span-2 sm:col-span-1" }, // Founder
-    { className: "col-span-1 row-span-2 sm:col-span-1" }, // KhomunPang
-    { className: "col-span-1 row-span-1 sm:col-span-2 md:col-span-2" }, // MemoKard
-    { className: "col-span-1 row-span-1 sm:col-span-2 md:col-span-2" }, // Smart AI Stock
+    { className: 'col-span-1 row-span-2 sm:col-span-2 md:col-span-2 lg:col-span-2' }, // PUNN INVESTING
+    { className: 'col-span-1 row-span-2 sm:col-span-1' }, // Founder
+    { className: 'col-span-1 row-span-2 sm:col-span-1' }, // Compact project card
+    { className: 'col-span-1 row-span-1 sm:col-span-2 md:col-span-2' }, // MemoKard
+    { className: 'col-span-1 row-span-1 sm:col-span-2 md:col-span-2' }, // Smart AI Stock
   ];
 
   return (

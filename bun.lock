@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "hub-temp",
+      "name": "punn-hub",
       "dependencies": {
         "@tailwindcss/typography": "0.5.19",
         "@types/react-syntax-highlighter": "15.5.13",

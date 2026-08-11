@@ -6,23 +6,10 @@ import { BookOpen, Calendar, X, ArrowUpRight, AlertCircle, FileText, Search } fr
 import Image from 'next/image';
 import Link from 'next/link';
 import { SearchModal } from './SearchModal';
-
-interface Post {
-  id: string;
-  title: string;
-  slug: string;
-  tags: string[];
-  date: string;
-  cover: string | null;
-  content?: string;
-  isParent?: boolean;
-  parentSlug?: string;
-  episodeNumber?: number;
-  coverPosition?: string;
-}
+import { PostSummary } from '@/lib/types';
 
 interface BlogListProps {
-  posts: Post[];
+  posts: PostSummary[];
   error: string | null;
 }
 
@@ -117,22 +104,28 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
               </div>
 
               {/* Stats Cards - Centered */}
-              <motion.div 
-                variants={itemVariants} 
-                className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-2"
+              <motion.div
+                variants={itemVariants}
+                className="mt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-6"
               >
                 {/* Stat Card 1 */}
-                <div className="flex flex-col items-center justify-center min-w-[110px] rounded-2xl border border-rose-100/50 bg-gradient-to-br from-rose-50 to-rose-100/50 px-6 py-4 text-center shadow-[0_4px_20px_rgb(251,113,133,0.1)]">
-                  <div className="text-3xl font-black text-rose-500 leading-none mb-1">{mainPosts.length}</div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-gray-500">บทความ</div>
+                <div className="flex min-w-[110px] flex-col items-center justify-center rounded-2xl border border-rose-100/50 bg-gradient-to-br from-rose-50 to-rose-100/50 px-6 py-4 text-center shadow-[0_4px_20px_rgb(251,113,133,0.1)]">
+                  <div className="mb-1 text-3xl font-black leading-none text-rose-500">
+                    {mainPosts.length}
+                  </div>
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                    บทความ
+                  </div>
                 </div>
 
                 {/* Stat Card 2 */}
-                <div className="flex flex-col items-center justify-center min-w-[110px] rounded-2xl border border-purple-100/50 bg-gradient-to-br from-purple-50 to-purple-100/50 px-6 py-4 text-center shadow-[0_4px_20px_rgb(192,132,252,0.1)]">
-                  <div className="text-3xl font-black text-purple-500 leading-none mb-1">
+                <div className="flex min-w-[110px] flex-col items-center justify-center rounded-2xl border border-purple-100/50 bg-gradient-to-br from-purple-50 to-purple-100/50 px-6 py-4 text-center shadow-[0_4px_20px_rgb(192,132,252,0.1)]">
+                  <div className="mb-1 text-3xl font-black leading-none text-purple-500">
                     {allTags.length - 1}
                   </div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-gray-500">หมวดหมู่</div>
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                    หมวดหมู่
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -186,7 +179,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                 <div className="flex-1">
                   <SearchModal posts={posts} />
                 </div>
-                
+
                 {/* Clear Filter Button - Only show when filtered */}
                 {selectedTag !== 'All' && (
                   <motion.button
@@ -209,7 +202,9 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                   <h2 className="text-lg font-bold text-gray-800">
                     {filteredPosts.length} บทความ
                     {selectedTag !== 'All' && (
-                      <span className="ml-2 text-base text-rose-400 font-medium">· {selectedTag}</span>
+                      <span className="ml-2 text-base font-medium text-rose-400">
+                        · {selectedTag}
+                      </span>
                     )}
                   </h2>
                 </div>
@@ -217,7 +212,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                 {/* Scrollable Filter Pills */}
                 <div className="scrollbar-hide -mx-2 overflow-x-auto px-2 pb-2">
                   <div className="flex min-w-max gap-2 py-1">
-                    {allTags.map((tag, index) => (
+                    {allTags.map((tag) => (
                       <motion.button
                         key={tag}
                         whileHover={{ scale: 1.05, y: -2 }}
@@ -240,7 +235,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
             {/* Articles List - 2 Column Grid */}
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <AnimatePresence mode="sync">
-                {filteredPosts.map((post: Post, index: number) => (
+                {filteredPosts.map((post: PostSummary, index: number) => (
                   <motion.div
                     key={post.id}
                     initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -249,7 +244,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{
                       duration: 0.5,
-                      delay: index * 0.08,
+                      delay: Math.min(index * 0.06, 0.3),
                       ease: [0.16, 1, 0.3, 1],
                     }}
                   >
@@ -265,7 +260,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                           },
                         }}
                         whileTap={{ scale: 0.98 }}
-                        className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-white/60 bg-white shadow-[0_4px_20px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_16px_50px_rgb(0,0,0,0.12)] focus-within:ring-2 focus-within:ring-rose-400 focus-within:ring-offset-2"
+                        className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-white/60 bg-white shadow-[0_4px_20px_rgb(0,0,0,0.04)] transition-all duration-300 focus-within:ring-2 focus-within:ring-rose-400 focus-within:ring-offset-2 hover:shadow-[0_16px_50px_rgb(0,0,0,0.12)]"
                       >
                         {/* Cover Image with CSS Mask Fade */}
                         <div
@@ -281,7 +276,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                               src={post.cover}
                               alt={post.title}
                               fill
-                              priority
+                              priority={index < 2}
                               className="object-cover transition-transform duration-700 group-hover:scale-105"
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 896px"
                               onError={(e) => {
@@ -334,7 +329,11 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                           </h3>
 
                           {/* Tags - Pushed to bottom */}
-                          <div className="mt-auto flex flex-wrap gap-2" role="list" aria-label="หมวดหมู่">
+                          <div
+                            className="mt-auto flex flex-wrap gap-2"
+                            role="list"
+                            aria-label="หมวดหมู่"
+                          >
                             {post.tags.slice(0, 3).map((tag: string) => (
                               <motion.span
                                 key={tag}
@@ -347,7 +346,10 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                               </motion.span>
                             ))}
                             {post.tags.length > 3 && (
-                              <span className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-1.5 text-xs text-gray-500" aria-label={`และอีก ${post.tags.length - 3} หมวดหมู่`}>
+                              <span
+                                className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-1.5 text-xs text-gray-500"
+                                aria-label={`และอีก ${post.tags.length - 3} หมวดหมู่`}
+                              >
                                 +{post.tags.length - 3}
                               </span>
                             )}

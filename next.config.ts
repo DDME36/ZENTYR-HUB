@@ -1,28 +1,11 @@
 import type { NextConfig } from 'next';
 
-// Suppress DEP0169 warning (url.parse() deprecation) globally for both Webpack and Turbopack
-const originalEmit = process.emit;
-// @ts-expect-error - Suppressing Node warning
-process.emit = function (name: string, data: unknown, ...args: unknown[]) {
-  if (
-    name === 'warning' &&
-    data &&
-    typeof data === 'object' &&
-    (data as Error).name === 'DeprecationWarning' &&
-    (data as Error).message?.includes('url.parse()')
-  ) {
-    return false;
-  }
-  // @ts-expect-error - Applying arguments to process
-  return originalEmit.apply(process, [name, data, ...args]);
-};
-
 const nextConfig: NextConfig = {
   // Performance optimizations
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
-  
+
   // Security headers
   async headers() {
     return [
@@ -35,7 +18,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
+            value: 'DENY',
           },
           {
             key: 'X-Content-Type-Options',
@@ -43,19 +26,19 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            value: 'strict-origin-when-cross-origin',
           },
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
           },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
         ],
       },
     ];
-  },
-
-  webpack: (config) => {
-    return config;
   },
 
   // Experimental features
@@ -67,52 +50,8 @@ const nextConfig: NextConfig = {
   turbopack: {},
 
   images: {
-    localPatterns: [
-      {
-        pathname: '/api/image-proxy/**',
-      },
-      {
-        pathname: '/api/image-proxy',
-      },
-      {
-        pathname: '/images/**',
-      },
-    ],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '*.notion.so',
-      },
-      {
-        protocol: 'https',
-        hostname: 'notion.so',
-      },
-      {
-        protocol: 'https',
-        hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'wpblogassets.paytm.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'melonloader.co',
-      },
-      {
-        protocol: 'https',
-        hostname: 'i.imgur.com',
-      },
-    ],
     formats: ['image/avif', 'image/webp'],
-    minimumCacheTTL: 31536000, // 1 year (Fixes Notion AWS S3 URL expiration)
-    dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    minimumCacheTTL: 86400,
   },
 };
 

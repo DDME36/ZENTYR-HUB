@@ -1,11 +1,11 @@
 import { MetadataRoute } from 'next';
-import { getPublishedPosts } from '@/lib/mdx';
+import { getPublishedPostSummaries } from '@/lib/mdx';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://punn.site';
 
   // Get all blog posts
-  const posts = await getPublishedPosts().catch(() => []);
+  const posts = await getPublishedPostSummaries().catch(() => []);
 
   const blogPosts = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,

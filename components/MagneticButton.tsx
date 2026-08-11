@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { PointerEvent, useRef } from 'react';
+import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
 
 interface MagneticButtonProps {
   children: React.ReactNode;
@@ -15,38 +15,44 @@ export const MagneticButton = ({
   intensity = 0.2,
 }: MagneticButtonProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const bounds = useRef<DOMRect | null>(null);
+  const pointerEnabled = useRef(false);
+  const shouldReduceMotion = useReducedMotion();
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 180, damping: 18, mass: 0.12 });
+  const springY = useSpring(y, { stiffness: 180, damping: 18, mass: 0.12 });
 
-  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
-    // ปิดการทำงานบนมือถือ/แท็บเล็ต (Touch Devices) เพื่อไม่ให้ UI กระตุก
-    if (typeof window !== 'undefined' && window.matchMedia('(any-pointer: coarse)').matches) {
-      return;
-    }
+  const handlePointerEnter = (event: PointerEvent<HTMLDivElement>) => {
+    pointerEnabled.current =
+      !shouldReduceMotion &&
+      event.pointerType === 'mouse' &&
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    bounds.current = pointerEnabled.current ? event.currentTarget.getBoundingClientRect() : null;
+  };
 
-    const { clientX, clientY } = e;
-    const boundingRect = ref.current?.getBoundingClientRect();
-    if (boundingRect) {
-      const { width, height, left, top } = boundingRect;
-      // Calculate cursor position relative to center of the element
-      const x = clientX - (left + width / 2);
-      const y = clientY - (top + height / 2);
+  const handlePointerMove = ({ clientX, clientY }: PointerEvent<HTMLDivElement>) => {
+    if (!pointerEnabled.current || !bounds.current) return;
 
-      // Move the element slightly towards the cursor
-      setPosition({ x: x * intensity, y: y * intensity });
-    }
+    const { width, height, left, top } = bounds.current;
+    x.set((clientX - (left + width / 2)) * intensity);
+    y.set((clientY - (top + height / 2)) * intensity);
   };
 
   const reset = () => {
-    setPosition({ x: 0, y: 0 });
+    pointerEnabled.current = false;
+    bounds.current = null;
+    x.set(0);
+    y.set(0);
   };
 
   return (
     <motion.div
       ref={ref}
-      onMouseMove={handleMouse}
-      onMouseLeave={reset}
-      animate={{ x: position.x, y: position.y }}
-      transition={{ type: 'spring', stiffness: 150, damping: 15, mass: 0.1 }}
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={reset}
+      style={{ x: springX, y: springY }}
       className={`inline-block ${className}`}
     >
       {children}

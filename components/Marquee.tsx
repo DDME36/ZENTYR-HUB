@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 
 const skills = [
   'React',
@@ -16,8 +17,12 @@ const skills = [
 ];
 
 export const Marquee = () => {
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(marqueeRef, { margin: '200px 0px' });
+
   return (
     <motion.div
+      ref={marqueeRef}
       initial={{ opacity: 0, y: 20, rotate: 2 }}
       animate={{ opacity: 1, y: 0, rotate: 2 }}
       transition={{ duration: 0.6, delay: 0.3 }}
@@ -25,50 +30,59 @@ export const Marquee = () => {
     >
       {/* Top marquee - Pure CSS Animation (GPU Accelerated) */}
       <div className="relative mb-3 flex overflow-hidden whitespace-nowrap">
-        <motion.div
+        <span className="sr-only">โปรเจกต์ ไอเดีย และความรู้</span>
+        <div
+          aria-hidden="true"
           className="animate-marquee flex whitespace-nowrap font-display text-xl font-black sm:text-2xl md:text-3xl lg:text-4xl"
-          style={{ willChange: 'transform', letterSpacing: '0.1em', lineHeight: '1.5' }}
-          whileHover={{ animationPlayState: 'paused' }}
+          style={{
+            animationPlayState: isInView ? 'running' : 'paused',
+            willChange: isInView ? 'transform' : 'auto',
+            letterSpacing: '0.1em',
+            lineHeight: '1.5',
+          }}
         >
           {/* Duplicate content 2 ครั้งเพื่อให้วนลูปไม่มีรอยต่อ */}
           {[...Array(2)].map((_, groupIndex) => (
             <div key={groupIndex} className="flex">
-              {[...Array(8)].map((_, i) => (
-                <motion.span
+              {[...Array(4)].map((_, i) => (
+                <span
                   key={i}
-                  whileHover={{ scale: 1.05, color: '#fb7185' }}
-                  className="mx-6 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 bg-clip-text text-transparent transition-colors sm:mx-8 md:mx-10"
+                  className="mx-6 inline-block bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 bg-clip-text text-transparent transition-transform duration-300 hover:scale-105 sm:mx-8 md:mx-10"
                 >
                   โปรเจกต์ • ไอเดีย • ความรู้
-                </motion.span>
+                </span>
               ))}
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
-      {/* Skills marquee - Pure CSS Animation (opposite direction) */}
+      {/* Skills marquee - continuous movement in the same direction */}
       <div className="relative flex overflow-hidden whitespace-nowrap">
-        <motion.div
-          className="animate-marquee-reverse flex whitespace-nowrap text-sm font-semibold sm:text-base"
-          style={{ willChange: 'transform', letterSpacing: '0.05em' }}
-          whileHover={{ animationPlayState: 'paused' }}
+        <span className="sr-only">{skills.join(', ')}</span>
+        <div
+          aria-hidden="true"
+          className="animate-marquee-skills flex whitespace-nowrap text-sm font-semibold sm:text-base"
+          style={{
+            animationPlayState: isInView ? 'running' : 'paused',
+            willChange: isInView ? 'transform' : 'auto',
+            letterSpacing: '0.05em',
+          }}
         >
           {/* Duplicate content 2 ครั้งเพื่อให้วนลูปไม่มีรอยต่อ */}
           {[...Array(2)].map((_, groupIndex) => (
             <div key={groupIndex} className="flex">
               {[...Array(20)].map((_, i) => (
-                <motion.span
+                <span
                   key={i}
-                  whileHover={{ scale: 1.1, color: '#a855f7' }}
-                  className="mx-6 text-gray-500 transition-colors sm:mx-8"
+                  className="mx-6 inline-block text-gray-500 transition duration-300 hover:scale-110 hover:text-purple-500 sm:mx-8"
                 >
                   {skills[i % skills.length]}
-                </motion.span>
+                </span>
               ))}
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Gradient overlays */}

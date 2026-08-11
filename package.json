@@ -1,11 +1,9 @@
 {
-  "name": "hub-temp",
+  "name": "punn-hub",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:turbo": "next dev --turbopack",
-    "dev:safe": "next dev --no-turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -14,12 +12,7 @@
     "format:check": "prettier --check .",
     "test": "bun test",
     "test:watch": "bun test --watch",
-    "generate-icons": "bun run scripts/generate-icons.js",
-    "clean": "bun run scripts/clean.js",
-    "setup": "bun run scripts/setup.js",
-    "check-deps": "bun run scripts/check-deps.js",
-    "pre-commit": "bun run scripts/pre-commit.js",
-    "analyze": "ANALYZE=true bun run build"
+    "post:new": "bun run scripts/new-post.js"
   },
   "dependencies": {
     "@tailwindcss/typography": "0.5.19",

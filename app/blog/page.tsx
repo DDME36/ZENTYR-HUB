@@ -1,14 +1,14 @@
-import { getPublishedPosts } from '@/lib/mdx';
+import { getPublishedPostSummaries } from '@/lib/mdx';
 import { Footer } from '@/components/Footer';
 import { BlogList } from '@/components/BlogList';
 import { BackToTop } from '@/components/BackToTop';
-import { Post } from '@/lib/types';
+import { PostSummary } from '@/lib/types';
 import { Metadata } from 'next';
 
 export const revalidate = 3600; // ขณะ production ใช้ 1 ชั่วโมง
 
 export const metadata: Metadata = {
-  title: 'บทความ - PUNN HUB',
+  title: 'บทความ',
   description:
     'แชร์ความรู้และประสบการณ์ด้านเทคโนโลยี | Next.js, React, TypeScript, Web Development',
   alternates: {
@@ -31,14 +31,14 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  let posts: Post[] = [];
+  let posts: PostSummary[] = [];
   let error = null;
 
   try {
-    posts = await getPublishedPosts();
+    posts = await getPublishedPostSummaries();
   } catch (e) {
     console.error(e);
-    error = 'ไม่สามารถดึงข้อมูลจาก Notion ได้ (ตรวจสอบ Token หรือ Integration)';
+    error = 'ไม่สามารถอ่านไฟล์บทความได้ กรุณาตรวจสอบ frontmatter และไฟล์ Markdown';
   }
 
   return (

@@ -26,7 +26,7 @@ export default function BlogLoading() {
                 transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
                 className="mb-10 h-5 w-64 rounded-lg bg-gray-50"
               />
-              
+
               {/* Stats Skeleton */}
               <div className="flex gap-6">
                 <motion.div
@@ -47,7 +47,7 @@ export default function BlogLoading() {
 
       {/* Content Skeleton Grid */}
       <div className="mx-auto max-w-6xl px-4 py-8">
-        <div className="mb-8 h-12 w-full max-w-md rounded-2xl bg-white/50 animate-pulse" />
+        <div className="mb-8 h-12 w-full max-w-md animate-pulse rounded-2xl bg-white/50" />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <SkeletonCard key={i} />

@@ -1,45 +1,62 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { Post } from './types';
+import { unstable_cache } from 'next/cache';
+import { Post, PostSummary } from './types';
 
 const postsDirectory = path.join(process.cwd(), 'content/posts');
 
-// Helper to construct a post object from matter result
 const getPostData = (relativeFilePath: string): Post | null => {
-  try {
-    // Generate flat slug from basename e.g. "ee-101/ee-101-ep1-vir.md" -> "ee-101-ep1-vir"
-    const slug = path.basename(relativeFilePath, '.md');
-    const fullPath = path.join(postsDirectory, relativeFilePath);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const slug = path.basename(relativeFilePath, '.md');
+  const fullPath = path.join(postsDirectory, relativeFilePath);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const matterResult = matter(fileContents);
+  const {
+    title,
+    date,
+    tags,
+    cover,
+    excerpt,
+    draft,
+    published,
+    isParent,
+    parentSlug,
+    episodeNumber,
+    coverPosition,
+  } = matterResult.data;
 
-    // Parse frontmatter
-    const matterResult = matter(fileContents);
-    const { title, date, tags, cover, isParent, parentSlug, episodeNumber, coverPosition } = matterResult.data;
-
-    return {
-      id: slug, // Using slug as ID for local files
-      slug,
-      title: title || 'Untitled',
-      date: date || new Date().toISOString(),
-      tags: tags || [],
-      cover: cover || null,
-      content: matterResult.content,
-      isParent: isParent || false,
-      parentSlug: parentSlug || undefined,
-      episodeNumber: episodeNumber || undefined,
-      coverPosition: coverPosition || 'center',
-    };
-  } catch (error) {
-    console.error(`Error reading post ${relativeFilePath}:`, error);
-    return null;
+  // A draft must never be published just because the file exists in the repository.
+  if (draft === true || published === false) return null;
+  if (typeof title !== 'string' || title.trim() === '') {
+    throw new Error(`Missing required frontmatter "title" in ${relativeFilePath}`);
   }
+  if (typeof date !== 'string' || Number.isNaN(Date.parse(date))) {
+    throw new Error(`Missing or invalid frontmatter "date" in ${relativeFilePath}`);
+  }
+  if (tags !== undefined && !Array.isArray(tags)) {
+    throw new Error(`Frontmatter "tags" must be an array in ${relativeFilePath}`);
+  }
+
+  return {
+    id: slug,
+    slug,
+    title: title.trim(),
+    date,
+    tags: (tags || []).map(String),
+    cover: typeof cover === 'string' ? cover : null,
+    excerpt: typeof excerpt === 'string' ? excerpt.trim() : undefined,
+    content: matterResult.content.trim(),
+    isParent: Boolean(isParent),
+    parentSlug: typeof parentSlug === 'string' ? parentSlug : undefined,
+    episodeNumber: typeof episodeNumber === 'number' ? episodeNumber : undefined,
+    coverPosition: typeof coverPosition === 'string' ? coverPosition : 'center',
+  };
 };
 
 // Recursive helper to get all markdown files
 const getAllMarkdownFiles = (dirPath: string, arrayOfFiles: string[] = []) => {
   if (!fs.existsSync(dirPath)) return arrayOfFiles;
-  
+
   const files = fs.readdirSync(dirPath);
   files.forEach((file) => {
     const fullPath = path.join(dirPath, file);
@@ -52,31 +69,46 @@ const getAllMarkdownFiles = (dirPath: string, arrayOfFiles: string[] = []) => {
   return arrayOfFiles;
 };
 
-// Get all published posts
-export const getPublishedPosts = async (): Promise<Post[]> => {
-  try {
-    const allFilePaths = getAllMarkdownFiles(postsDirectory);
-    
-    // Convert absolute paths to relative paths for getPostData
-    const fileNames = allFilePaths.map((fullPath) => path.relative(postsDirectory, fullPath));
-    
-    const posts: Post[] = fileNames
-      .map((fileName) => getPostData(fileName))
-      .filter((post): post is Post => post !== null)
-      // Sort posts by date
-      .sort((a, b) => {
-        if (a.date < b.date) {
-          return 1;
-        } else {
-          return -1;
-        }
-      });
+const readPublishedPosts = (): Post[] => {
+  const allFilePaths = getAllMarkdownFiles(postsDirectory);
+  const posts = allFilePaths
+    .map((fullPath) => path.relative(postsDirectory, fullPath))
+    .map(getPostData)
+    .filter((post): post is Post => post !== null);
 
-    return posts;
-  } catch (error) {
-    console.error('Error fetching matching local md posts:', error);
-    return [];
+  const duplicateSlugs = posts
+    .map((post) => post.slug)
+    .filter((slug, index, slugs) => slugs.indexOf(slug) !== index);
+
+  if (duplicateSlugs.length > 0) {
+    throw new Error(`Duplicate post slugs: ${Array.from(new Set(duplicateSlugs)).join(', ')}`);
   }
+
+  return posts.sort((a, b) => b.date.localeCompare(a.date));
+};
+
+const getCachedPosts = unstable_cache(async () => readPublishedPosts(), ['md-posts-v2'], {
+  revalidate: 3600,
+});
+
+export const getPublishedPosts = async (): Promise<Post[]> =>
+  process.env.NODE_ENV === 'production' ? getCachedPosts() : readPublishedPosts();
+
+export const getPublishedPostSummaries = async (): Promise<PostSummary[]> => {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    id: post.id,
+    slug: post.slug,
+    title: post.title,
+    date: post.date,
+    tags: post.tags,
+    cover: post.cover,
+    excerpt: post.excerpt,
+    isParent: post.isParent,
+    parentSlug: post.parentSlug,
+    episodeNumber: post.episodeNumber,
+    coverPosition: post.coverPosition,
+  }));
 };
 
 // Get a post by its slug (Searches all posts since slugs are flat)
@@ -85,17 +117,11 @@ export const getPostBySlug = async (slug: string): Promise<Post | null> => {
   return allPosts.find((post) => post.slug === slug) || null;
 };
 
-// Getting content is now basically synchronous and included in getPostBySlug
-export const getPostContent = async (idOrSlug: string): Promise<string> => {
-  const post = await getPostBySlug(idOrSlug);
-  return post?.content || 'เนื้อหาไม่พร้อมใช้งาน ณ ตอนนี้ หรือไฟล์ยังไม่ได้ถูกสร้าง';
-};
-
 // Episodes
-export const getEpisodesByParentSlug = async (parentSlug: string): Promise<Post[]> => {
+export const getEpisodesByParentSlug = async (parentSlug: string): Promise<PostSummary[]> => {
   try {
-    const allPosts = await getPublishedPosts();
-    
+    const allPosts = await getPublishedPostSummaries();
+
     const episodes = allPosts
       .filter((post) => post.parentSlug === parentSlug)
       .sort((a, b) => {

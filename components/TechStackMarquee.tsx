@@ -1,7 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { Brain, Sparkles, Code2, Rocket, Zap, Database } from 'lucide-react';
+import { useRef } from 'react';
 
 const researchTopics = [
   { name: 'ปัญญาประดิษฐ์', icon: Brain, color: 'text-white', bg: 'from-purple-500 to-violet-600' },
@@ -13,8 +14,11 @@ const researchTopics = [
 ];
 
 export const TechStackMarquee = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { margin: '200px 0px' });
+
   return (
-    <section className="relative overflow-hidden bg-transparent py-12 sm:py-16">
+    <section ref={sectionRef} className="relative overflow-hidden bg-transparent py-12 sm:py-16">
       <div className="relative mx-auto max-w-6xl px-6">
         {/* Header */}
         <motion.div
@@ -31,6 +35,11 @@ export const TechStackMarquee = () => {
 
         {/* Scrolling Content - Single Row */}
         <div className="relative">
+          <ul className="sr-only">
+            {researchTopics.map((topic) => (
+              <li key={topic.name}>{topic.name}</li>
+            ))}
+          </ul>
           {/* Single Row - Pure CSS Smooth Scroll (GPU Accelerated) */}
           <div
             className="flex overflow-hidden py-4"
@@ -41,44 +50,48 @@ export const TechStackMarquee = () => {
                 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
             }}
           >
-            <motion.div
-              className="animate-marquee-slow flex gap-4"
-              style={{ willChange: 'transform' }}
-              whileHover={{ animationPlayState: 'paused' }}
+            <div
+              aria-hidden="true"
+              className="animate-marquee-slow flex"
+              style={{
+                animationPlayState: isInView ? 'running' : 'paused',
+                willChange: isInView ? 'transform' : 'auto',
+              }}
             >
-              {[...researchTopics, ...researchTopics].map((topic, index) => {
-                // นำ Icon มาใส่ตัวแปรตัวพิมพ์ใหญ่ (React Component ต้องขึ้นต้นด้วยตัวพิมพ์ใหญ่)
-                const Icon = topic.icon;
+              {[0, 1].map((groupIndex) => (
+                <div
+                  key={groupIndex}
+                  aria-hidden={groupIndex === 1}
+                  className="flex shrink-0 gap-4 pr-4"
+                >
+                  {researchTopics.map((topic) => {
+                    const Icon = topic.icon;
 
-                return (
-                  <motion.div
-                    key={`topic-${index}`}
-                    whileHover={{ scale: 1.05, y: -4 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`flex-shrink-0 bg-gradient-to-br ${topic.bg} group relative cursor-pointer overflow-hidden rounded-2xl border-none p-6 shadow-lg transition-shadow hover:shadow-xl`}
-                  >
-                    {/* Background Icon */}
-                    <div className="absolute -bottom-4 -right-4 text-white/40 opacity-20 transition-opacity group-hover:opacity-30">
-                      <Icon size={120} strokeWidth={1.5} />
-                    </div>
-
-                    {/* Content */}
-                    <div className="relative z-10 flex w-36 flex-col items-center gap-3">
-                      <motion.div
-                        whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-                        transition={{ duration: 0.5 }}
-                        className={`text-4xl ${topic.color} drop-shadow-lg`}
+                    return (
+                      <div
+                        key={`${groupIndex}-${topic.name}`}
+                        className={`flex-shrink-0 bg-gradient-to-br ${topic.bg} group relative overflow-hidden rounded-2xl border-none p-6 shadow-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-xl`}
                       >
-                        <Icon strokeWidth={2} />
-                      </motion.div>
-                      <span className="text-center font-sans text-sm font-bold leading-tight text-white drop-shadow-md">
-                        {topic.name}
-                      </span>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+                        <div className="absolute -bottom-4 -right-4 text-white/40 opacity-20 transition-opacity group-hover:opacity-30">
+                          <Icon size={120} strokeWidth={1.5} />
+                        </div>
+
+                        <div className="relative z-10 flex w-36 flex-col items-center gap-3">
+                          <div
+                            className={`text-4xl ${topic.color} drop-shadow-lg transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110`}
+                          >
+                            <Icon strokeWidth={2} />
+                          </div>
+                          <span className="text-center font-sans text-sm font-bold leading-tight text-white drop-shadow-md">
+                            {topic.name}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

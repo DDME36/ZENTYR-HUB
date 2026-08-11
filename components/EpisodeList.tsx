@@ -4,19 +4,10 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BookOpen, Calendar, PlayCircle } from 'lucide-react';
-
-interface Episode {
-  id: string;
-  title: string;
-  slug: string;
-  tags: string[];
-  date: string;
-  cover: string | null;
-  episodeNumber?: number;
-}
+import { PostSummary } from '@/lib/types';
 
 interface EpisodeListProps {
-  episodes: Episode[];
+  episodes: PostSummary[];
   seriesTitle: string;
 }
 
@@ -46,7 +37,7 @@ export const EpisodeList = ({ episodes, seriesTitle }: EpisodeListProps) => {
             key={episode.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            transition={{ delay: Math.min(index * 0.08, 0.32) }}
           >
             <Link href={`/blog/${episode.slug}`}>
               <motion.div

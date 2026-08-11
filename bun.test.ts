@@ -16,4 +16,9 @@ describe('Utils', () => {
     const { cn } = await import('./lib/utils');
     expect(cn('class1', 'class2')).toContain('class1');
   });
+
+  test('slugify supports Thai headings and normalizes spaces', async () => {
+    const { slugify } = await import('./lib/utils');
+    expect(slugify('  วิธี ใช้งาน PUNN HUB!  ')).toBe('วิธี-ใช้งาน-punn-hub');
+  });
 });

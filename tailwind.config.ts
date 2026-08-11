@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import typography from '@tailwindcss/typography';
 
 const config: Config = {
   content: [
@@ -38,8 +39,8 @@ const config: Config = {
         '7xl': ['clamp(4.5rem, 4rem + 4vw, 6rem)', { lineHeight: '1' }],
       },
       fontFamily: {
-        sans: ['Inter', 'Kanit', 'sans-serif'],
-        display: ['Clash Display', 'Kanit', 'sans-serif'],
+        sans: ['Inter', 'Kanit', 'system-ui', 'sans-serif'],
+        display: ['Clash Display', 'Kanit', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         '3xl': '1.5rem',
@@ -80,6 +81,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [typography],
 };
 export default config;

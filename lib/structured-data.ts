@@ -22,7 +22,7 @@ export const generateArticleSchema = (post: Post, url: string) => {
         url: 'https://punn.site/icon-512.png',
       },
     },
-    description: post.content?.substring(0, 160) || 'บทความจาก PUNN HUB',
+    description: post.excerpt || post.content.substring(0, 160) || 'บทความจาก PUNN HUB',
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': url,
@@ -43,11 +43,6 @@ export const generateWebsiteSchema = () => {
       '@type': 'Person',
       name: 'Satayu Pongpan',
       url: 'https://satayupongpan.site',
-    },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://punn.site/blog?q={search_term_string}',
-      'query-input': 'required name=search_term_string',
     },
   };
 };

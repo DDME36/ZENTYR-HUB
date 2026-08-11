@@ -8,7 +8,8 @@ function AnalyticsContent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const url = pathname + searchParams.toString();
+    const query = searchParams.toString();
+    const url = query ? `${pathname}?${query}` : pathname;
 
     // Vercel Analytics (ถ้าติดตั้ง @vercel/analytics)
     // import { track } from '@vercel/analytics';

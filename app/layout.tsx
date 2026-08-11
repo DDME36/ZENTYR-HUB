@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter, Kanit } from 'next/font/google';
 import './globals.css';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { ScrollProgressBar } from '@/components/ScrollProgressBar';
 import { Navbar } from '@/components/Navbar';
 import { SmoothScroller } from '@/components/SmoothScroller';
 import { MeshGradient } from '@/components/MeshGradient';
@@ -10,23 +8,7 @@ import { Analytics } from '@/components/Analytics';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { generateWebsiteSchema } from '@/lib/structured-data';
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const kanit = Kanit({
-  weight: ['300', '400', '600', '800'],
-  subsets: ['latin', 'thai'],
-  variable: '--font-kanit',
-  display: 'swap',
-});
-
-// Since Clash Display isn't on Google Fonts, we'll keep it via CSS for now unless local font files exist.
-// Wait, to fully optimize, we should use a local font if available, but since we don't have the woff2 files in the repo,
-// we will load it efficiently via CSS but we will remove the Google Fonts @import.
+import { MotionProvider } from '@/components/MotionProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://punn.site'),
@@ -112,9 +94,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const websiteSchema = generateWebsiteSchema();
+  const isVercelDeployment = process.env.VERCEL === '1';
 
   return (
-    <html lang="th" className={`${inter.variable} ${kanit.variable}`}>
+    <html lang="th">
       <head>
         <script
           type="application/ld+json"
@@ -122,20 +105,25 @@ export default async function RootLayout({
         />
       </head>
       <body className="min-h-screen overflow-x-hidden font-sans antialiased">
-        <div className="bg-grain" />
+        <div className="bg-grain" aria-hidden="true" />
         <a href="#main-content" className="skip-to-main">
           ข้ามไปยังเนื้อหาหลัก
         </a>
-        <MeshGradient />
-        <SmoothScroller />
-        <Navbar />
-        <ScrollProgressBar />
-        <Analytics />
-        <VercelAnalytics />
-        <SpeedInsights />
-        <main id="main-content">
-          <ErrorBoundary>{children}</ErrorBoundary>
-        </main>
+        <MotionProvider>
+          <MeshGradient />
+          <SmoothScroller />
+          <Navbar />
+          <Analytics />
+          {isVercelDeployment && (
+            <>
+              <VercelAnalytics />
+              <SpeedInsights />
+            </>
+          )}
+          <main id="main-content">
+            <ErrorBoundary>{children}</ErrorBoundary>
+          </main>
+        </MotionProvider>
       </body>
     </html>
   );

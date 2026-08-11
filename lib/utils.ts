@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { isValidElement, type ReactNode } from 'react';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -21,9 +22,12 @@ export function slugify(text: string) {
 /**
  * Recursively extracts text content from React children.
  */
-export function extractText(children: any): string {
+export function extractText(children: ReactNode): string {
   if (typeof children === 'string') return children;
+  if (typeof children === 'number') return String(children);
   if (Array.isArray(children)) return children.map(extractText).join('');
-  if (children?.props?.children) return extractText(children.props.children);
+  if (isValidElement<{ children?: ReactNode }>(children)) {
+    return extractText(children.props.children);
+  }
   return '';
 }

@@ -27,8 +27,8 @@ export const GradientText = ({ children, className = '', animate = true }: Gradi
         backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
       }}
       transition={{
-        duration: 5,
-        repeat: Infinity,
+        duration: 7,
+        repeat: 0,
         ease: 'linear',
       }}
       style={{

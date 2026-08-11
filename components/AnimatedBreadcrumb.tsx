@@ -25,7 +25,11 @@ export const AnimatedBreadcrumb = ({ items }: AnimatedBreadcrumbProps) => {
           href="/"
           className="group flex items-center gap-1 text-gray-500 transition-colors hover:text-rose-500"
         >
-          <Home size={14} className="transition-transform group-hover:scale-110" aria-hidden="true" />
+          <Home
+            size={14}
+            className="transition-transform group-hover:scale-110"
+            aria-hidden="true"
+          />
           <span className="font-medium">หน้าแรก</span>
         </Link>
       </motion.div>
@@ -41,7 +45,10 @@ export const AnimatedBreadcrumb = ({ items }: AnimatedBreadcrumbProps) => {
           <ChevronRight size={14} className="text-gray-300" aria-hidden="true" />
 
           {index === items.length - 1 ? (
-            <span className="max-w-[200px] truncate font-semibold text-gray-900 sm:max-w-none" aria-current="page">
+            <span
+              className="max-w-[200px] truncate font-semibold text-gray-900 sm:max-w-none"
+              aria-current="page"
+            >
               {item.label}
             </span>
           ) : (

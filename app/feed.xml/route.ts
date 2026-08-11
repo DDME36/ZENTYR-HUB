@@ -1,4 +1,4 @@
-import { getPublishedPosts, getPostContent } from '@/lib/mdx';
+import { getPublishedPosts } from '@/lib/mdx';
 
 // Helper function to escape XML special characters
 function escapeXml(unsafe: string): string {
@@ -15,8 +15,7 @@ export async function GET() {
 
   const rssItems = await Promise.all(
     posts.slice(0, 20).map(async (post) => {
-      const content = await getPostContent(post.id).catch(() => '');
-      const description = content
+      const description = (post.excerpt || post.content)
         .slice(0, 300)
         .replace(/[#*`\n]/g, ' ')
         .replace(/\s+/g, ' ')

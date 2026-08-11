@@ -1,23 +1,13 @@
-'use client';
-
 import { BentoGrid } from './BentoGrid';
-
-interface Post {
-  id: string;
-  title: string;
-  slug: string;
-  tags: string[];
-  date: string;
-  cover: string | null;
-}
+import { PostSummary } from '@/lib/types';
 
 interface EnhancedBentoGridProps {
-  posts: Post[];
+  posts: PostSummary[];
 }
 
 /**
  * EnhancedBentoGrid - Wrapper for BentoGrid.
- * Entrance animations are now handled by individual Card components 
+ * Entrance animations are now handled by individual Card components
  * for better performance and to prevent flickering.
  */
 export const EnhancedBentoGrid = ({ posts }: EnhancedBentoGridProps) => {

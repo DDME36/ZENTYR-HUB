@@ -2,57 +2,47 @@
 
 import { motion } from 'framer-motion';
 import {
-  TrendingUp,
-  Database,
   Share2,
-  Target,
   Code,
   User,
   ArrowUpRight,
   BookOpen,
-  Ticket,
   Bell,
   Music,
-  Sparkles,
   Brain,
+  Gamepad2,
+  Heart,
+  Terminal,
+  Mic2,
 } from 'lucide-react';
 import { Card } from './Card';
 import Link from 'next/link';
-
-interface Post {
-  id: string;
-  title: string;
-  slug: string;
-  tags: string[];
-  date: string;
-  cover: string | null;
-  content?: string;
-}
+import { PostSummary } from '@/lib/types';
 
 interface BentoGridProps {
-  posts: Post[];
+  posts: PostSummary[];
 }
 
 export const BentoGrid = ({ posts }: BentoGridProps) => {
   return (
     <>
-      <div className="mx-auto grid max-w-6xl auto-rows-[160px] grid-cols-1 gap-4 px-4 py-12 sm:auto-rows-[180px] sm:grid-cols-2 md:grid-cols-4 md:gap-5 lg:gap-6">
-        {/* PUNN-INVESTING - Premium Flagship */}
+      <div className="mx-auto grid max-w-6xl auto-rows-[160px] grid-cols-1 gap-4 px-4 py-12 sm:auto-rows-[176px] sm:grid-cols-2 md:auto-rows-[168px] md:grid-cols-4 md:gap-5 lg:gap-6">
+        {/* MemoKard - Current flagship */}
         <Card
-          href="https://ddme36.github.io/PUNN-INVESTING/"
-          BgIcon={TrendingUp}
+          href="/blog/MemoKard"
+          BgIcon={Brain}
           className="group relative col-span-1 row-span-2 !border-none !bg-gradient-to-br from-emerald-500 to-teal-600 !text-white shadow-[0_8px_30px_rgba(16,185,129,0.25)] sm:col-span-2 md:col-span-2 lg:col-span-2"
           glowColor="rgba(255,255,255,0.2)"
         >
           {/* Soft Shimmer Effect with blur */}
-          <div className="shimmer-effect animate-[shimmer_2.5s_infinite]"></div>
+          <div className="shimmer-effect animate-[shimmer_2.5s_ease-out_1]"></div>
 
-          <div className="relative z-10 flex h-full flex-col justify-between">
+          <div className="relative z-10 flex h-full flex-col">
             <div className="flex items-start justify-between">
               <div className="mb-2 flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-emerald-100" />
-                <span className="rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-sm">
-                  Flagship
+                <Brain className="h-5 w-5 text-emerald-100" />
+                <span className="rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+                  Featured
                 </span>
               </div>
               <motion.div
@@ -62,26 +52,28 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
                 <ArrowUpRight className="text-emerald-100" size={18} />
               </motion.div>
             </div>
-            <div>
-              <h2 className="mb-2 font-display text-lg font-bold sm:text-xl lg:text-2xl">
-                PUNN INVESTING
-              </h2>
-              <p className="text-sm leading-relaxed text-emerald-50">
-                แพลตฟอร์มแนะนำการลงทุนหุ้นสหรัฐฯ ด้วยข้อมูลเชิงลึกและการวิเคราะห์ที่แม่นยำ
-              </p>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                <span className="rounded-lg border border-white/25 bg-white/15 px-2.5 py-1 text-xs font-medium backdrop-blur-sm">
-                  Stock Analysis
-                </span>
-                <span className="rounded-lg border border-white/25 bg-white/15 px-2.5 py-1 text-xs font-medium backdrop-blur-sm">
-                  Market Trends
-                </span>
+            <div className="flex flex-1 items-center py-4 md:py-5">
+              <div>
+                <h2 className="mb-2 font-display text-lg font-bold sm:text-xl lg:text-2xl">
+                  MemoKard
+                </h2>
+                <p className="max-w-lg text-sm leading-relaxed text-emerald-50">
+                  แฟลชการ์ดภาษาไทยแบบ Offline-first พร้อม FSRS, Active Recall และติดตั้งเป็น PWA ได้
+                </p>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  <span className="rounded-lg border border-white/25 bg-white/15 px-2.5 py-1 text-xs font-medium">
+                    FSRS
+                  </span>
+                  <span className="rounded-lg border border-white/25 bg-white/15 px-2.5 py-1 text-xs font-medium">
+                    Offline-first
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </Card>
 
-        {/* Founder */}
+        {/* Profile / work history */}
         <Card
           href="https://satayupongpan.site/"
           BgIcon={User}
@@ -92,94 +84,94 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
               ME
             </div>
             <div>
-              <h3 className="font-display text-sm font-bold uppercase">FOUNDER</h3>
+              <h3 className="font-display text-sm font-bold uppercase">PROFILE</h3>
               <p className="mt-1 text-xs text-gray-300">Satayu Pongpan</p>
             </div>
             <div className="mt-2 w-full cursor-pointer rounded-xl bg-white py-2 text-xs font-bold text-gray-900 shadow-sm transition-none hover:bg-gray-100">
-              ดูโปรไฟล์
+              ประวัติและผลงาน
             </div>
           </div>
         </Card>
 
-        {/* KhomunPang */}
+        {/* PUNN Activity Studio */}
         <Card
-          href="https://ddme36.github.io/KhomunPang/"
-          BgIcon={Database}
+          href="/blog/PUNNActivityStudio"
+          BgIcon={Gamepad2}
           className="col-span-1 row-span-2 !border-none !bg-gradient-to-br from-blue-500 to-indigo-600 !text-white shadow-[0_8px_30px_rgba(59,130,246,0.25)] sm:col-span-1"
         >
           <div className="flex h-full flex-col items-center justify-between text-center">
-            <div className="relative z-20 mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/20 font-display text-white shadow-inner backdrop-blur-sm">
-              <Database size={20} />
+            <div className="relative z-20 mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/20 font-display text-white shadow-inner">
+              <Gamepad2 size={20} />
             </div>
             <div>
-              <h3 className="font-display text-sm font-bold">ข้อมูลปัง</h3>
-              <p className="mt-1 text-xs text-blue-50">ผู้เชี่ยวชาญจัดการข้อมูล</p>
+              <h3 className="font-display text-sm font-bold">PUNN Activity</h3>
+              <p className="mt-1 text-xs text-blue-50">จำลองสถานะเกมบน Discord</p>
             </div>
-            <div className="mt-2 w-full cursor-pointer rounded-xl border border-white/30 bg-white/20 py-2 text-xs font-bold text-white backdrop-blur-sm transition-none hover:bg-white/30">
-              <span>ดูผลงาน</span>
+            <div className="mt-2 w-full cursor-pointer rounded-xl border border-white/30 bg-white/20 py-2 text-xs font-bold text-white transition-none hover:bg-white/30">
+              <span>อ่านบทความ</span>
             </div>
           </div>
         </Card>
 
-        {/* MemoKard - New Project */}
+        {/* CrimsonVC Studio */}
         <Card
-          href="https://memokard.vercel.app/"
-          BgIcon={Brain}
-          className="col-span-1 row-span-1 !border-none !bg-gradient-to-br from-orange-400 to-rose-500 !text-white shadow-[0_8px_30px_rgba(251,146,60,0.25)] sm:col-span-2 md:col-span-2"
+          href="/blog/CrimsonVCStudio"
+          BgIcon={Mic2}
+          className="col-span-1 row-span-1 !border-none !bg-gradient-to-br from-rose-500 to-red-600 !text-white shadow-[0_8px_30px_rgba(244,63,94,0.24)] sm:col-span-2 sm:!p-5 md:col-span-2"
         >
           <div className="flex h-full flex-col justify-between">
             <div className="flex items-start justify-between">
               <div className="mb-1 flex items-center gap-2">
-                <Brain className="h-4 w-4 text-orange-100" />
-                <span className="rounded-lg border border-white/30 bg-white/20 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-                  FSRS
+                <Mic2 className="h-4 w-4 text-rose-100" />
+                <span className="rounded-lg border border-white/30 bg-white/20 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider">
+                  AI Audio
                 </span>
               </div>
-              <ArrowUpRight className="text-orange-100" size={18} />
+              <ArrowUpRight className="text-rose-100" size={18} />
             </div>
             <div>
-              <h3 className="mb-1 font-display text-lg font-bold">MemoKard</h3>
-              <p className="text-sm leading-relaxed text-orange-50">
-                Flashcard สมัยใหม่พร้อมระบบ FSRS และโหมดการเรียนรู้ที่หลากหลาย
+              <h3 className="mb-1 font-display text-lg font-bold">CrimsonVC Studio</h3>
+              <p className="text-sm leading-snug text-rose-50">
+                สตูดิโอ AI Cover, Voice Conversion และฝึกโมเดล RVC ผ่าน Google Colab
               </p>
               <div className="mt-2 flex flex-wrap gap-1.5">
-                <span className="rounded-lg border border-white/25 bg-white/15 px-2.5 py-1 text-xs font-medium backdrop-blur-sm">
-                  Spaced Repetition
+                <span className="rounded-lg border border-white/25 bg-white/15 px-2 py-0.5 text-xs font-medium">
+                  RVC
                 </span>
-                <span className="rounded-lg border border-white/25 bg-white/15 px-2.5 py-1 text-xs font-medium backdrop-blur-sm">
-                  Multi-mode
+                <span className="rounded-lg border border-white/25 bg-white/15 px-2 py-0.5 text-xs font-medium">
+                  Colab
                 </span>
               </div>
             </div>
           </div>
         </Card>
 
-        {/* Smart AI Stock */}
+        {/* BlockHunter / Smart AI Stock */}
         <Card
           href="https://smartaistock.vercel.app/"
           BgIcon={Bell}
-          className="col-span-1 row-span-1 !border-none !bg-gradient-to-br from-indigo-500 to-purple-600 !text-white shadow-[0_8px_30px_rgba(99,102,241,0.25)] sm:col-span-2 md:col-span-2"
+          className="col-span-1 row-span-1 !border-none !bg-gradient-to-br from-indigo-500 to-purple-600 !text-white shadow-[0_8px_30px_rgba(99,102,241,0.25)] sm:col-span-2 sm:!p-5 md:col-span-2"
         >
           <div className="flex h-full flex-col justify-between">
             <div className="flex items-start justify-between">
               <div className="mb-1 flex items-center gap-2">
                 <Bell className="h-4 w-4 text-indigo-100" />
-                <span className="rounded-lg border border-white/30 bg-white/20 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
+                <span className="rounded-lg border border-white/30 bg-white/20 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider">
                   PWA
                 </span>
               </div>
               <ArrowUpRight className="text-indigo-100" size={18} />
             </div>
             <div>
-              <h3 className="mb-1 font-display text-lg font-bold">Smart AI Stock</h3>
-              <p className="text-sm leading-relaxed text-indigo-50">
-                แจ้งเตือนหุ้นตาม Smart Money Concept พร้อม PWA
+              <h3 className="mb-1 font-display text-lg font-bold">BlockHunter</h3>
+              <p className="text-sm leading-snug text-indigo-50">
+                วิเคราะห์ Smart Money Concept และแจ้งเตือนเมื่อหุ้นเข้า Order Block
               </p>
               <div className="mt-2 flex flex-wrap gap-1.5">
-                <span className="rounded-lg border border-white/25 bg-white/15 px-2.5 py-1 text-xs font-medium backdrop-blur-sm">
-                  Smart Alerts
+                <span className="rounded-lg border border-white/25 bg-white/15 px-2 py-0.5 text-xs font-medium">
+                  Order Blocks
                 </span>
-                <span className="rounded-lg border border-white/25 bg-white/15 px-2.5 py-1 text-xs font-medium backdrop-blur-sm">
+                <span className="rounded-lg border border-white/25 bg-white/15 px-2 py-0.5 text-xs font-medium">
                   PWA Ready
                 </span>
               </div>
@@ -199,7 +191,7 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
               <div>
                 <div className="mb-1 flex items-center gap-2">
                   <Share2 className="h-4 w-4 text-white" />
-                  <span className="rounded bg-white/20 px-2 py-0.5 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
+                  <span className="rounded bg-white/20 px-2 py-0.5 text-xs font-bold uppercase tracking-wider">
                     PWA
                   </span>
                 </div>
@@ -211,16 +203,16 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
           </div>
         </Card>
 
-        {/* JodHuay - Lottery Note App */}
+        {/* PUNNTOK */}
         <Card
-          href="https://ddme36.github.io/JodHuay/"
-          BgIcon={Ticket}
-          className="col-span-1 row-span-1 !border-none !bg-gradient-to-br from-amber-400 to-orange-500 !text-white shadow-[0_8px_30px_rgba(251,191,36,0.25)]"
+          href="/blog/PUNNTOK"
+          BgIcon={Heart}
+          className="col-span-1 row-span-1 !border-none !bg-gradient-to-br from-pink-500 to-rose-600 !text-white shadow-[0_8px_30px_rgba(244,63,94,0.24)]"
         >
           <div className="flex h-full flex-col items-center justify-center text-center">
-            <Ticket className="mb-2 h-5 w-5 text-amber-50" />
-            <h3 className="font-display text-sm font-bold">จดหวย</h3>
-            <p className="mt-1 text-xs text-amber-50">บันทึกเลขหวยง่ายๆ</p>
+            <Heart className="mb-2 h-5 w-5 text-pink-50" />
+            <h3 className="font-display text-sm font-bold">PUNNTOK</h3>
+            <p className="mt-1 text-xs text-pink-50">TikTok LIVE บนเว็บและ PWA</p>
           </div>
         </Card>
 
@@ -249,21 +241,23 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
           </div>
         </Card>
 
-        {/* 2026 Vision Goals */}
+        {/* PUNN Discord Script */}
         <Card
-          href="https://2026-vision-goals.vercel.app/"
+          href="/blog/PUNNDiscordScript"
+          BgIcon={Terminal}
           className="col-span-1 row-span-1 !border-none !bg-gradient-to-r from-slate-900 to-slate-800 !text-white"
         >
           <div className="flex h-full flex-col items-center justify-center text-center">
-            <Target className="mb-2 h-5 w-5 text-rose-400" />
-            <h3 className="font-display text-sm font-bold">2026 Goals</h3>
+            <Terminal className="mb-2 h-5 w-5 text-violet-300" />
+            <h3 className="font-display text-sm font-bold">Discord Script</h3>
+            <p className="mt-1 text-xs text-slate-300">Launcher สำหรับกิจกรรม Discord</p>
           </div>
         </Card>
 
         {/* Articles Section - ปรับให้สวยขึ้น */}
         <Card
           BgIcon={BookOpen}
-          className="col-span-1 row-span-1 !border-rose-100 bg-gradient-to-br from-rose-50 via-purple-50 to-blue-50 sm:col-span-2 md:col-span-2 lg:col-span-2"
+          className="col-span-1 row-span-1 !border-rose-100 bg-gradient-to-br from-rose-50 via-purple-50 to-blue-50 sm:col-span-2 sm:!p-6 md:col-span-3 lg:col-span-3"
         >
           <div className="flex h-full flex-col">
             <Link
@@ -302,7 +296,6 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
             </div>
           </div>
         </Card>
-
       </div>
     </>
   );
