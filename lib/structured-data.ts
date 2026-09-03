@@ -1,28 +1,37 @@
 import { Post } from './types';
+import {
+  absoluteUrl,
+  AUTHOR_NAME,
+  AUTHOR_URL,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+} from './site';
 
 // Generate JSON-LD structured data for blog posts
 export const generateArticleSchema = (post: Post, url: string) => {
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
+    inLanguage: 'th-TH',
     headline: post.title,
-    image: post.cover || 'https://punn.site/icon-512.png',
+    image: absoluteUrl(post.cover || '/opengraph-image'),
     datePublished: post.date,
     dateModified: post.date,
     author: {
       '@type': 'Person',
-      name: 'Satayu Pongpan',
-      url: 'https://satayupongpan.site',
+      name: AUTHOR_NAME,
+      url: AUTHOR_URL,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'PUNN HUB',
+      name: SITE_NAME,
       logo: {
         '@type': 'ImageObject',
-        url: 'https://punn.site/icon-512.png',
+        url: absoluteUrl('/icon-512.png'),
       },
     },
-    description: post.excerpt || post.content.substring(0, 160) || 'บทความจาก PUNN HUB',
+    description: post.excerpt || post.content.substring(0, 160) || `บทความจาก ${SITE_NAME}`,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': url,
@@ -36,13 +45,14 @@ export const generateWebsiteSchema = () => {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'PUNN HUB',
-    url: 'https://punn.site',
-    description: 'แหล่งรวมความรู้ ไอเดีย และเทคนิคต่างๆ สำหรับการพัฒนาเว็บไซต์และเทคโนโลยี',
+    inLanguage: 'th-TH',
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
     author: {
       '@type': 'Person',
-      name: 'Satayu Pongpan',
-      url: 'https://satayupongpan.site',
+      name: AUTHOR_NAME,
+      url: AUTHOR_URL,
     },
   };
 };

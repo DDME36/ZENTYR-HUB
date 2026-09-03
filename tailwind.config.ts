@@ -41,7 +41,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['Inter', 'Kanit', 'system-ui', 'sans-serif'],
-        display: ['Clash Display', 'Kanit', 'system-ui', 'sans-serif'],
+        display: ['Inter', 'Kanit', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         '3xl': '1.5rem',

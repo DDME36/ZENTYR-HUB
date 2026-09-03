@@ -76,7 +76,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
   return (
     <>
       {/* Hero Section - Soft UI Card */}
-      <div className="relative z-10 bg-transparent py-12 sm:py-16">
+      <div className="relative z-10 bg-transparent py-6 sm:py-12">
         {/* Centered Card Container */}
         <motion.div
           variants={containerVariants}
@@ -87,13 +87,13 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
           {/* Floating Card */}
           <div
             className={cn(
-              'rounded-3xl border p-8 backdrop-blur-xl transition-all duration-500 sm:p-10',
+              'rounded-3xl border p-6 backdrop-blur-xl transition-all duration-500 sm:p-10',
               isDark
                 ? 'border-zinc-800/80 bg-zinc-900/90 shadow-[0_20px_60px_rgba(0,0,0,0.6)]'
                 : 'border-white/70 bg-white/90 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)]'
             )}
           >
-            <div className="flex flex-col items-center justify-center gap-8 text-center">
+            <div className="flex flex-col items-center justify-center gap-5 text-center sm:gap-8">
               {/* Main Content */}
               <div>
                 <motion.div
@@ -136,14 +136,14 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
               {/* Stats Cards - Centered */}
               <motion.div
                 variants={itemVariants}
-                className="mt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-6"
+                className="mt-1 grid w-full max-w-xs grid-cols-2 gap-3 sm:mt-2 sm:max-w-sm sm:gap-4"
               >
                 {/* Stat Card 1 */}
                 <motion.div
                   whileHover={{ scale: 1.05, y: -3 }}
                   transition={{ type: 'spring', stiffness: 350, damping: 20 }}
                   className={cn(
-                    'flex min-w-[130px] flex-col items-center justify-center rounded-2xl border px-6 py-4 text-center transition-all duration-300',
+                    'flex flex-col items-center justify-center rounded-2xl border px-4 py-3 text-center transition-all duration-300 sm:px-6 sm:py-4',
                     isDark
                       ? 'border-zinc-800 bg-zinc-950/80 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:border-zinc-700 hover:bg-zinc-900'
                       : 'border-purple-100/60 bg-gradient-to-br from-purple-50 to-purple-100/40 shadow-[0_4px_20px_rgba(168,85,247,0.1)]'
@@ -172,7 +172,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                   whileHover={{ scale: 1.05, y: -3 }}
                   transition={{ type: 'spring', stiffness: 350, damping: 20 }}
                   className={cn(
-                    'flex min-w-[130px] flex-col items-center justify-center rounded-2xl border px-6 py-4 text-center transition-all duration-300',
+                    'flex flex-col items-center justify-center rounded-2xl border px-4 py-3 text-center transition-all duration-300 sm:px-6 sm:py-4',
                     isDark
                       ? 'border-zinc-800 bg-zinc-950/80 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:border-zinc-700 hover:bg-zinc-900'
                       : 'border-pink-100/60 bg-gradient-to-br from-pink-50 to-pink-100/40 shadow-[0_4px_20px_rgba(244,63,94,0.1)]'
@@ -201,7 +201,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
         </motion.div>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 py-12 sm:py-16">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 py-8 sm:py-16">
         {error ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -277,13 +277,13 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
               {/* Filter Card */}
               <div
                 className={cn(
-                  'overflow-visible rounded-3xl border p-6 backdrop-blur-md transition-all duration-500',
+                  'overflow-visible rounded-3xl border p-4 backdrop-blur-md transition-all duration-500 sm:p-6',
                   isDark
                     ? 'border-zinc-800/80 bg-zinc-900/90 shadow-[0_20px_60px_rgba(0,0,0,0.5)]'
                     : 'border-white/70 bg-white/90 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)]'
                 )}
               >
-                <div className="mb-4 flex items-center justify-between">
+                <div className="mb-3 flex items-end justify-between gap-3 sm:mb-4">
                   <h2 className="flex items-center gap-2 text-lg font-bold text-gray-800 dark:text-white">
                     <Sparkles size={16} className="text-purple-600 dark:text-cyan-400" />
                     <span>{filteredPosts.length} บทความ</span>
@@ -293,11 +293,15 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                       </span>
                     )}
                   </h2>
+                  <span className="shrink-0 text-[11px] font-semibold text-gray-400 sm:hidden dark:text-zinc-500">
+                    ปัดดูเพิ่มเติม →
+                  </span>
                 </div>
 
                 {/* Scrollable Filter Pills with Smooth Active Bubble Slider */}
-                <div className="scrollbar-hide -mx-2 overflow-x-auto px-2 pb-2">
-                  <div className="flex min-w-max gap-2 py-1">
+                <div className="relative -mx-2">
+                  <div className="scrollbar-hide overflow-x-auto px-2 pb-2 pr-12">
+                    <div className="flex min-w-max gap-2 py-1">
                     {allTags.map((tag) => {
                       const isActive = selectedTag === tag;
                       return (
@@ -331,7 +335,9 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                         </motion.button>
                       );
                     })}
+                    </div>
                   </div>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 w-12 rounded-r-2xl bg-gradient-to-l from-white via-white/90 to-transparent dark:from-zinc-900 dark:via-zinc-900/90" />
                 </div>
               </div>
             </motion.div>

@@ -4,6 +4,7 @@ import { BlogList } from '@/components/BlogList';
 import { BackToTop } from '@/components/BackToTop';
 import { PostSummary } from '@/lib/types';
 import { Metadata } from 'next';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
 
 export const revalidate = 3600; // ขณะ production ใช้ 1 ชั่วโมง
 
@@ -12,21 +13,29 @@ export const metadata: Metadata = {
   description:
     'แชร์ความรู้และประสบการณ์ด้านเทคโนโลยี | Next.js, React, TypeScript, Web Development',
   alternates: {
-    canonical: 'https://punn.site/blog',
+    canonical: '/blog',
   },
   openGraph: {
     title: 'บทความ | ZENTYR',
     description: 'แชร์ความรู้และประสบการณ์ด้านเทคโนโลยี',
     type: 'website',
-    url: 'https://punn.site/blog',
+    url: `${SITE_URL}/blog`,
+    siteName: SITE_NAME,
+    locale: 'th_TH',
     images: [
       {
-        url: '/icon-512.png',
-        width: 512,
-        height: 512,
-        alt: 'ZENTYR Logo',
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'ZENTYR — Creative Tech Lab',
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'บทความ | ZENTYR',
+    description: 'แชร์ความรู้และประสบการณ์ด้านเทคโนโลยี',
+    images: ['/opengraph-image'],
   },
 };
 

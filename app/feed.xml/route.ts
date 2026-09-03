@@ -1,4 +1,5 @@
 import { getPublishedPosts } from '@/lib/mdx';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site';
 
 // Helper function to escape XML special characters
 function escapeXml(unsafe: string): string {
@@ -24,8 +25,8 @@ export async function GET() {
       return `
     <item>
       <title><![CDATA[${post.title}]]></title>
-      <link>https://punn.site/blog/${post.slug}</link>
-      <guid>https://punn.site/blog/${post.slug}</guid>
+      <link>${SITE_URL}/blog/${post.slug}</link>
+      <guid>${SITE_URL}/blog/${post.slug}</guid>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
       <description><![CDATA[${description}]]></description>
       ${post.tags.map((tag: string) => `<category><![CDATA[${tag}]]></category>`).join('\n      ')}
@@ -37,12 +38,12 @@ export async function GET() {
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>PUNN HUB - Blog</title>
-    <link>https://punn.site</link>
-    <description>แชร์ความรู้และประสบการณ์ด้านเทคโนโลยี | Next.js, React, TypeScript, Web Development</description>
+    <title>${SITE_NAME} — Blog</title>
+    <link>${SITE_URL}</link>
+    <description>${SITE_DESCRIPTION}</description>
     <language>th</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-    <atom:link href="https://punn.site/feed.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
     ${rssItems.join('\n')}
   </channel>
 </rss>`;

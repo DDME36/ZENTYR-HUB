@@ -1,16 +1,10 @@
 'use client';
 
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-  Variants,
-} from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import { PointerEvent, useRef, useState } from 'react';
+import { useState } from 'react';
 
 interface CardProps {
   children: React.ReactNode;
@@ -36,75 +30,18 @@ export const Card = ({
   const Component = href ? motion.a : motion.div;
   const isExternalLink = typeof href === 'string' && /^https?:\/\//.test(href);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const bounds = useRef<DOMRect | null>(null);
-  const pointerEnabled = useRef(false);
-
-  // Track mouse position with smooth spring physics for 3D tilt
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 26, stiffness: 280, mass: 0.6 };
-  const springX = useSpring(mouseX, springConfig);
-  const springY = useSpring(mouseY, springConfig);
-
-  const rotateX = useTransform(springY, (val) => {
-    if (!bounds.current) return 0;
-    const height = bounds.current.height || 200;
-    const normalizedY = (val - height / 2) / (height / 2);
-    return Math.max(-6, Math.min(6, -normalizedY * 5));
-  });
-
-  const rotateY = useTransform(springX, (val) => {
-    if (!bounds.current) return 0;
-    const width = bounds.current.width || 300;
-    const normalizedX = (val - width / 2) / (width / 2);
-    return Math.max(-6, Math.min(6, normalizedX * 5));
-  });
-
-  function handlePointerEnter(event: PointerEvent<HTMLElement>) {
-    pointerEnabled.current =
-      event.pointerType === 'mouse' &&
-      window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-    if (pointerEnabled.current) {
-      const rect = event.currentTarget.getBoundingClientRect();
-      bounds.current = rect;
-      mouseX.set(event.clientX - rect.left);
-      mouseY.set(event.clientY - rect.top);
-    }
-  }
-
-  function handlePointerMove({ clientX, clientY }: PointerEvent<HTMLElement>) {
-    if (!pointerEnabled.current || !bounds.current) return;
-
-    const { left, top } = bounds.current;
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
-  function handlePointerLeave() {
-    if (bounds.current) {
-      mouseX.set(bounds.current.width / 2);
-      mouseY.set(bounds.current.height / 2);
-    }
-    pointerEnabled.current = false;
-    bounds.current = null;
-  }
-
   const variants: Variants = {
     hidden: {
       opacity: 0,
-      y: 32,
-      scale: 0.96,
-      filter: 'blur(8px)',
+      y: 24,
+      scale: 0.985,
     },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      filter: 'blur(0px)',
       transition: {
-        duration: 0.75,
+        duration: 0.55,
         delay,
         ease: [0.16, 1, 0.3, 1],
       },
@@ -117,22 +54,13 @@ export const Card = ({
       onClick={onClick}
       target={isExternalLink ? '_blank' : undefined}
       rel={isExternalLink ? 'noopener noreferrer' : undefined}
-      onPointerEnter={handlePointerEnter}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={variants}
-      style={{
-        rotateX,
-        rotateY,
-        transformPerspective: 1200,
-        transformStyle: 'preserve-3d',
-      }}
       whileHover={{
-        y: -6,
-        scale: 1.012,
+        y: -4,
+        scale: 1.008,
         transition: {
           type: 'spring',
           stiffness: 350,

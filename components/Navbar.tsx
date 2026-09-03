@@ -109,12 +109,23 @@ export const Navbar = () => {
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         className="pointer-events-none fixed inset-x-0 top-0 z-[100] flex justify-center p-3 sm:p-4"
       >
-        <nav
+        <motion.nav
+          initial={false}
+          animate={{
+            maxWidth: scrolled ? 680 : 1024,
+            borderRadius: scrolled ? 999 : 16,
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 210,
+            damping: 28,
+            mass: 0.85,
+          }}
           className={cn(
-            'pointer-events-auto relative flex h-[56px] w-full items-center justify-between border px-5 transition-[max-width,border-radius,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:h-[62px] sm:px-6',
+            'pointer-events-auto relative flex h-[56px] w-full items-center justify-between border px-5 transition-[background-color,border-color,box-shadow] duration-500 sm:h-[62px] sm:px-6',
             scrolled
-              ? 'max-w-[680px] rounded-full border-white/80 border-t-white/95 bg-white/90 shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl dark:border-zinc-800/80 dark:border-t-white/15 dark:bg-zinc-900/95 dark:shadow-[0_16px_45px_rgba(0,0,0,0.7)]'
-              : 'max-w-5xl rounded-2xl border-white/60 border-t-white/80 bg-white/70 shadow-none backdrop-blur-md dark:border-zinc-800/60 dark:border-t-white/10 dark:bg-zinc-900/60'
+              ? 'border-white/80 border-t-white/95 bg-white/90 shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl dark:border-zinc-800/80 dark:border-t-white/15 dark:bg-zinc-900/95 dark:shadow-[0_16px_45px_rgba(0,0,0,0.7)]'
+              : 'border-white/60 border-t-white/80 bg-white/70 shadow-none backdrop-blur-md dark:border-zinc-800/60 dark:border-t-white/10 dark:bg-zinc-900/60'
           )}
         >
           {/* Left: Zentyr Logo & Brand */}
@@ -124,10 +135,22 @@ export const Navbar = () => {
                 href="/"
                 className="group flex items-center gap-2.5 font-display text-lg font-black tracking-tight sm:text-2xl"
               >
-                <ZentyrLogo className="h-8 w-8 sm:h-9 sm:w-9" />
-                <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 bg-clip-text text-transparent transition-all duration-500 dark:from-white dark:via-zinc-200 dark:to-cyan-400">
-                  ZENTYR
-                </span>
+                <motion.span layout="position" className="relative h-8 w-8 shrink-0 sm:h-9 sm:w-9">
+                  <ZentyrLogo className="h-full w-full" />
+                </motion.span>
+                <AnimatePresence initial={false}>
+                  {!scrolled && (
+                    <motion.span
+                      initial={{ opacity: 0, width: 0, x: -6 }}
+                      animate={{ opacity: 1, width: 'auto', x: 0 }}
+                      exit={{ opacity: 0, width: 0, x: -6 }}
+                      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden whitespace-nowrap bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 bg-clip-text text-transparent dark:from-white dark:via-zinc-200 dark:to-cyan-400"
+                    >
+                      ZENTYR
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </Link>
             </MagneticButton>
           </div>
@@ -198,7 +221,7 @@ export const Navbar = () => {
               </motion.button>
             </MagneticButton>
           </div>
-        </nav>
+        </motion.nav>
       </motion.div>
 
       {/* Slide-out Menu Drawer */}

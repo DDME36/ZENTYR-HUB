@@ -1,14 +1,15 @@
 import { MetadataRoute } from 'next';
+import { SITE_DESCRIPTION, SITE_NAME } from '@/lib/site';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'PUNN HUB - Knowledge Hub สำหรับนักพัฒนา',
-    short_name: 'PUNN HUB',
-    description: 'แหล่งรวมความรู้ ไอเดีย และเทคนิคต่างๆ สำหรับการพัฒนาเว็บไซต์และเทคโนโลยี',
+    name: `${SITE_NAME} — Creative Tech Lab`,
+    short_name: SITE_NAME,
+    description: SITE_DESCRIPTION,
     start_url: '/',
     display: 'standalone',
-    background_color: '#ffffff',
-    theme_color: '#fb7185',
+    background_color: '#09090b',
+    theme_color: '#09090b',
     icons: [
       {
         src: '/favicon-16x16.png',

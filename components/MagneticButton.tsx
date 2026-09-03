@@ -1,7 +1,7 @@
 'use client';
 
 import React, { PointerEvent, useRef } from 'react';
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 interface MagneticButtonProps {
   children: React.ReactNode;
@@ -17,7 +17,6 @@ export const MagneticButton = ({
   const ref = useRef<HTMLDivElement>(null);
   const bounds = useRef<DOMRect | null>(null);
   const pointerEnabled = useRef(false);
-  const shouldReduceMotion = useReducedMotion();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 180, damping: 18, mass: 0.12 });
@@ -25,7 +24,6 @@ export const MagneticButton = ({
 
   const handlePointerEnter = (event: PointerEvent<HTMLDivElement>) => {
     pointerEnabled.current =
-      !shouldReduceMotion &&
       event.pointerType === 'mouse' &&
       window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     bounds.current = pointerEnabled.current ? event.currentTarget.getBoundingClientRect() : null;

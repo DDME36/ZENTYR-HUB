@@ -1,16 +1,14 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
   ArrowDown,
   ArrowRight,
 } from 'lucide-react';
-import { MouseEvent, useRef } from 'react';
 import { BentoGrid } from './BentoGrid';
 import { Marquee } from './Marquee';
 import { TechStackMarquee } from './TechStackMarquee';
-import { TypewriterText } from './TypewriterText';
 import { MagneticButton } from './MagneticButton';
 import { Footer } from './Footer';
 import { BackToTop } from './BackToTop';
@@ -21,80 +19,24 @@ interface ZentyrHomeProps {
   posts: PostSummary[];
 }
 
-const heroTitles = [
-  'Creative Tech Lab',
-  'AI & Software Workshop',
-  'Digital Playground',
-  'Indie Maker Studio',
-  'Next-Gen Web Experiences',
-];
-
 export const ZentyrHome = ({ posts }: ZentyrHomeProps) => {
   const { isDark } = useTheme();
-  const containerRef = useRef<HTMLElement>(null);
-
-  // Mouse parallax motion values
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springConfig = { damping: 30, stiffness: 180, mass: 0.8 };
-  const smoothMouseX = useSpring(mouseX, springConfig);
-  const smoothMouseY = useSpring(mouseY, springConfig);
-
-  const orb1X = useTransform(smoothMouseX, [-300, 300], [-35, 35]);
-  const orb1Y = useTransform(smoothMouseY, [-300, 300], [-30, 30]);
-  const orb2X = useTransform(smoothMouseX, [-300, 300], [30, -30]);
-  const orb2Y = useTransform(smoothMouseY, [-300, 300], [25, -25]);
-
-  const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    mouseX.set(e.clientX - centerX);
-    mouseY.set(e.clientY - centerY);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
 
   return (
     <div className="relative min-h-screen pt-20 sm:pt-24 transition-colors duration-700">
-      <main id="top" className="relative z-10">
+      <div id="top" className="relative z-10">
         {/* ========================================================= */}
         {/* 1. HERO SECTION (CLEAN TYPEWRITER WITH PARALLAX)          */}
         {/* ========================================================= */}
-        <section
-          ref={containerRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          className="relative flex min-h-[48vh] items-center justify-center overflow-hidden py-16 sm:min-h-[56vh] sm:py-24"
-        >
-          {/* Animated Background Orbs */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, ease: 'easeOut' }}
-            className="pointer-events-none absolute inset-0 overflow-hidden"
-            aria-hidden="true"
-          >
-            <motion.div
-              style={{ x: orb1X, y: orb1Y }}
-              animate={{ scale: [1, 1.08, 1], rotate: [0, 45, 0] }}
-              transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -left-20 top-0 h-80 w-80 rounded-full bg-gradient-to-r from-purple-300/40 via-pink-300/35 to-amber-200/30 blur-3xl transition-all duration-700 dark:from-purple-900/35 dark:via-violet-900/25 dark:to-zinc-950/40"
-            />
-            <motion.div
-              style={{ x: orb2X, y: orb2Y }}
-              animate={{ scale: [1, 1.06, 1], rotate: [0, -45, 0] }}
-              transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-              className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-gradient-to-l from-rose-300/35 via-purple-300/30 to-amber-300/25 blur-3xl transition-all duration-700 dark:from-cyan-900/30 dark:via-indigo-900/20 dark:to-zinc-950/40"
-            />
-          </motion.div>
+        <section className="relative flex min-h-[48vh] items-center justify-center overflow-hidden py-16 sm:min-h-[56vh] sm:py-24">
+          {/* Calm background accents: static so the headline remains the focal point. */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+            <div className="absolute -left-20 top-0 h-80 w-80 rounded-full bg-gradient-to-r from-purple-300/40 via-pink-300/35 to-amber-200/30 blur-3xl transition-colors duration-700 dark:from-purple-900/35 dark:via-violet-900/25 dark:to-zinc-950/40" />
+            <div className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-gradient-to-l from-rose-300/35 via-purple-300/30 to-amber-300/25 blur-3xl transition-colors duration-700 dark:from-cyan-900/30 dark:via-indigo-900/20 dark:to-zinc-950/40" />
+          </div>
 
           {/* Centered Hero Content */}
-          <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
+          <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
             {/* Welcome Badge */}
             <motion.div
               initial={{ opacity: 0, y: 18, filter: 'blur(8px)', scale: 0.96 }}
@@ -120,16 +62,11 @@ export const ZentyrHome = ({ posts }: ZentyrHomeProps) => {
               transition={{ duration: 0.85, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
               className="mb-5 font-display text-3xl font-black leading-[1.3] tracking-tight text-gray-800 transition-colors duration-500 sm:text-4xl lg:text-5xl dark:text-white"
             >
-              <span className="mb-2 block min-h-[1.35em] text-center">
-                <TypewriterText
-                  texts={heroTitles}
-                  delayBetween={3200}
-                  className="inline-flex"
-                  textClassName="inline-block whitespace-nowrap px-2 py-1 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent dark:from-white dark:via-zinc-100 dark:to-zinc-300"
-                />
+              <span className="mb-2 block min-h-[1.35em] bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text px-2 py-1 text-center text-transparent dark:from-white dark:via-zinc-100 dark:to-zinc-300">
+                Creative Tech Lab
               </span>
-              <span className="block bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 bg-clip-text text-transparent transition-all duration-500 dark:from-white dark:via-zinc-200 dark:to-cyan-400">
-                พื้นที่ทดลองและสร้างสรรค์จริง
+              <span className="block overflow-visible whitespace-nowrap bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 bg-clip-text pt-[0.18em] pb-[0.08em] text-[clamp(1.35rem,7vw,3rem)] leading-[1.4] tracking-[-0.025em] text-transparent transition-all duration-500 sm:text-4xl lg:text-5xl dark:from-white dark:via-zinc-200 dark:to-cyan-400">
+                ทดลองไอเดีย สร้างของจริง
               </span>
             </motion.h1>
 
@@ -140,9 +77,9 @@ export const ZentyrHome = ({ posts }: ZentyrHomeProps) => {
               transition={{ duration: 0.8, delay: 0.56, ease: [0.16, 1, 0.3, 1] }}
               className="mx-auto mb-8 max-w-xl text-base font-light leading-relaxed text-gray-500 transition-colors duration-500 sm:text-lg dark:text-zinc-400"
             >
-              คลังเครื่องมือ AI เว็บแอปพลิเคชัน และบันทึกเบื้องหลังการลงมือทำ
+              รวมเครื่องมือ AI เว็บแอป และเบื้องหลังการพัฒนา
               <br className="hidden sm:block" />
-              เปลี่ยนไอเดียท้าทายสู่นวัตกรรมดิจิทัลที่ใช้งานได้จริง
+              จากไอเดียทดลองสู่โปรดักต์ที่ใช้งานได้จริง
             </motion.p>
 
             {/* Action Buttons */}
@@ -211,7 +148,7 @@ export const ZentyrHome = ({ posts }: ZentyrHomeProps) => {
         <div className="transition-colors duration-500">
           <TechStackMarquee isDark={isDark} />
         </div>
-      </main>
+      </div>
 
       <Footer />
       <BackToTop />

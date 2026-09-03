@@ -1,4 +1,16 @@
 import type { Metadata } from 'next';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/800.css';
+import '@fontsource/inter/900.css';
+import '@fontsource/kanit/300.css';
+import '@fontsource/kanit/400.css';
+import '@fontsource/kanit/500.css';
+import '@fontsource/kanit/600.css';
+import '@fontsource/kanit/700.css';
+import '@fontsource/kanit/800.css';
 import './globals.css';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Navbar } from '@/components/Navbar';
@@ -10,15 +22,23 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { generateWebsiteSchema } from '@/lib/structured-data';
 import { MotionProvider } from '@/components/MotionProvider';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import {
+  AUTHOR_NAME,
+  AUTHOR_URL,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+} from '@/lib/site';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://punn.site'),
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
   title: {
-    default: 'ZENTYR | Developer Hub',
-    template: '%s | ZENTYR',
+    default: SITE_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    'แหล่งรวมความรู้ ไอเดีย และเทคนิคต่างๆ สำหรับการพัฒนาเว็บไซต์ ซอฟต์แวร์ และเทคโนโลยี | Next.js, React, TypeScript',
+  description: SITE_DESCRIPTION,
   keywords: [
     'ZENTYR',
     'Developer Hub',
@@ -30,9 +50,10 @@ export const metadata: Metadata = {
     'นักพัฒนา',
     'เว็บไซต์',
   ],
-  authors: [{ name: 'Satayu Pongpan', url: 'https://satayupongpan.site' }],
-  creator: 'Satayu Pongpan',
-  publisher: 'ZENTYR',
+  authors: [{ name: AUTHOR_NAME, url: AUTHOR_URL }],
+  creator: AUTHOR_NAME,
+  publisher: SITE_NAME,
+  category: 'technology',
   formatDetection: {
     email: false,
     address: false,
@@ -48,24 +69,24 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'th_TH',
-    url: 'https://punn.site',
-    title: 'ZENTYR | Developer Hub',
-    description: 'แหล่งรวมความรู้ ไอเดีย และเทคนิคต่างๆ สำหรับการพัฒนาเว็บไซต์และเทคโนโลยี',
-    siteName: 'ZENTYR',
+    url: SITE_URL,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    siteName: SITE_NAME,
     images: [
       {
-        url: '/icon-512.png',
-        width: 512,
-        height: 512,
-        alt: 'ZENTYR Logo',
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'ZENTYR — Creative Tech Lab',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ZENTYR | Developer Hub',
-    description: 'แหล่งรวมความรู้สำหรับนักพัฒนาและผู้สร้าง',
-    images: ['/icon-512.png'],
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ['/opengraph-image'],
   },
   robots: {
     index: true,
@@ -79,13 +100,10 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://punn.site',
+    canonical: '/',
     types: {
       'application/rss+xml': '/feed.xml',
     },
-  },
-  verification: {
-    // google: 'your-google-verification-code', // เพิ่มตอน deploy
   },
 };
 

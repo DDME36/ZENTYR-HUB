@@ -1,8 +1,7 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Brain, Sparkles, Code2, Rocket, Zap, Database } from 'lucide-react';
-import { useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 const researchTopics = [
@@ -55,11 +54,8 @@ interface TechStackMarqueeProps {
 }
 
 export const TechStackMarquee = ({ isDark = false }: TechStackMarqueeProps) => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { margin: '200px 0px' });
-
   return (
-    <section ref={sectionRef} className="relative overflow-visible bg-transparent py-10 sm:py-14">
+    <section className="relative overflow-visible bg-transparent py-10 sm:py-14">
       <div className="relative mx-auto max-w-6xl px-6">
         {/* Header */}
         <motion.div
@@ -101,78 +97,49 @@ export const TechStackMarquee = ({ isDark = false }: TechStackMarqueeProps) => {
             ))}
           </ul>
 
-          <div
-            className="flex overflow-hidden px-4 py-10 sm:py-14"
-            style={{
-              maskImage:
-                'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-              WebkitMaskImage:
-                'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-            }}
-          >
-            <div
-              aria-hidden="true"
-              className="animate-marquee-slow flex"
-              style={{
-                animationPlayState: isInView ? 'running' : 'paused',
-                willChange: isInView ? 'transform' : 'auto',
-              }}
-            >
-              {[0, 1].map((groupIndex) => (
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
+            {researchTopics.map((topic) => {
+              const Icon = topic.icon;
+
+              return (
                 <div
-                  key={groupIndex}
-                  aria-hidden={groupIndex === 1}
-                  className="flex shrink-0 gap-4 pr-4"
+                  key={topic.name}
+                  className={cn(
+                    'group relative overflow-hidden rounded-3xl p-5 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 sm:p-6',
+                    isDark
+                      ? 'border border-white/90 bg-white text-zinc-950 shadow-[0_8px_24px_rgba(0,0,0,0.4)] hover:shadow-[0_14px_32px_rgba(0,0,0,0.5)]'
+                      : `bg-gradient-to-br ${topic.bg} ${topic.shadow} border-none`
+                  )}
                 >
-                  {researchTopics.map((topic) => {
-                    const Icon = topic.icon;
+                  <div
+                    className={cn(
+                      'absolute -bottom-4 -right-4 transition-opacity duration-300',
+                      isDark
+                        ? 'text-zinc-300/60 opacity-60 group-hover:opacity-80'
+                        : 'text-white/30 opacity-20 group-hover:opacity-35'
+                    )}
+                  >
+                    <Icon size={100} strokeWidth={1.5} />
+                  </div>
 
-                    return (
-                      <div
-                        key={`${groupIndex}-${topic.name}`}
-                        className={cn(
-                          'flex-shrink-0 group relative overflow-hidden rounded-3xl p-6 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.03]',
-                          isDark
-                            ? 'border border-white/90 bg-white text-zinc-950 shadow-[0_8px_24px_rgba(0,0,0,0.4)] hover:shadow-[0_14px_32px_rgba(0,0,0,0.5)]'
-                            : `bg-gradient-to-br ${topic.bg} ${topic.shadow} border-none`
-                        )}
-                      >
-                        {/* Background Watermark Icon */}
-                        <div
-                          className={cn(
-                            'absolute -bottom-4 -right-4 transition-all duration-500 group-hover:scale-110',
-                            isDark
-                              ? 'text-zinc-300/60 opacity-60 group-hover:opacity-80'
-                              : 'text-white/30 opacity-20 group-hover:opacity-35'
-                          )}
-                        >
-                          <Icon size={120} strokeWidth={1.5} />
-                        </div>
-
-                        <div className="relative z-10 flex w-36 flex-col items-center gap-3">
-                          <div
-                            className={cn(
-                              'text-4xl drop-shadow-sm transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110',
-                              isDark ? 'text-zinc-900' : topic.color
-                            )}
-                          >
-                            <Icon strokeWidth={2.2} />
-                          </div>
-                          <span
-                            className={cn(
-                              'text-center font-sans text-sm leading-tight',
-                              isDark ? 'text-zinc-950 font-black tracking-tight' : 'text-white font-bold drop-shadow-sm'
-                            )}
-                          >
-                            {topic.name}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
+                  <div className="relative z-10 flex min-h-24 flex-col items-center justify-center gap-3">
+                    <div className={cn('text-3xl drop-shadow-sm', isDark ? 'text-zinc-900' : topic.color)}>
+                      <Icon strokeWidth={2.2} />
+                    </div>
+                    <span
+                      className={cn(
+                        'text-center font-sans text-sm leading-tight',
+                        isDark
+                          ? 'font-black tracking-tight text-zinc-950'
+                          : 'font-bold text-white drop-shadow-sm'
+                      )}
+                    >
+                      {topic.name}
+                    </span>
+                  </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </motion.div>
       </div>

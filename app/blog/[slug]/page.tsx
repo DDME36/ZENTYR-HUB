@@ -15,6 +15,7 @@ import { PostSummary } from '@/lib/types';
 import { ArrowLeft, ArrowRight, BookOpen, Calendar, Tag, Clock, User } from 'lucide-react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { absoluteUrl, SITE_NAME, SITE_URL } from '@/lib/site';
 
 export const revalidate = 3600; // ขณะ production ใช้ 1 ชั่วโมง
 export const dynamicParams = false;
@@ -53,29 +54,26 @@ export async function generateMetadata({
     title: post.title,
     description: description,
     alternates: {
-      canonical: `https://punn.site/blog/${slug}`,
+      canonical: `/blog/${slug}`,
     },
     openGraph: {
       title: post.title,
       description: description,
-      url: `https://punn.site/blog/${slug}`,
-      siteName: 'ZENTYR',
+      url: `${SITE_URL}/blog/${slug}`,
+      siteName: SITE_NAME,
       images: post.cover
         ? [
             {
-              url: post.cover,
-              width: 1200,
-              height: 630,
+              url: absoluteUrl(post.cover),
               alt: post.title,
-              type: 'image/png',
             },
           ]
         : [
             {
-              url: 'https://punn.site/icon-512.png',
-              width: 512,
-              height: 512,
-              alt: 'PUNN HUB',
+              url: absoluteUrl('/opengraph-image'),
+              width: 1200,
+              height: 630,
+              alt: 'ZENTYR — Creative Tech Lab',
               type: 'image/png',
             },
           ],
@@ -89,9 +87,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: post.title,
       description: description,
-      images: post.cover ? [post.cover] : ['https://punn.site/icon-512.png'],
-      creator: '@punnhub',
-      site: '@punnhub',
+      images: post.cover ? [absoluteUrl(post.cover)] : [absoluteUrl('/opengraph-image')],
     },
     other: {
       'theme-color': '#fb7185',
@@ -155,16 +151,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const readingTime = Math.max(Math.ceil(wordCount / wordsPerMinute), 1); // Minimum 1 minute
 
   // Generate structured data
-  const articleSchema = generateArticleSchema(post, `https://punn.site/blog/${slug}`);
+  const articleSchema = generateArticleSchema(post, `${SITE_URL}/blog/${slug}`);
   const breadcrumbItems = [
-    { name: 'หน้าแรก', url: 'https://punn.site' },
-    { name: 'บทความ', url: 'https://punn.site/blog' },
-    { name: post.title, url: `https://punn.site/blog/${slug}` },
+    { name: 'หน้าแรก', url: SITE_URL },
+    { name: 'บทความ', url: `${SITE_URL}/blog` },
+    { name: post.title, url: `${SITE_URL}/blog/${slug}` },
   ];
   if (parentPost) {
     breadcrumbItems.splice(2, 0, {
       name: parentPost.title,
-      url: `https://punn.site/blog/${parentPost.slug}`,
+      url: `${SITE_URL}/blog/${parentPost.slug}`,
     });
   }
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
@@ -254,12 +250,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           )}
 
           {/* Title - Responsive Typography */}
-          <h1 className="mb-6 text-balance bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text font-display text-[30px] font-bold leading-[1.25] tracking-[-0.02em] text-gray-900 sm:mb-8 sm:text-[40px] lg:text-[48px] dark:from-white dark:via-zinc-100 dark:to-zinc-300 dark:text-white">
+          <h1 className="mb-6 text-balance bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text font-display text-[30px] font-bold leading-[1.25] tracking-[-0.02em] text-gray-900 dark:from-white dark:via-zinc-100 dark:to-zinc-300 dark:text-white sm:mb-8 sm:text-[40px] lg:text-[48px]">
             {post.title}
           </h1>
 
           {/* Enhanced Meta Info */}
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 rounded-2xl border border-gray-100 bg-white/95 p-4 text-[14px] font-normal leading-5 text-gray-600 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:gap-x-6 sm:p-6 dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-zinc-300 dark:shadow-none">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 rounded-2xl border border-gray-100 bg-white/95 p-4 text-[14px] font-normal leading-5 text-gray-600 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-zinc-300 dark:shadow-none sm:gap-x-6 sm:p-6">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-rose-100 to-purple-200 dark:from-zinc-800 dark:to-zinc-700">
                 <User size={14} className="text-purple-600 dark:text-cyan-400" />
@@ -293,7 +289,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         <BlogPostContent content={content} />
 
         {/* Enhanced Share Section */}
-        <ShareButtons url={`https://punn.site/blog/${slug}`} />
+        <ShareButtons url={`${SITE_URL}/blog/${slug}`} />
 
         {/* Back to Series Button (if this is an episode) */}
         {parentPost && (
@@ -311,10 +307,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
       {/* Enhanced Related Articles */}
       {relatedPosts.length > 0 && (
-        <section className="border-t border-gray-100/50 bg-white/80 py-10 sm:py-16 dark:border-zinc-800/80 dark:bg-zinc-950/80">
+        <section className="border-t border-gray-100/50 bg-white/80 py-10 dark:border-zinc-800/80 dark:bg-zinc-950/80 sm:py-16">
           <div className="mx-auto max-w-6xl px-4">
             <div className="mb-10 text-center">
-              <h2 className="mb-3 font-display text-[28px] font-bold leading-[1.3] tracking-[-0.015em] text-gray-800 sm:text-[32px] dark:text-white">
+              <h2 className="mb-3 font-display text-[28px] font-bold leading-[1.3] tracking-[-0.015em] text-gray-800 dark:text-white sm:text-[32px]">
                 บทความที่เกี่ยวข้อง
               </h2>
               <p className="text-gray-600 dark:text-zinc-400">บทความอื่นๆ ที่คุณอาจสนใจ</p>

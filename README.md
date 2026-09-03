@@ -1,6 +1,6 @@
-# PUNN HUB
+# ZENTYR HUB
 
-เว็บรวมบทความ คู่มือ และโปรเจกต์ที่สร้างโดย PUNN พัฒนาด้วย Next.js 16, React 19, TypeScript, Tailwind CSS และ Bun
+Creative Tech Lab และเว็บรวมบทความ คู่มือ และโปรเจกต์ของ ZENTYR พัฒนาด้วย Next.js 16, React 19, TypeScript, Tailwind CSS และ Bun
 
 ## ความสามารถหลัก
 
@@ -8,7 +8,7 @@
 - ค้นหาและกรองบทความตามหมวดหมู่
 - สารบัญ, syntax highlighting, สูตรคณิตศาสตร์ และบทความแบบ series
 - Metadata, Open Graph, JSON-LD, sitemap, robots.txt และ RSS
-- Responsive UI, Vercel Analytics และ reduced-motion support
+- Responsive UI, ธีมสว่าง/มืด, Vercel Analytics และระบบอนิเมชัน
 - ตรวจสอบ draft, frontmatter และ slug ซ้ำก่อนเผยแพร่
 
 ## เริ่มต้นใช้งาน
