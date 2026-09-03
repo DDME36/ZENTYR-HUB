@@ -1,12 +1,11 @@
 export const SITE_NAME = 'ZENTYR';
 
-const configuredSiteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 const normalizedSiteUrl = configuredSiteUrl
   ? configuredSiteUrl.startsWith('http')
     ? configuredSiteUrl
     : `https://${configuredSiteUrl}`
-  : 'https://punn-hub.vercel.app';
+  : 'https://zentyr-hub.vercel.app';
 
 export const SITE_URL = normalizedSiteUrl.replace(/\/$/, '');
 export const SITE_TITLE = 'ZENTYR | Creative Tech Lab';
