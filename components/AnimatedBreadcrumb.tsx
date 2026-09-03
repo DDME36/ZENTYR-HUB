@@ -23,7 +23,7 @@ export const AnimatedBreadcrumb = ({ items }: AnimatedBreadcrumbProps) => {
       >
         <Link
           href="/"
-          className="group flex items-center gap-1 text-gray-500 transition-colors hover:text-rose-500"
+          className="group flex items-center gap-1 text-gray-500 transition-colors hover:text-purple-600 dark:text-zinc-400 dark:hover:text-white"
         >
           <Home
             size={14}
@@ -42,11 +42,11 @@ export const AnimatedBreadcrumb = ({ items }: AnimatedBreadcrumbProps) => {
           transition={{ duration: 0.3, delay: (index + 1) * 0.05 }}
           className="flex items-center gap-2"
         >
-          <ChevronRight size={14} className="text-gray-300" aria-hidden="true" />
+          <ChevronRight size={14} className="text-gray-300 dark:text-zinc-700" aria-hidden="true" />
 
           {index === items.length - 1 ? (
             <span
-              className="max-w-[200px] truncate font-semibold text-gray-900 sm:max-w-none"
+              className="max-w-[200px] truncate font-semibold text-gray-900 dark:text-white sm:max-w-none"
               aria-current="page"
             >
               {item.label}
@@ -54,7 +54,7 @@ export const AnimatedBreadcrumb = ({ items }: AnimatedBreadcrumbProps) => {
           ) : (
             <Link
               href={item.href}
-              className="max-w-[150px] truncate font-medium text-gray-500 transition-colors hover:text-rose-500 hover:underline sm:max-w-none"
+              className="max-w-[150px] truncate font-medium text-gray-500 transition-colors hover:text-purple-600 hover:underline dark:text-zinc-400 dark:hover:text-white sm:max-w-none"
             >
               {item.label}
             </Link>

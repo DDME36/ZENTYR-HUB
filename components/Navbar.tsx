@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -19,16 +19,21 @@ import {
   Music,
   Brain,
   Ticket,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { MagneticButton } from './MagneticButton';
+import { ZentyrLogo } from './ZentyrLogo';
+import { useTheme } from './ThemeProvider';
+import { cn } from '@/lib/utils';
 
 const menuLinks = [
   { name: 'หน้าแรก', href: '/', icon: Home, internal: true },
   { name: 'บทความ', href: '/blog', icon: BookOpen, internal: true },
-  { name: 'PUNN INVESTING', href: 'https://ddme36.github.io/PUNN-INVESTING/', icon: TrendingUp },
   { name: 'Smart AI Stock', href: 'https://smartaistock.vercel.app/', icon: Bell },
   { name: 'MemoKard', href: 'https://memokard.vercel.app/', icon: Brain },
   { name: 'PurrDrop', href: 'https://purrdrop.onrender.com/', icon: Share2 },
+  { name: 'PUNN INVESTING', href: 'https://ddme36.github.io/PUNN-INVESTING/', icon: TrendingUp },
   { name: 'จดหวย', href: 'https://ddme36.github.io/JodHuay/', icon: Ticket },
   {
     name: 'HEARTOPIANO',
@@ -41,34 +46,40 @@ const menuLinks = [
   { name: 'เว็บส่วนตัว', href: 'https://satayupongpan.site/', icon: User },
 ];
 
+const mainNavLinks = [
+  { name: 'หน้าแรก', href: '/' },
+  { name: 'บทความ', href: '/blog' },
+];
+
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const scrolledRef = useRef(false);
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const pathname = usePathname();
+  const { toggleTheme } = useTheme();
 
   useEffect(() => {
-    let frameId = 0;
+    let ticking = false;
 
     const handleScroll = () => {
-      if (frameId) return;
-
-      frameId = requestAnimationFrame(() => {
-        const nextScrolled = scrolledRef.current ? window.scrollY > 20 : window.scrollY > 64;
-        if (nextScrolled !== scrolledRef.current) {
-          scrolledRef.current = nextScrolled;
-          setScrolled(nextScrolled);
-        }
-        frameId = 0;
-      });
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentY = window.scrollY;
+          // Smooth hysteresis buffer: collapse at 75px, expand back near top (< 25px)
+          if (currentY > 75) {
+            setScrolled(true);
+          } else if (currentY < 25) {
+            setScrolled(false);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (frameId) cancelAnimationFrame(frameId);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -87,86 +98,110 @@ export const Navbar = () => {
     };
   }, [menuOpen]);
 
+  // If on standalone prototype routes, don't duplicate
+  if (pathname === '/zentyr-v2') return null;
+
   return (
     <>
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-[100] flex justify-center p-4">
-        <motion.nav
-          layout
-          initial={false}
-          animate={{ y: scrolled ? 4 : 0 }}
-          transition={{
-            layout: { type: 'spring', stiffness: 320, damping: 32 },
-            y: { type: 'spring', stiffness: 320, damping: 32 },
-          }}
-          className={`pointer-events-auto flex h-[56px] w-full items-center justify-between border transition-[background-color,border-color,box-shadow] duration-300 sm:h-[64px] ${
+      <motion.div
+        initial={{ opacity: 0, y: -20, filter: 'blur(6px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        className="pointer-events-none fixed inset-x-0 top-0 z-[100] flex justify-center p-3 sm:p-4"
+      >
+        <nav
+          className={cn(
+            'pointer-events-auto relative flex h-[56px] w-full items-center justify-between border px-5 transition-[max-width,border-radius,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:h-[62px] sm:px-6',
             scrolled
-              ? 'max-w-[650px] rounded-[40px] border-white/40 bg-white/85 px-5 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] backdrop-blur-xl'
-              : 'max-w-7xl rounded-none border-transparent bg-transparent px-8 shadow-none'
-          }`}
+              ? 'max-w-[680px] rounded-full border-white/80 border-t-white/95 bg-white/90 shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl dark:border-zinc-800/80 dark:border-t-white/15 dark:bg-zinc-900/95 dark:shadow-[0_16px_45px_rgba(0,0,0,0.7)]'
+              : 'max-w-5xl rounded-2xl border-white/60 border-t-white/80 bg-white/70 shadow-none backdrop-blur-md dark:border-zinc-800/60 dark:border-t-white/10 dark:bg-zinc-900/60'
+          )}
         >
-          {/* Left: Logo */}
-          <div className="flex min-w-[80px] flex-1 items-center justify-start">
+          {/* Left: Zentyr Logo & Brand */}
+          <div className="flex min-w-[90px] flex-1 items-center justify-start">
             <MagneticButton intensity={0.1}>
               <Link
                 href="/"
-                className="flex items-center font-display text-lg font-black tracking-tighter sm:text-2xl"
+                className="group flex items-center gap-2.5 font-display text-lg font-black tracking-tight sm:text-2xl"
               >
-                <span className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
-                  PUNN
+                <ZentyrLogo className="h-8 w-8 sm:h-9 sm:w-9" />
+                <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 bg-clip-text text-transparent transition-all duration-500 dark:from-white dark:via-zinc-200 dark:to-cyan-400">
+                  ZENTYR
                 </span>
-                <AnimatePresence mode="wait">
-                  {!scrolled && (
-                    <motion.span
-                      key="hub-text"
-                      initial={{ opacity: 0, x: -5 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -5 }}
-                      className="ml-1 text-gray-800"
-                    >
-                      HUB
-                    </motion.span>
-                  )}
-                </AnimatePresence>
               </Link>
             </MagneticButton>
           </div>
 
-          {/* Center: Main Links (TRULY CLEAN) */}
-          <div className="hidden items-center justify-center gap-6 sm:gap-8 md:flex">
-            <Link
-              href="/"
-              className={`text-sm font-bold transition-all hover:scale-105 ${pathname === '/' ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'}`}
-            >
-              หน้าแรก
-            </Link>
-            <Link
-              href="/blog"
-              className={`text-sm font-bold transition-all hover:scale-105 ${pathname === '/blog' || pathname?.startsWith('/blog/') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'}`}
-            >
-              บทความ
-            </Link>
+          {/* Center: Main Links with Sliding Glass Hover Capsule */}
+          <div className="hidden items-center justify-center gap-1 md:flex">
+            {mainNavLinks.map((item) => {
+              const isActive =
+                item.href === '/'
+                  ? pathname === '/'
+                  : pathname === item.href || pathname?.startsWith(item.href + '/');
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onMouseEnter={() => setHoveredNav(item.href)}
+                  onMouseLeave={() => setHoveredNav(null)}
+                  className={cn(
+                    'relative rounded-full px-4 py-1.5 text-sm font-bold transition-colors duration-200',
+                    isActive
+                      ? 'text-purple-600 dark:text-white'
+                      : 'text-gray-600 hover:text-gray-900 dark:text-zinc-400 dark:hover:text-white'
+                  )}
+                >
+                  {/* Sliding Glass Capsule on Hover */}
+                  {hoveredNav === item.href && (
+                    <motion.span
+                      layoutId="navbar-hover-capsule"
+                      transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                      className="absolute inset-0 rounded-full bg-purple-50/90 shadow-sm -z-10 dark:bg-zinc-800/90 dark:border dark:border-zinc-700/60"
+                    />
+                  )}
+                  {item.name}
+                </Link>
+              );
+            })}
           </div>
 
-          {/* Right: Menu Button */}
-          <div className="flex min-w-[80px] flex-1 items-center justify-end">
+          {/* Right Actions: Theme Toggle (Sun/Moon) + Menu */}
+          <div className="flex min-w-[90px] flex-1 items-center justify-end gap-2 sm:gap-3">
+            {/* Global Theme Toggle Button */}
+            <motion.button
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
+              onClick={toggleTheme}
+              aria-label="สลับโหมดการแสดงผล (Iris Horizon / Obsidian Dark)"
+              title="สลับโหมดการแสดงผล (Iris Horizon / Obsidian Dark)"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200/80 bg-white/90 text-purple-600 shadow-sm backdrop-blur-md transition-all hover:border-purple-200 hover:bg-purple-50 sm:h-10 sm:w-10 dark:border-zinc-700 dark:bg-zinc-800/90 dark:text-amber-300 dark:hover:border-zinc-600 dark:hover:bg-zinc-700"
+            >
+              <Sun size={17} className="hidden dark:block" />
+              <Moon size={17} className="block dark:hidden" />
+            </motion.button>
+
+            {/* Mobile / Side Menu Button */}
             <MagneticButton intensity={0.15}>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setMenuOpen(true)}
                 aria-label="เปิดเมนูหลัก"
                 aria-haspopup="dialog"
                 aria-expanded={menuOpen}
-                className={`flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white/80 text-sm font-bold text-gray-700 shadow-sm transition-all hover:border-rose-200 ${
-                  scrolled ? 'h-11 w-11 sm:h-12 sm:w-12' : 'px-4 py-2 sm:px-6 sm:py-2.5'
-                }`}
+                className="flex h-9 items-center justify-center gap-1.5 rounded-full border border-gray-200/80 bg-white/85 px-3.5 text-xs font-bold text-gray-700 shadow-sm backdrop-blur-sm transition-all hover:border-purple-200 hover:text-purple-600 sm:h-10 sm:px-4 sm:text-sm dark:border-zinc-700 dark:bg-zinc-800/90 dark:text-zinc-200 dark:hover:border-zinc-600 dark:hover:text-white"
               >
-                <MenuIcon size={scrolled ? 22 : 18} />
-                {!scrolled && <span className="inline">เมนู</span>}
-              </button>
+                <MenuIcon size={16} />
+                <span>เมนู</span>
+              </motion.button>
             </MagneticButton>
           </div>
-        </motion.nav>
-      </div>
+        </nav>
+      </motion.div>
 
+      {/* Slide-out Menu Drawer */}
       <AnimatePresence>
         {menuOpen && (
           <>
@@ -174,8 +209,8 @@ export const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[200] bg-black/50 backdrop-blur-[2px]"
               onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-[2px]"
               aria-hidden="true"
             />
             <motion.div
@@ -186,23 +221,29 @@ export const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed right-0 top-0 z-[210] flex h-full w-full flex-col overflow-y-auto border-l border-gray-100 bg-white shadow-2xl sm:w-96"
+              className="fixed right-0 top-0 z-[210] flex h-full w-full flex-col overflow-y-auto border-l border-gray-100 bg-white text-gray-800 shadow-2xl sm:w-96 transition-colors duration-500 dark:border-zinc-800 dark:bg-[#09090b] dark:text-zinc-100"
             >
-              <div className="flex items-center justify-between border-b border-gray-100 p-6">
-                <h2
-                  id="navigation-dialog-title"
-                  className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text font-display text-xl font-bold text-transparent"
-                >
-                  เมนู
-                </h2>
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between border-b border-gray-100 p-6 dark:border-zinc-800">
+                <div className="flex items-center gap-2.5">
+                  <ZentyrLogo className="h-7 w-7" />
+                  <h2
+                    id="navigation-dialog-title"
+                    className="bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 bg-clip-text font-display text-xl font-black text-transparent dark:from-white dark:via-zinc-200 dark:to-cyan-400"
+                  >
+                    ZENTYR
+                  </h2>
+                </div>
                 <button
                   aria-label="ปิดเมนู"
                   onClick={() => setMenuOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100 transition-colors active:scale-95 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
                 >
                   <XIcon size={20} />
                 </button>
               </div>
+
+              {/* Drawer Body */}
               <div className="flex-1 space-y-1 p-4">
                 {menuLinks.map((link, index) => {
                   const isActive = pathname === link.href;
@@ -219,11 +260,21 @@ export const Navbar = () => {
                         {...(!link.internal
                           ? { target: '_blank', rel: 'noopener noreferrer' }
                           : {})}
-                        className={`group flex items-center gap-3 rounded-2xl p-3 transition-all ${isActive ? 'bg-rose-50 text-rose-500' : 'text-gray-700 hover:bg-gray-50'}`}
+                        className={cn(
+                          'group flex items-center gap-3 rounded-2xl p-3 transition-all',
+                          isActive
+                            ? 'bg-purple-50 text-purple-600 font-bold dark:bg-zinc-800 dark:text-cyan-400 dark:font-black'
+                            : 'text-gray-700 hover:bg-gray-50 dark:text-zinc-300 dark:hover:bg-zinc-900'
+                        )}
                         onClick={() => setMenuOpen(false)}
                       >
                         <div
-                          className={`flex h-10 w-10 items-center justify-center rounded-xl ${isActive ? 'bg-white text-rose-500 shadow-sm' : 'bg-gray-100 text-gray-500'}`}
+                          className={cn(
+                            'flex h-10 w-10 items-center justify-center rounded-xl transition-colors',
+                            isActive
+                              ? 'bg-white text-purple-600 shadow-sm dark:bg-zinc-700 dark:text-cyan-400'
+                              : 'bg-gray-100 text-gray-500 dark:bg-zinc-800/80 dark:text-zinc-400'
+                          )}
                         >
                           <link.icon size={18} />
                         </div>
@@ -233,6 +284,20 @@ export const Navbar = () => {
                     </motion.div>
                   );
                 })}
+              </div>
+
+              {/* Drawer Footer Theme Switcher */}
+              <div className="border-t border-gray-100 p-4 flex items-center justify-between text-gray-500 dark:border-zinc-800 dark:text-zinc-400">
+                <span className="text-xs font-semibold">โหมดธีม:</span>
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-bold border border-gray-200 bg-gray-50 text-purple-600 transition-colors dark:border-zinc-700 dark:bg-zinc-800 dark:text-amber-300"
+                >
+                  <Sun size={14} className="hidden dark:block" />
+                  <Moon size={14} className="block dark:hidden" />
+                  <span className="hidden dark:inline">Obsidian Dark</span>
+                  <span className="inline dark:hidden">Iris Horizon</span>
+                </button>
               </div>
             </motion.div>
           </>

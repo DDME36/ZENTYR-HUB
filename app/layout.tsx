@@ -9,18 +9,19 @@ import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { generateWebsiteSchema } from '@/lib/structured-data';
 import { MotionProvider } from '@/components/MotionProvider';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://punn.site'),
   title: {
-    default: 'PUNN HUB - Knowledge Hub สำหรับนักพัฒนา',
-    template: '%s | PUNN HUB',
+    default: 'ZENTYR | Developer Hub',
+    template: '%s | ZENTYR',
   },
   description:
-    'แหล่งรวมความรู้ ไอเดีย และเทคนิคต่างๆ สำหรับการพัฒนาเว็บไซต์และเทคโนโลยี | Next.js, React, TypeScript',
+    'แหล่งรวมความรู้ ไอเดีย และเทคนิคต่างๆ สำหรับการพัฒนาเว็บไซต์ ซอฟต์แวร์ และเทคโนโลยี | Next.js, React, TypeScript',
   keywords: [
-    'PUNN HUB',
-    'Knowledge Hub',
+    'ZENTYR',
+    'Developer Hub',
     'Web Development',
     'React',
     'Next.js',
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Satayu Pongpan', url: 'https://satayupongpan.site' }],
   creator: 'Satayu Pongpan',
-  publisher: 'PUNN HUB',
+  publisher: 'ZENTYR',
   formatDetection: {
     email: false,
     address: false,
@@ -48,22 +49,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'th_TH',
     url: 'https://punn.site',
-    title: 'PUNN HUB - Knowledge Hub สำหรับนักพัฒนา',
+    title: 'ZENTYR | Developer Hub',
     description: 'แหล่งรวมความรู้ ไอเดีย และเทคนิคต่างๆ สำหรับการพัฒนาเว็บไซต์และเทคโนโลยี',
-    siteName: 'PUNN HUB',
+    siteName: 'ZENTYR',
     images: [
       {
         url: '/icon-512.png',
         width: 512,
         height: 512,
-        alt: 'PUNN HUB Logo',
+        alt: 'ZENTYR Logo',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'PUNN HUB - Knowledge Hub',
-    description: 'แหล่งรวมความรู้สำหรับนักพัฒนา',
+    title: 'ZENTYR | Developer Hub',
+    description: 'แหล่งรวมความรู้สำหรับนักพัฒนาและผู้สร้าง',
     images: ['/icon-512.png'],
   },
   robots: {
@@ -97,8 +98,13 @@ export default async function RootLayout({
   const isVercelDeployment = process.env.VERCEL === '1';
 
   return (
-    <html lang="th">
+    <html lang="th" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var a=localStorage.getItem('zentyr_auto_2time')==='true';var t=localStorage.getItem('zentyr_theme');var d='obsidian';if(a){var h=new Date().getHours();d=(h>=6&&h<18)?'sunset':'obsidian';}else if(t==='sunset'||t==='obsidian'){d=t;}if(d==='obsidian'){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
@@ -110,19 +116,21 @@ export default async function RootLayout({
           ข้ามไปยังเนื้อหาหลัก
         </a>
         <MotionProvider>
-          <MeshGradient />
-          <SmoothScroller />
-          <Navbar />
-          <Analytics />
-          {isVercelDeployment && (
-            <>
-              <VercelAnalytics />
-              <SpeedInsights />
-            </>
-          )}
-          <main id="main-content">
-            <ErrorBoundary>{children}</ErrorBoundary>
-          </main>
+          <ThemeProvider>
+            <MeshGradient />
+            <SmoothScroller />
+            <Navbar />
+            <Analytics />
+            {isVercelDeployment && (
+              <>
+                <VercelAnalytics />
+                <SpeedInsights />
+              </>
+            )}
+            <main id="main-content">
+              <ErrorBoundary>{children}</ErrorBoundary>
+            </main>
+          </ThemeProvider>
         </MotionProvider>
       </body>
     </html>

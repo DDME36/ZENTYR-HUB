@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     canonical: 'https://punn.site/blog',
   },
   openGraph: {
-    title: 'บทความ - PUNN HUB',
+    title: 'บทความ | ZENTYR',
     description: 'แชร์ความรู้และประสบการณ์ด้านเทคโนโลยี',
     type: 'website',
     url: 'https://punn.site/blog',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         url: '/icon-512.png',
         width: 512,
         height: 512,
-        alt: 'PUNN HUB Logo',
+        alt: 'ZENTYR Logo',
       },
     ],
   },

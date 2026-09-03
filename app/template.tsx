@@ -9,7 +9,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
       animate={{
         opacity: 1,
         transition: {
-          duration: 0.4,
+          duration: 0.35,
           ease: 'easeOut',
         },
       }}

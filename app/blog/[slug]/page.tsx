@@ -7,6 +7,7 @@ import { TableOfContents } from '@/components/TableOfContents';
 import { BackToTop } from '@/components/BackToTop';
 import { EpisodeList } from '@/components/EpisodeList';
 import { AnimatedBreadcrumb } from '@/components/AnimatedBreadcrumb';
+import { ReadingProgressBar } from '@/components/ReadingProgressBar';
 import { generateArticleSchema, generateBreadcrumbSchema } from '@/lib/structured-data';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -46,7 +47,7 @@ export async function generateMetadata({
       .slice(0, 160)
       .replace(/[#*`\n]/g, ' ')
       .trim() ||
-    `อ่านบทความ "${post.title}" ใน PUNN HUB`;
+    `อ่านบทความ "${post.title}" ใน ZENTYR`;
 
   return {
     title: post.title,
@@ -58,7 +59,7 @@ export async function generateMetadata({
       title: post.title,
       description: description,
       url: `https://punn.site/blog/${slug}`,
-      siteName: 'PUNN HUB',
+      siteName: 'ZENTYR',
       images: post.cover
         ? [
             {
@@ -170,6 +171,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="min-h-screen bg-transparent pt-20">
+      <ReadingProgressBar />
       {/* Structured Data */}
       <script
         type="application/ld+json"
@@ -252,22 +254,22 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           )}
 
           {/* Title - Responsive Typography */}
-          <h1 className="mb-6 text-balance bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text font-display text-[30px] font-bold leading-[1.25] tracking-[-0.02em] text-gray-900 sm:mb-8 sm:text-[40px] lg:text-[48px]">
+          <h1 className="mb-6 text-balance bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text font-display text-[30px] font-bold leading-[1.25] tracking-[-0.02em] text-gray-900 sm:mb-8 sm:text-[40px] lg:text-[48px] dark:from-white dark:via-zinc-100 dark:to-zinc-300 dark:text-white">
             {post.title}
           </h1>
 
           {/* Enhanced Meta Info */}
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 rounded-2xl border border-gray-100 bg-white/95 p-4 text-[14px] font-normal leading-5 text-gray-600 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:gap-x-6 sm:p-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 rounded-2xl border border-gray-100 bg-white/95 p-4 text-[14px] font-normal leading-5 text-gray-600 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:gap-x-6 sm:p-6 dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-zinc-300 dark:shadow-none">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-rose-100 to-rose-200">
-                <User size={14} className="text-rose-600" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-rose-100 to-purple-200 dark:from-zinc-800 dark:to-zinc-700">
+                <User size={14} className="text-purple-600 dark:text-cyan-400" />
               </div>
-              <span className="font-medium">PUNN</span>
+              <span className="font-bold text-gray-800 dark:text-white">ZENTYR</span>
             </div>
-            <div className="hidden h-6 w-px bg-gray-200 md:block"></div>
+            <div className="hidden h-6 w-px bg-gray-200 dark:bg-zinc-800 md:block"></div>
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-blue-200">
-                <Calendar size={14} className="text-blue-600" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-blue-200 dark:from-zinc-800 dark:to-zinc-700">
+                <Calendar size={14} className="text-blue-600 dark:text-cyan-400" />
               </div>
               <span suppressHydrationWarning className="text-center sm:text-left">
                 {new Date(post.date).toLocaleDateString('th-TH', {
@@ -277,10 +279,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 })}
               </span>
             </div>
-            <div className="hidden h-6 w-px bg-gray-200 md:block"></div>
+            <div className="hidden h-6 w-px bg-gray-200 dark:bg-zinc-800 md:block"></div>
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-100 to-purple-200">
-                <Clock size={14} className="text-purple-600" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-100 to-purple-200 dark:from-zinc-800 dark:to-zinc-700">
+                <Clock size={14} className="text-purple-600 dark:text-purple-400" />
               </div>
               <span>อ่าน {readingTime} นาที</span>
             </div>
@@ -298,7 +300,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <div className="mt-12 text-center">
             <Link
               href={`/blog/${parentPost.slug}`}
-              className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-gradient-to-r from-purple-50 to-blue-50 px-6 py-3 font-semibold text-purple-600 shadow-md backdrop-blur-md transition-all hover:border-purple-300 hover:from-purple-100 hover:to-blue-100 hover:shadow-lg"
+              className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-gradient-to-r from-purple-50 to-blue-50 px-6 py-3 font-semibold text-purple-600 shadow-md backdrop-blur-md transition-all hover:border-purple-300 hover:from-purple-100 hover:to-blue-100 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-cyan-400"
             >
               <BookOpen size={18} />
               ดูตอนอื่นๆ ใน &quot;{parentPost.title}&quot;
@@ -309,13 +311,13 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
       {/* Enhanced Related Articles */}
       {relatedPosts.length > 0 && (
-        <section className="border-t border-gray-100/50 bg-white/80 py-10 sm:py-16">
+        <section className="border-t border-gray-100/50 bg-white/80 py-10 sm:py-16 dark:border-zinc-800/80 dark:bg-zinc-950/80">
           <div className="mx-auto max-w-6xl px-4">
             <div className="mb-10 text-center">
-              <h2 className="mb-3 font-display text-[28px] font-bold leading-[1.3] tracking-[-0.015em] text-gray-800 sm:text-[32px]">
+              <h2 className="mb-3 font-display text-[28px] font-bold leading-[1.3] tracking-[-0.015em] text-gray-800 sm:text-[32px] dark:text-white">
                 บทความที่เกี่ยวข้อง
               </h2>
-              <p className="text-gray-600">บทความอื่นๆ ที่คุณอาจสนใจ</p>
+              <p className="text-gray-600 dark:text-zinc-400">บทความอื่นๆ ที่คุณอาจสนใจ</p>
             </div>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -323,7 +325,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 <Card
                   key={p.id}
                   href={`/blog/${p.slug}`}
-                  className="group flex h-full transform flex-col !border-gray-100 bg-white p-0 transition-all duration-500 hover:-translate-y-2 hover:border-rose-200 hover:shadow-xl"
+                  className="group flex h-full transform flex-col !border-gray-100 bg-white p-0 transition-all duration-500 hover:-translate-y-2 hover:border-purple-200 hover:shadow-xl dark:!border-zinc-800 dark:!bg-zinc-900/90 dark:hover:!border-zinc-700"
                 >
                   <div
                     className="relative h-48 w-full shrink-0 overflow-hidden rounded-t-2xl bg-gray-100 sm:h-52"
@@ -381,7 +383,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             <div className="mt-10 text-center">
               <Link
                 href="/blog"
-                className="inline-flex transform items-center gap-2 rounded-full bg-gradient-to-r from-rose-400 to-purple-400 px-8 py-3 font-bold text-white shadow-lg transition-all hover:scale-105 hover:shadow-[0_12px_40px_rgb(251,113,133,0.4)]"
+                className="inline-flex transform items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 via-rose-600 to-amber-500 px-8 py-3.5 font-bold text-white shadow-lg transition-all hover:scale-105 hover:shadow-[0_12px_40px_rgba(217,70,239,0.35)] dark:from-white dark:via-zinc-100 dark:to-zinc-200 dark:text-zinc-950 dark:shadow-[0_8px_25px_rgba(255,255,255,0.15)]"
               >
                 ดูบทความทั้งหมด <ArrowRight size={18} />
               </Link>
@@ -391,11 +393,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       )}
 
       {/* Enhanced Navigation */}
-      <div className="bg-white/50 py-8 backdrop-blur-sm sm:py-10">
+      <div className="bg-transparent py-8 sm:py-10">
         <div className="mx-auto max-w-6xl px-4 text-center">
           <Link
             href="/blog"
-            className="inline-flex transform items-center gap-3 rounded-full border border-gray-200 bg-white/90 px-8 py-3 font-semibold text-gray-700 shadow-md backdrop-blur-md transition-all hover:scale-105 hover:border-rose-200 hover:text-rose-500 hover:shadow-lg"
+            className="inline-flex transform items-center gap-3 rounded-full border border-gray-200 bg-white/90 px-8 py-3.5 font-semibold text-gray-700 shadow-md backdrop-blur-md transition-all hover:scale-105 hover:border-purple-200 hover:text-purple-600 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-zinc-200 dark:hover:border-zinc-700 dark:hover:text-cyan-400"
           >
             <ArrowLeft size={18} /> กลับไปหน้าบทความรวม
           </Link>
