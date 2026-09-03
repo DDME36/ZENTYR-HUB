@@ -78,6 +78,10 @@ scripts/new-post.js     ตัวช่วยสร้างบทความ�
 
 ## Deploy
 
+ระบบใช้ `https://punn-hub.vercel.app` เป็น canonical URL เริ่มต้น เมื่อเชื่อม custom domain
+ให้ตั้งค่า environment variable `NEXT_PUBLIC_SITE_URL` ใน Vercel เป็น URL ใหม่ เช่น
+`https://example.com` แล้ว redeploy หนึ่งครั้ง
+
 ตั้งค่า Vercel ให้ใช้ `bun install` และ `bun run build` ตาม `vercel.json` ไม่ต้องตั้งค่า environment variable สำหรับการอ่านบทความ
 
 ## License
