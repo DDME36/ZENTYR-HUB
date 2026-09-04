@@ -70,7 +70,7 @@ export async function generateMetadata({
           ]
         : [
             {
-              url: absoluteUrl('/opengraph-image'),
+              url: absoluteUrl('/zentyr-og.png'),
               width: 1200,
               height: 630,
               alt: 'ZENTYR — Creative Tech Lab',
@@ -87,7 +87,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: post.title,
       description: description,
-      images: post.cover ? [absoluteUrl(post.cover)] : [absoluteUrl('/opengraph-image')],
+      images: post.cover ? [absoluteUrl(post.cover)] : [absoluteUrl('/zentyr-og.png')],
     },
     other: {
       'theme-color': '#fb7185',

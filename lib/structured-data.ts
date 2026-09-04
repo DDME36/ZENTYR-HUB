@@ -15,7 +15,7 @@ export const generateArticleSchema = (post: Post, url: string) => {
     '@type': 'BlogPosting',
     inLanguage: 'th-TH',
     headline: post.title,
-    image: absoluteUrl(post.cover || '/opengraph-image'),
+    image: absoluteUrl(post.cover || '/zentyr-og.png'),
     datePublished: post.date,
     dateModified: post.date,
     author: {

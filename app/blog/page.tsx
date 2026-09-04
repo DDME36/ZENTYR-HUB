@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     locale: 'th_TH',
     images: [
       {
-        url: '/opengraph-image',
+        url: '/zentyr-og.png',
         width: 1200,
         height: 630,
         alt: 'ZENTYR — Creative Tech Lab',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'บทความ | ZENTYR',
     description: 'แชร์ความรู้และประสบการณ์ด้านเทคโนโลยี',
-    images: ['/opengraph-image'],
+    images: ['/zentyr-og.png'],
   },
 };
 
