@@ -181,7 +181,7 @@ export const Navbar = () => {
                     <motion.span
                       layoutId="navbar-hover-capsule"
                       transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                      className="absolute inset-0 rounded-full bg-purple-50/90 shadow-sm -z-10 dark:bg-zinc-800/90 dark:border dark:border-zinc-700/60"
+                      className="absolute inset-0 -z-10 rounded-full bg-purple-50/90 shadow-sm dark:border dark:border-zinc-700/60 dark:bg-zinc-800/90"
                     />
                   )}
                   {item.name}
@@ -199,7 +199,7 @@ export const Navbar = () => {
               onClick={toggleTheme}
               aria-label="สลับโหมดการแสดงผล (Iris Horizon / Obsidian Dark)"
               title="สลับโหมดการแสดงผล (Iris Horizon / Obsidian Dark)"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200/80 bg-white/90 text-purple-600 shadow-sm backdrop-blur-md transition-all hover:border-purple-200 hover:bg-purple-50 sm:h-10 sm:w-10 dark:border-zinc-700 dark:bg-zinc-800/90 dark:text-amber-300 dark:hover:border-zinc-600 dark:hover:bg-zinc-700"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200/80 bg-white/90 text-purple-600 shadow-sm backdrop-blur-md transition-all hover:border-purple-200 hover:bg-purple-50 dark:border-zinc-700 dark:bg-zinc-800/90 dark:text-amber-300 dark:hover:border-zinc-600 dark:hover:bg-zinc-700 sm:h-10 sm:w-10"
             >
               <Sun size={17} className="hidden dark:block" />
               <Moon size={17} className="block dark:hidden" />
@@ -214,7 +214,7 @@ export const Navbar = () => {
                 aria-label="เปิดเมนูหลัก"
                 aria-haspopup="dialog"
                 aria-expanded={menuOpen}
-                className="flex h-9 items-center justify-center gap-1.5 rounded-full border border-gray-200/80 bg-white/85 px-3.5 text-xs font-bold text-gray-700 shadow-sm backdrop-blur-sm transition-all hover:border-purple-200 hover:text-purple-600 sm:h-10 sm:px-4 sm:text-sm dark:border-zinc-700 dark:bg-zinc-800/90 dark:text-zinc-200 dark:hover:border-zinc-600 dark:hover:text-white"
+                className="flex h-9 items-center justify-center gap-1.5 rounded-full border border-gray-200/80 bg-white/85 px-3.5 text-xs font-bold text-gray-700 shadow-sm backdrop-blur-sm transition-all hover:border-purple-200 hover:text-purple-600 dark:border-zinc-700 dark:bg-zinc-800/90 dark:text-zinc-200 dark:hover:border-zinc-600 dark:hover:text-white sm:h-10 sm:px-4 sm:text-sm"
               >
                 <MenuIcon size={16} />
                 <span>เมนู</span>
@@ -244,7 +244,7 @@ export const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed right-0 top-0 z-[210] flex h-full w-full flex-col overflow-y-auto border-l border-gray-100 bg-white text-gray-800 shadow-2xl sm:w-96 transition-colors duration-500 dark:border-zinc-800 dark:bg-[#09090b] dark:text-zinc-100"
+              className="fixed right-0 top-0 z-[210] flex h-full w-full flex-col overflow-y-auto border-l border-gray-100 bg-white text-gray-800 shadow-2xl transition-colors duration-500 dark:border-zinc-800 dark:bg-[#09090b] dark:text-zinc-100 sm:w-96"
             >
               {/* Drawer Header */}
               <div className="flex items-center justify-between border-b border-gray-100 p-6 dark:border-zinc-800">
@@ -260,7 +260,7 @@ export const Navbar = () => {
                 <button
                   aria-label="ปิดเมนู"
                   onClick={() => setMenuOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100 transition-colors active:scale-95 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 text-gray-700 transition-colors hover:bg-gray-100 active:scale-95 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
                 >
                   <XIcon size={20} />
                 </button>
@@ -286,7 +286,7 @@ export const Navbar = () => {
                         className={cn(
                           'group flex items-center gap-3 rounded-2xl p-3 transition-all',
                           isActive
-                            ? 'bg-purple-50 text-purple-600 font-bold dark:bg-zinc-800 dark:text-cyan-400 dark:font-black'
+                            ? 'bg-purple-50 font-bold text-purple-600 dark:bg-zinc-800 dark:font-black dark:text-cyan-400'
                             : 'text-gray-700 hover:bg-gray-50 dark:text-zinc-300 dark:hover:bg-zinc-900'
                         )}
                         onClick={() => setMenuOpen(false)}
@@ -310,11 +310,11 @@ export const Navbar = () => {
               </div>
 
               {/* Drawer Footer Theme Switcher */}
-              <div className="border-t border-gray-100 p-4 flex items-center justify-between text-gray-500 dark:border-zinc-800 dark:text-zinc-400">
+              <div className="flex items-center justify-between border-t border-gray-100 p-4 text-gray-500 dark:border-zinc-800 dark:text-zinc-400">
                 <span className="text-xs font-semibold">โหมดธีม:</span>
                 <button
                   onClick={toggleTheme}
-                  className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-bold border border-gray-200 bg-gray-50 text-purple-600 transition-colors dark:border-zinc-700 dark:bg-zinc-800 dark:text-amber-300"
+                  className="flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-bold text-purple-600 transition-colors dark:border-zinc-700 dark:bg-zinc-800 dark:text-amber-300"
                 >
                   <Sun size={14} className="hidden dark:block" />
                   <Moon size={14} className="block dark:hidden" />

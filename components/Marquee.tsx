@@ -26,7 +26,7 @@ export const Marquee = ({}: MarqueeProps = {}) => {
       initial={{ opacity: 0, y: 14, rotate: 2 }}
       animate={{ opacity: 1, y: 0, rotate: 2 }}
       transition={{ duration: 0.65, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className="relative mb-12 mt-6 w-full overflow-hidden border-y border-gray-200/30 bg-white/70 py-4 shadow-lg backdrop-blur-md transition-colors duration-500 sm:-mt-12 sm:mb-8 dark:border-zinc-800/80 dark:bg-zinc-900/60 dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
+      className="relative mb-12 mt-6 w-full overflow-hidden border-y border-gray-200/30 bg-white/70 py-4 shadow-lg backdrop-blur-md transition-colors duration-500 dark:border-zinc-800/80 dark:bg-zinc-900/60 dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] sm:-mt-12 sm:mb-8"
     >
       {/* Top marquee - Pure CSS Animation (GPU Accelerated) */}
       <div className="relative flex overflow-hidden whitespace-nowrap">
@@ -47,7 +47,7 @@ export const Marquee = ({}: MarqueeProps = {}) => {
               {marqueePhrases.map((phrase, i) => (
                 <span
                   key={i}
-                  className="mx-6 inline-block bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 bg-clip-text text-transparent transition-transform duration-300 hover:scale-105 sm:mx-8 md:mx-10 dark:from-zinc-200 dark:via-white dark:to-zinc-300"
+                  className="mx-6 inline-block bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 bg-clip-text text-transparent transition-transform duration-300 hover:scale-105 dark:from-zinc-200 dark:via-white dark:to-zinc-300 sm:mx-8 md:mx-10"
                 >
                   {phrase} •
                 </span>

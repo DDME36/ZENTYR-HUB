@@ -2,7 +2,16 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
-import { BookOpen, Calendar, X, ArrowUpRight, AlertCircle, FileText, Search, Sparkles } from 'lucide-react';
+import {
+  BookOpen,
+  Calendar,
+  X,
+  ArrowUpRight,
+  AlertCircle,
+  FileText,
+  Search,
+  Sparkles,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SearchModal } from './SearchModal';
@@ -107,7 +116,9 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                 >
                   <BookOpen size={14} className={isDark ? 'text-cyan-400' : 'text-purple-600'} />
                   <span className={isDark ? 'text-zinc-300' : 'text-gray-600'}>Zentyr</span>
-                  <span className={isDark ? 'font-bold text-cyan-400' : 'font-bold text-purple-600'}>
+                  <span
+                    className={isDark ? 'font-bold text-cyan-400' : 'font-bold text-purple-600'}
+                  >
                     Hub
                   </span>
                 </motion.div>
@@ -115,7 +126,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                 <motion.h1
                   variants={itemVariants}
                   className={cn(
-                    'mb-3 font-display text-4xl font-black tracking-tight sm:text-5xl transition-colors',
+                    'mb-3 font-display text-4xl font-black tracking-tight transition-colors sm:text-5xl',
                     isDark ? 'text-white' : 'text-gray-800'
                   )}
                 >
@@ -233,8 +244,12 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
               <div className="mb-6">
                 <FileText className="mx-auto h-20 w-20 text-gray-300 dark:text-zinc-700" />
               </div>
-              <h3 className="mb-4 text-2xl font-bold text-gray-400 dark:text-zinc-300">กำลังเตรียมเนื้อหา</h3>
-              <p className="font-light text-gray-500 dark:text-zinc-500">บทความและความรู้ใหม่ๆ กำลังจะมาเร็วๆ นี้</p>
+              <h3 className="mb-4 text-2xl font-bold text-gray-400 dark:text-zinc-300">
+                กำลังเตรียมเนื้อหา
+              </h3>
+              <p className="font-light text-gray-500 dark:text-zinc-500">
+                บทความและความรู้ใหม่ๆ กำลังจะมาเร็วๆ นี้
+              </p>
             </div>
           </motion.div>
         ) : (
@@ -293,7 +308,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                       </span>
                     )}
                   </h2>
-                  <span className="shrink-0 text-[11px] font-semibold text-gray-400 sm:hidden dark:text-zinc-500">
+                  <span className="shrink-0 text-[11px] font-semibold text-gray-400 dark:text-zinc-500 sm:hidden">
                     ปัดดูเพิ่มเติม →
                   </span>
                 </div>
@@ -302,39 +317,39 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                 <div className="relative -mx-2">
                   <div className="scrollbar-hide overflow-x-auto px-2 pb-2 pr-12">
                     <div className="flex min-w-max gap-2 py-1">
-                    {allTags.map((tag) => {
-                      const isActive = selectedTag === tag;
-                      return (
-                        <motion.button
-                          key={tag}
-                          whileHover={{ y: -2 }}
-                          whileTap={{ scale: 0.96 }}
-                          onClick={() => setSelectedTag(tag)}
-                          className={`relative whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold transition-colors duration-200 ${
-                            isActive
-                              ? 'text-white'
-                              : 'text-gray-600 hover:text-gray-900 dark:text-zinc-400 dark:hover:text-white'
-                          }`}
-                        >
-                          {/* Active sliding bubble */}
-                          {isActive && (
-                            <motion.div
-                              layoutId="activeTagBubble"
-                              className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600 to-rose-600 shadow-[0_4px_16px_rgba(168,85,247,0.35)] dark:from-cyan-500 dark:to-blue-600"
-                              transition={{
-                                type: 'spring',
-                                stiffness: 400,
-                                damping: 30,
-                              }}
-                            />
-                          )}
-                          {!isActive && (
-                            <div className="absolute inset-0 -z-10 rounded-full border border-gray-100 bg-gray-50/90 transition-colors hover:bg-gray-100 dark:border-zinc-800 dark:bg-zinc-800/80 dark:hover:bg-zinc-700" />
-                          )}
-                          <span className="relative z-10">{tag}</span>
-                        </motion.button>
-                      );
-                    })}
+                      {allTags.map((tag) => {
+                        const isActive = selectedTag === tag;
+                        return (
+                          <motion.button
+                            key={tag}
+                            whileHover={{ y: -2 }}
+                            whileTap={{ scale: 0.96 }}
+                            onClick={() => setSelectedTag(tag)}
+                            className={`relative whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold transition-colors duration-200 ${
+                              isActive
+                                ? 'text-white'
+                                : 'text-gray-600 hover:text-gray-900 dark:text-zinc-400 dark:hover:text-white'
+                            }`}
+                          >
+                            {/* Active sliding bubble */}
+                            {isActive && (
+                              <motion.div
+                                layoutId="activeTagBubble"
+                                className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600 to-rose-600 shadow-[0_4px_16px_rgba(168,85,247,0.35)] dark:from-cyan-500 dark:to-blue-600"
+                                transition={{
+                                  type: 'spring',
+                                  stiffness: 400,
+                                  damping: 30,
+                                }}
+                              />
+                            )}
+                            {!isActive && (
+                              <div className="absolute inset-0 -z-10 rounded-full border border-gray-100 bg-gray-50/90 transition-colors hover:bg-gray-100 dark:border-zinc-800 dark:bg-zinc-800/80 dark:hover:bg-zinc-700" />
+                            )}
+                            <span className="relative z-10">{tag}</span>
+                          </motion.button>
+                        );
+                      })}
                     </div>
                   </div>
                   <div className="pointer-events-none absolute inset-y-0 right-0 w-12 rounded-r-2xl bg-gradient-to-l from-white via-white/90 to-transparent dark:from-zinc-900 dark:via-zinc-900/90" />
@@ -374,7 +389,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                       >
                         {/* Cover Image with CSS Mask Fade */}
                         <div
-                          className="relative h-56 w-full shrink-0 overflow-hidden bg-gray-100 sm:h-64 dark:bg-zinc-800"
+                          className="relative h-56 w-full shrink-0 overflow-hidden bg-gray-100 dark:bg-zinc-800 sm:h-64"
                           style={{
                             maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
                             WebkitMaskImage:
@@ -434,7 +449,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                           </div>
 
                           {/* Title */}
-                          <h3 className="mb-4 line-clamp-2 font-display text-lg font-bold leading-snug text-gray-800 transition-colors group-hover:text-purple-600 sm:text-xl dark:text-white dark:group-hover:text-cyan-400">
+                          <h3 className="mb-4 line-clamp-2 font-display text-lg font-bold leading-snug text-gray-800 transition-colors group-hover:text-purple-600 dark:text-white dark:group-hover:text-cyan-400 sm:text-xl">
                             {post.title}
                           </h3>
 

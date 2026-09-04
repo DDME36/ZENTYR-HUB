@@ -25,10 +25,12 @@ export const EpisodeList = ({ episodes, seriesTitle }: EpisodeListProps) => {
           <BookOpen size={14} className="text-purple-500" />
           <span className="text-gray-600">Series</span>
         </div>
-        <h1 className="mb-4 font-display text-4xl font-black text-gray-800 sm:text-5xl dark:text-white">
+        <h1 className="mb-4 font-display text-4xl font-black text-gray-800 dark:text-white sm:text-5xl">
           {seriesTitle}
         </h1>
-        <p className="text-lg text-gray-600 dark:text-zinc-400">{episodes.length} ตอน · เลือกตอนที่ต้องการอ่าน</p>
+        <p className="text-lg text-gray-600 dark:text-zinc-400">
+          {episodes.length} ตอน · เลือกตอนที่ต้องการอ่าน
+        </p>
       </motion.div>
 
       {/* Episodes Grid */}
@@ -64,7 +66,7 @@ export const EpisodeList = ({ episodes, seriesTitle }: EpisodeListProps) => {
                       />
                     </div>
                   ) : (
-                    <div className="flex h-48 w-full items-center justify-center bg-gradient-to-br from-purple-100 via-blue-100 to-rose-100 dark:from-zinc-800 dark:via-zinc-850 dark:to-zinc-800">
+                    <div className="dark:via-zinc-850 flex h-48 w-full items-center justify-center bg-gradient-to-br from-purple-100 via-blue-100 to-rose-100 dark:from-zinc-800 dark:to-zinc-800">
                       <BookOpen size={48} className="text-purple-300 dark:text-zinc-600" />
                     </div>
                   )}
@@ -72,7 +74,7 @@ export const EpisodeList = ({ episodes, seriesTitle }: EpisodeListProps) => {
                   {/* Episode Number */}
                   {episode.episodeNumber && (
                     <div className="absolute left-4 top-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-blue-500 font-display text-lg font-black text-white shadow-lg dark:from-zinc-700 dark:to-zinc-900 dark:border dark:border-zinc-600">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-blue-500 font-display text-lg font-black text-white shadow-lg dark:border dark:border-zinc-600 dark:from-zinc-700 dark:to-zinc-900">
                         {episode.episodeNumber}
                       </div>
                     </div>

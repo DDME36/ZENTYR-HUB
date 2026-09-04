@@ -49,16 +49,16 @@ export function ShareButtons({ url }: ShareButtonsProps) {
   };
 
   return (
-    <div className="mx-auto mt-10 max-w-4xl rounded-2xl border border-purple-100/50 bg-gradient-to-r from-purple-50/70 via-pink-50/50 to-blue-50/40 p-5 text-center sm:mt-16 sm:rounded-3xl sm:p-8 dark:border-zinc-800/80 dark:bg-gradient-to-r dark:from-zinc-900/90 dark:via-zinc-900/80 dark:to-zinc-900/90">
+    <div className="mx-auto mt-10 max-w-4xl rounded-2xl border border-purple-100/50 bg-gradient-to-r from-purple-50/70 via-pink-50/50 to-blue-50/40 p-5 text-center dark:border-zinc-800/80 dark:bg-gradient-to-r dark:from-zinc-900/90 dark:via-zinc-900/80 dark:to-zinc-900/90 sm:mt-16 sm:rounded-3xl sm:p-8">
       <div className="mb-4 flex items-center justify-center gap-3 sm:mb-6">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-rose-500 shadow-lg sm:h-12 sm:w-12 dark:from-zinc-800 dark:to-zinc-700">
-          <Share2 size={18} className="text-white sm:h-5 sm:w-5 dark:text-cyan-400" />
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-rose-500 shadow-lg dark:from-zinc-800 dark:to-zinc-700 sm:h-12 sm:w-12">
+          <Share2 size={18} className="text-white dark:text-cyan-400 sm:h-5 sm:w-5" />
         </div>
-        <h3 className="text-[20px] font-semibold leading-7 text-gray-800 sm:text-[24px] sm:leading-8 dark:text-white">
+        <h3 className="text-[20px] font-semibold leading-7 text-gray-800 dark:text-white sm:text-[24px] sm:leading-8">
           แชร์บทความนี้
         </h3>
       </div>
-      <p className="mb-6 text-[14px] leading-6 text-gray-600 sm:mb-8 sm:text-[16px] dark:text-zinc-400">
+      <p className="mb-6 text-[14px] leading-6 text-gray-600 dark:text-zinc-400 sm:mb-8 sm:text-[16px]">
         ช่วยแชร์ความรู้ให้เพื่อนๆ ได้อ่านกัน
       </p>
       <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2">

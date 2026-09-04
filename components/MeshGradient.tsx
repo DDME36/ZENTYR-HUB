@@ -3,7 +3,7 @@
 export const MeshGradient = () => {
   return (
     <div
-      className="fixed inset-0 -z-10 overflow-hidden transition-colors duration-700 bg-[#fafafa] dark:bg-[#09090b]"
+      className="fixed inset-0 -z-10 overflow-hidden bg-[#fafafa] transition-colors duration-700 dark:bg-[#09090b]"
       aria-hidden="true"
     >
       {/* Light Mode Mesh Orbs */}
@@ -26,8 +26,7 @@ export const MeshGradient = () => {
           backgroundImage:
             'linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
-          maskImage:
-            'radial-gradient(ellipse 65% 55% at 50% 38%, black 10%, transparent 80%)',
+          maskImage: 'radial-gradient(ellipse 65% 55% at 50% 38%, black 10%, transparent 80%)',
           WebkitMaskImage:
             'radial-gradient(ellipse 65% 55% at 50% 38%, black 10%, transparent 80%)',
         }}
@@ -38,15 +37,14 @@ export const MeshGradient = () => {
           backgroundImage:
             'linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
-          maskImage:
-            'radial-gradient(ellipse 65% 60% at 50% 50%, black 10%, transparent 80%)',
+          maskImage: 'radial-gradient(ellipse 65% 60% at 50% 50%, black 10%, transparent 80%)',
           WebkitMaskImage:
             'radial-gradient(ellipse 65% 60% at 50% 50%, black 10%, transparent 80%)',
         }}
       />
 
       {/* Subtle vignette border */}
-      <div className="pointer-events-none absolute inset-0 transition-opacity duration-700 bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,transparent_40%,rgba(255,255,255,0.7)_100%)] dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,transparent_50%,rgba(9,9,11,0.8)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,transparent_40%,rgba(255,255,255,0.7)_100%)] transition-opacity duration-700 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,transparent_50%,rgba(9,9,11,0.8)_100%)]" />
     </div>
   );
 };

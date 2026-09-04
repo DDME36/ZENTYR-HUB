@@ -93,13 +93,16 @@ export const SearchModal = ({ posts }: SearchModalProps) => {
         onClick={() => setIsOpen(true)}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
-        className="group flex w-full items-center justify-between gap-3 rounded-2xl border border-purple-100/60 bg-white/70 px-5 py-3 text-sm text-gray-500 shadow-sm backdrop-blur-md transition-all hover:border-purple-300 hover:bg-white hover:shadow-md sm:max-w-md dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:bg-zinc-850"
+        className="dark:hover:bg-zinc-850 group flex w-full items-center justify-between gap-3 rounded-2xl border border-purple-100/60 bg-white/70 px-5 py-3 text-sm text-gray-500 shadow-sm backdrop-blur-md transition-all hover:border-purple-300 hover:bg-white hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-400 dark:hover:border-zinc-700 sm:max-w-md"
       >
         <div className="flex items-center gap-3">
-          <Search size={18} className="text-purple-500 transition-transform group-hover:scale-110 dark:text-cyan-400" />
+          <Search
+            size={18}
+            className="text-purple-500 transition-transform group-hover:scale-110 dark:text-cyan-400"
+          />
           <span className="text-left font-medium">ค้นหาบทความที่น่าสนใจ...</span>
         </div>
-        <kbd className="hidden items-center gap-0.5 rounded-lg border border-gray-200 bg-gray-50 px-2 py-0.5 text-[11px] font-bold text-gray-400 shadow-xs sm:inline-flex dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-500">
+        <kbd className="shadow-xs hidden items-center gap-0.5 rounded-lg border border-gray-200 bg-gray-50 px-2 py-0.5 text-[11px] font-bold text-gray-400 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-500 sm:inline-flex">
           ⌘K
         </kbd>
       </button>
@@ -222,7 +225,9 @@ export const SearchModal = ({ posts }: SearchModalProps) => {
                           <p className="text-sm font-bold text-gray-700 dark:text-zinc-200">
                             ไม่พบผลลัพธ์สำหรับ &quot;{query}&quot;
                           </p>
-                          <p className="mt-1 text-xs font-medium text-gray-400 dark:text-zinc-500">ลองค้นหาด้วยคำอื่นดูนะครับ</p>
+                          <p className="mt-1 text-xs font-medium text-gray-400 dark:text-zinc-500">
+                            ลองค้นหาด้วยคำอื่นดูนะครับ
+                          </p>
                         </div>
                       )}
                     </div>
@@ -231,19 +236,19 @@ export const SearchModal = ({ posts }: SearchModalProps) => {
                     <div className="flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 bg-gray-50/70 px-6 py-3.5 text-xs text-gray-500 dark:border-zinc-800 dark:bg-zinc-950/80 dark:text-zinc-400">
                       <div className="flex items-center gap-3">
                         <span className="flex items-center gap-1.5">
-                          <kbd className="rounded border border-gray-200 bg-white px-1.5 py-0.5 font-mono text-[10px] font-bold shadow-xs dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
+                          <kbd className="shadow-xs rounded border border-gray-200 bg-white px-1.5 py-0.5 font-mono text-[10px] font-bold dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
                             ↑↓
                           </kbd>
                           <span>เลือก</span>
                         </span>
                         <span className="flex items-center gap-1.5">
-                          <kbd className="rounded border border-gray-200 bg-white px-1.5 py-0.5 font-mono text-[10px] font-bold shadow-xs dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
+                          <kbd className="shadow-xs rounded border border-gray-200 bg-white px-1.5 py-0.5 font-mono text-[10px] font-bold dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
                             ↵
                           </kbd>
                           <span>เปิด</span>
                         </span>
                         <span className="flex items-center gap-1.5">
-                          <kbd className="rounded border border-gray-200 bg-white px-1.5 py-0.5 font-mono text-[10px] font-bold shadow-xs dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
+                          <kbd className="shadow-xs rounded border border-gray-200 bg-white px-1.5 py-0.5 font-mono text-[10px] font-bold dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
                             ESC
                           </kbd>
                           <span>ปิด</span>

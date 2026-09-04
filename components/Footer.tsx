@@ -163,12 +163,7 @@ export const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div
-          className={cn(
-            'mb-8 h-px w-full',
-            isDark ? 'bg-zinc-800' : 'bg-gray-200/60'
-          )}
-        />
+        <div className={cn('mb-8 h-px w-full', isDark ? 'bg-zinc-800' : 'bg-gray-200/60')} />
 
         {/* Bottom Bar */}
         <div className="flex flex-col items-center justify-between gap-6 text-xs font-medium text-zinc-500 md:flex-row">

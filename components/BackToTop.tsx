@@ -52,11 +52,15 @@ export const BackToTop = () => {
           whileTap={{ scale: 0.92 }}
           onClick={scrollToTop}
           data-article-action="back-to-top"
-          className="group fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-4 z-[100] flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-gray-800 shadow-[0_10px_30px_rgba(0,0,0,0.12)] backdrop-blur-md transition-shadow hover:shadow-[0_16px_40px_rgba(168,85,247,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 sm:bottom-8 sm:right-8 sm:h-14 sm:w-14 dark:border dark:border-zinc-800 dark:bg-zinc-900/95 dark:text-zinc-100"
+          className="group fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-4 z-[100] flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-gray-800 shadow-[0_10px_30px_rgba(0,0,0,0.12)] backdrop-blur-md transition-shadow hover:shadow-[0_16px_40px_rgba(168,85,247,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 dark:border dark:border-zinc-800 dark:bg-zinc-900/95 dark:text-zinc-100 sm:bottom-8 sm:right-8 sm:h-14 sm:w-14"
           aria-label="กลับขึ้นด้านบน"
         >
           {/* Circular Progress Ring */}
-          <svg viewBox="0 0 52 52" aria-hidden="true" className="absolute inset-0 h-full w-full -rotate-90">
+          <svg
+            viewBox="0 0 52 52"
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full -rotate-90"
+          >
             <circle
               cx="26"
               cy="26"

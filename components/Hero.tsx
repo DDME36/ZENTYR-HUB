@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowRight, Zap, Layers, Cpu } from 'lucide-react';
 import { TypewriterText } from './TypewriterText';
 import { GradientText } from './GradientText';
@@ -65,7 +60,7 @@ export const Hero = () => {
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
           className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-gradient-to-l from-blue-300/35 via-indigo-300/30 to-purple-300/25 blur-3xl"
         />
-        <div className="absolute left-1/2 top-1/3 -translate-x-1/2 h-64 w-64 rounded-full bg-rose-200/25 blur-3xl" />
+        <div className="absolute left-1/2 top-1/3 h-64 w-64 -translate-x-1/2 rounded-full bg-rose-200/25 blur-3xl" />
       </div>
 
       {/* Floating Interactive Tech Chips (Desktop only) */}
@@ -85,7 +80,9 @@ export const Hero = () => {
             <Zap size={16} />
           </div>
           <div className="text-left">
-            <div className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Next.js 16</div>
+            <div className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
+              Next.js 16
+            </div>
             <div className="text-xs font-bold text-gray-700">App Router & Fast ISR</div>
           </div>
         </motion.div>
@@ -105,7 +102,9 @@ export const Hero = () => {
             <Cpu size={16} />
           </div>
           <div className="text-left">
-            <div className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Technology</div>
+            <div className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
+              Technology
+            </div>
             <div className="text-xs font-bold text-gray-700">AI & Web Innovations</div>
           </div>
         </motion.div>
@@ -145,11 +144,7 @@ export const Hero = () => {
           className="mb-5 font-display text-3xl font-black leading-[1.3] tracking-tight text-gray-800 sm:text-4xl lg:text-5xl"
         >
           <span className="mb-2 block min-h-[1.35em] text-center">
-            <TypewriterText
-              texts={heroTitles}
-              delayBetween={3200}
-              className="inline-flex"
-            />
+            <TypewriterText texts={heroTitles} delayBetween={3200} className="inline-flex" />
           </span>
           <GradientText className="block">สำหรับนักพัฒนา</GradientText>
         </motion.h1>

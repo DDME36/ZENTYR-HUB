@@ -105,7 +105,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
         data-article-action="toc"
         aria-label={isOpen ? 'ปิดสารบัญ' : 'เปิดสารบัญ'}
         aria-expanded={isOpen}
-        className="fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] left-4 z-[100] flex h-12 items-center gap-2 rounded-full border border-gray-200/80 bg-white/95 py-1 pl-1 pr-3 text-gray-800 shadow-[0_10px_30px_rgba(15,23,42,0.14)] transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 sm:bottom-8 sm:left-8 sm:h-14 sm:gap-2.5 sm:pr-4 2xl:hidden dark:border-zinc-800 dark:bg-zinc-900/95 dark:text-zinc-100 dark:hover:bg-zinc-800"
+        className="fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] left-4 z-[100] flex h-12 items-center gap-2 rounded-full border border-gray-200/80 bg-white/95 py-1 pl-1 pr-3 text-gray-800 shadow-[0_10px_30px_rgba(15,23,42,0.14)] transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 dark:border-zinc-800 dark:bg-zinc-900/95 dark:text-zinc-100 dark:hover:bg-zinc-800 sm:bottom-8 sm:left-8 sm:h-14 sm:gap-2.5 sm:pr-4 2xl:hidden"
       >
         <span className="relative flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
           <svg viewBox="0 0 56 56" aria-hidden="true" className="absolute h-full w-full -rotate-90">
@@ -203,7 +203,9 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
             <div className="mt-2 border-t border-gray-100/50 p-6 pt-0 dark:border-zinc-800">
               <div className="mt-4 flex items-center justify-between text-[10px] font-bold uppercase leading-none tracking-[0.16em] text-gray-400 dark:text-zinc-500">
                 <span>Reading</span>
-                <span className="font-bold text-purple-600 dark:text-cyan-400">{Math.round(progress)}%</span>
+                <span className="font-bold text-purple-600 dark:text-cyan-400">
+                  {Math.round(progress)}%
+                </span>
               </div>
               <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800">
                 <motion.div
@@ -232,7 +234,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 280 }}
-              className="fixed inset-x-0 bottom-0 z-[160] flex max-h-[min(82dvh,44rem)] flex-col rounded-t-[28px] bg-white shadow-2xl sm:inset-x-4 sm:bottom-4 sm:rounded-[32px] 2xl:hidden dark:border dark:border-zinc-800 dark:bg-[#09090b]"
+              className="fixed inset-x-0 bottom-0 z-[160] flex max-h-[min(82dvh,44rem)] flex-col rounded-t-[28px] bg-white shadow-2xl dark:border dark:border-zinc-800 dark:bg-[#09090b] sm:inset-x-4 sm:bottom-4 sm:rounded-[32px] 2xl:hidden"
               role="dialog"
               aria-modal="true"
               aria-labelledby="mobile-toc-title"
@@ -241,7 +243,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
               <div className="flex items-center justify-between px-5 py-4 sm:px-7 sm:py-5">
                 <h3
                   id="mobile-toc-title"
-                  className="font-display text-[20px] font-bold leading-7 tracking-[-0.01em] text-gray-800 sm:text-[22px] dark:text-white"
+                  className="font-display text-[20px] font-bold leading-7 tracking-[-0.01em] text-gray-800 dark:text-white sm:text-[22px]"
                 >
                   สารบัญ
                 </h3>

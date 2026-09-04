@@ -50,9 +50,13 @@ export class ErrorBoundary extends Component<Props, State> {
               <AlertTriangle className="text-red-600 dark:text-red-400" size={32} />
             </motion.div>
 
-            <h2 className="mb-3 text-2xl font-bold text-gray-900 dark:text-white">เกิดข้อผิดพลาด</h2>
+            <h2 className="mb-3 text-2xl font-bold text-gray-900 dark:text-white">
+              เกิดข้อผิดพลาด
+            </h2>
 
-            <p className="mb-6 text-gray-600 dark:text-zinc-400">ขออภัย เกิดข้อผิดพลาดบางอย่าง กรุณาลองใหม่อีกครั้ง</p>
+            <p className="mb-6 text-gray-600 dark:text-zinc-400">
+              ขออภัย เกิดข้อผิดพลาดบางอย่าง กรุณาลองใหม่อีกครั้ง
+            </p>
 
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="mb-6 text-left">

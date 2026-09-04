@@ -2,10 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import {
-  ArrowDown,
-  ArrowRight,
-} from 'lucide-react';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 import { BentoGrid } from './BentoGrid';
 import { Marquee } from './Marquee';
 import { TechStackMarquee } from './TechStackMarquee';
@@ -23,7 +20,7 @@ export const ZentyrHome = ({ posts }: ZentyrHomeProps) => {
   const { isDark } = useTheme();
 
   return (
-    <div className="relative min-h-screen pt-20 sm:pt-24 transition-colors duration-700">
+    <div className="relative min-h-screen pt-20 transition-colors duration-700 sm:pt-24">
       <div id="top" className="relative z-10">
         {/* ========================================================= */}
         {/* 1. HERO SECTION (CLEAN TYPEWRITER WITH PARALLAX)          */}
@@ -60,12 +57,12 @@ export const ZentyrHome = ({ posts }: ZentyrHomeProps) => {
               initial={{ opacity: 0, y: 26, filter: 'blur(10px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 0.85, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-5 font-display text-3xl font-black leading-[1.3] tracking-tight text-gray-800 transition-colors duration-500 sm:text-4xl lg:text-5xl dark:text-white"
+              className="mb-5 font-display text-3xl font-black leading-[1.3] tracking-tight text-gray-800 transition-colors duration-500 dark:text-white sm:text-4xl lg:text-5xl"
             >
               <span className="mb-2 block min-h-[1.35em] bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text px-2 py-1 text-center text-transparent dark:from-white dark:via-zinc-100 dark:to-zinc-300">
                 Creative Tech Lab
               </span>
-              <span className="block overflow-visible whitespace-nowrap bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 bg-clip-text pt-[0.18em] pb-[0.08em] text-[clamp(1.35rem,7vw,3rem)] leading-[1.4] tracking-[-0.025em] text-transparent transition-all duration-500 sm:text-4xl lg:text-5xl dark:from-white dark:via-zinc-200 dark:to-cyan-400">
+              <span className="block overflow-visible whitespace-nowrap bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 bg-clip-text pb-[0.08em] pt-[0.18em] text-[clamp(1.35rem,7vw,3rem)] leading-[1.4] tracking-[-0.025em] text-transparent transition-all duration-500 dark:from-white dark:via-zinc-200 dark:to-cyan-400 sm:text-4xl lg:text-5xl">
                 ทดลองไอเดีย สร้างของจริง
               </span>
             </motion.h1>
@@ -75,7 +72,7 @@ export const ZentyrHome = ({ posts }: ZentyrHomeProps) => {
               initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 0.8, delay: 0.56, ease: [0.16, 1, 0.3, 1] }}
-              className="mx-auto mb-8 max-w-xl text-base font-light leading-relaxed text-gray-500 transition-colors duration-500 sm:text-lg dark:text-zinc-400"
+              className="mx-auto mb-8 max-w-xl text-base font-light leading-relaxed text-gray-500 transition-colors duration-500 dark:text-zinc-400 sm:text-lg"
             >
               รวมเครื่องมือ AI เว็บแอป และเบื้องหลังการพัฒนา
               <br className="hidden sm:block" />
@@ -92,7 +89,7 @@ export const ZentyrHome = ({ posts }: ZentyrHomeProps) => {
               <MagneticButton>
                 <Link
                   href="/blog"
-                  className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-purple-600 via-rose-600 to-amber-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_-5px_rgba(217,70,239,0.38)] transition-all duration-500 hover:shadow-xl focus-visible:outline-none sm:px-8 sm:py-4 sm:text-base dark:from-white dark:via-zinc-100 dark:to-zinc-200 dark:!text-black dark:shadow-[0_10px_30px_-5px_rgba(255,255,255,0.25)]"
+                  className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-purple-600 via-rose-600 to-amber-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_-5px_rgba(217,70,239,0.38)] transition-all duration-500 hover:shadow-xl focus-visible:outline-none dark:from-white dark:via-zinc-100 dark:to-zinc-200 dark:!text-black dark:shadow-[0_10px_30px_-5px_rgba(255,255,255,0.25)] sm:px-8 sm:py-4 sm:text-base"
                 >
                   <span className="relative z-10 font-bold">บทความ</span>
                   <ArrowRight size={18} className="relative z-10" />
@@ -107,7 +104,7 @@ export const ZentyrHome = ({ posts }: ZentyrHomeProps) => {
                       block: 'start',
                     });
                   }}
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/80 bg-white/90 px-6 py-3.5 text-sm font-semibold text-gray-700 shadow-sm backdrop-blur-md transition-all hover:border-gray-200 hover:text-black hover:shadow-md sm:px-8 sm:py-4 sm:text-base dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:text-white"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/80 bg-white/90 px-6 py-3.5 text-sm font-semibold text-gray-700 shadow-sm backdrop-blur-md transition-all hover:border-gray-200 hover:text-black hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:text-white sm:px-8 sm:py-4 sm:text-base"
                 >
                   <span>โปรเจกต์</span>
                   <ArrowDown size={16} />
@@ -134,11 +131,12 @@ export const ZentyrHome = ({ posts }: ZentyrHomeProps) => {
             <p className="text-xs font-black uppercase tracking-[0.18em] text-purple-600 dark:text-cyan-400">
               Featured Showcase
             </p>
-            <h2 className="mt-2 font-display text-2xl font-black tracking-tight text-gray-800 transition-colors duration-500 sm:text-4xl dark:text-white">
+            <h2 className="mt-2 font-display text-2xl font-black tracking-tight text-gray-800 transition-colors duration-500 dark:text-white sm:text-4xl">
               ผลงานจริงและโปรเจกต์ไฮไลต์
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-gray-500 transition-colors duration-500 sm:text-base dark:text-zinc-400">
-              คัดสรรแอปพลิเคชัน เครื่องมือ AI และโมเดลที่พัฒนาขึ้นจากโจทย์จริง พร้อมให้คุณทดลองใช้งาน
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-gray-500 transition-colors duration-500 dark:text-zinc-400 sm:text-base">
+              คัดสรรแอปพลิเคชัน เครื่องมือ AI และโมเดลที่พัฒนาขึ้นจากโจทย์จริง
+              พร้อมให้คุณทดลองใช้งาน
             </p>
           </motion.div>
           <BentoGrid posts={posts} isDark={isDark} />

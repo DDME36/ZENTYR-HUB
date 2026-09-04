@@ -1,7 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Copy, Check, Minus, Plus, Image as ImageIcon, Maximize2, X, Link as LinkIcon } from 'lucide-react';
+import {
+  Copy,
+  Check,
+  Minus,
+  Plus,
+  Image as ImageIcon,
+  Maximize2,
+  X,
+  Link as LinkIcon,
+} from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
@@ -191,10 +200,10 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className={cn(
-          "prose mx-auto !max-w-4xl overflow-hidden rounded-3xl border pb-10 tracking-normal shadow-xl prose-headings:font-display prose-a:no-underline sm:rounded-[40px] sm:pb-14 sm:shadow-2xl md:pb-16 transition-all duration-500",
+          'prose mx-auto !max-w-4xl overflow-hidden rounded-3xl border pb-10 tracking-normal shadow-xl transition-all duration-500 prose-headings:font-display prose-a:no-underline sm:rounded-[40px] sm:pb-14 sm:shadow-2xl md:pb-16',
           isDark
-            ? "prose-invert border-zinc-800/80 bg-zinc-900/90 text-zinc-300 shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
-            : "border-gray-100 bg-white/95 text-gray-700 shadow-xl"
+            ? 'prose-invert border-zinc-800/80 bg-zinc-900/90 text-zinc-300 shadow-[0_20px_60px_rgba(0,0,0,0.6)]'
+            : 'border-gray-100 bg-white/95 text-gray-700 shadow-xl'
         )}
         style={{ fontSize: `${fontSize}px`, lineHeight: '1.8' }}
       >
@@ -215,20 +224,23 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
                 return (
                   <h1
                     id={id}
-                    className="group relative mb-5 mt-11 scroll-mt-[120px] pl-4 text-[28px] font-bold leading-[1.3] tracking-[-0.015em] text-gray-900 sm:mb-7 sm:mt-14 sm:text-[34px] md:text-[38px] dark:text-white"
+                    className="group relative mb-5 mt-11 scroll-mt-[120px] pl-4 text-[28px] font-bold leading-[1.3] tracking-[-0.015em] text-gray-900 dark:text-white sm:mb-7 sm:mt-14 sm:text-[34px] md:text-[38px]"
                   >
-                    <span className="absolute left-0 top-0 h-full w-1 rounded-full bg-gradient-to-b from-purple-500 to-rose-500 sm:w-1.5 dark:from-cyan-400 dark:to-blue-500" />
+                    <span className="absolute left-0 top-0 h-full w-1 rounded-full bg-gradient-to-b from-purple-500 to-rose-500 dark:from-cyan-400 dark:to-blue-500 sm:w-1.5" />
                     <span className="flex items-center justify-between">
                       <span>{children}</span>
                       <button
                         onClick={() => copyHeadingLink(id)}
                         aria-label="คัดลอกลิงก์ส่วนนี้"
-                        className="ml-3 inline-flex opacity-0 transition-opacity group-hover:opacity-60 hover:!opacity-100"
+                        className="ml-3 inline-flex opacity-0 transition-opacity hover:!opacity-100 group-hover:opacity-60"
                       >
                         {copiedHeading === id ? (
                           <Check size={18} className="text-green-500" />
                         ) : (
-                          <LinkIcon size={18} className="text-gray-400 hover:text-purple-500 dark:hover:text-cyan-400" />
+                          <LinkIcon
+                            size={18}
+                            className="text-gray-400 hover:text-purple-500 dark:hover:text-cyan-400"
+                          />
                         )}
                       </button>
                     </span>
@@ -240,19 +252,22 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
                 return (
                   <h2
                     id={id}
-                    className="group mb-4 mt-10 scroll-mt-[120px] text-[24px] font-semibold leading-[1.35] tracking-[-0.01em] text-gray-800 sm:mb-5 sm:mt-12 sm:text-[28px] md:text-[30px] dark:text-white"
+                    className="group mb-4 mt-10 scroll-mt-[120px] text-[24px] font-semibold leading-[1.35] tracking-[-0.01em] text-gray-800 dark:text-white sm:mb-5 sm:mt-12 sm:text-[28px] md:text-[30px]"
                   >
                     <span className="flex items-center justify-between">
                       <span>{children}</span>
                       <button
                         onClick={() => copyHeadingLink(id)}
                         aria-label="คัดลอกลิงก์หัวข้อนี้"
-                        className="ml-3 inline-flex opacity-0 transition-opacity group-hover:opacity-60 hover:!opacity-100"
+                        className="ml-3 inline-flex opacity-0 transition-opacity hover:!opacity-100 group-hover:opacity-60"
                       >
                         {copiedHeading === id ? (
                           <Check size={16} className="text-green-500" />
                         ) : (
-                          <LinkIcon size={16} className="text-gray-400 hover:text-purple-500 dark:hover:text-cyan-400" />
+                          <LinkIcon
+                            size={16}
+                            className="text-gray-400 hover:text-purple-500 dark:hover:text-cyan-400"
+                          />
                         )}
                       </button>
                     </span>
@@ -264,19 +279,22 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
                 return (
                   <h3
                     id={id}
-                    className="group mb-3 mt-8 scroll-mt-[120px] text-[20px] font-semibold leading-[1.4] text-gray-800 sm:mb-4 sm:mt-9 sm:text-[23px] md:text-[24px] dark:text-zinc-100"
+                    className="group mb-3 mt-8 scroll-mt-[120px] text-[20px] font-semibold leading-[1.4] text-gray-800 dark:text-zinc-100 sm:mb-4 sm:mt-9 sm:text-[23px] md:text-[24px]"
                   >
                     <span className="flex items-center justify-between">
                       <span>{children}</span>
                       <button
                         onClick={() => copyHeadingLink(id)}
                         aria-label="คัดลอกลิงก์หัวข้อย่อยนี้"
-                        className="ml-3 inline-flex opacity-0 transition-opacity group-hover:opacity-60 hover:!opacity-100"
+                        className="ml-3 inline-flex opacity-0 transition-opacity hover:!opacity-100 group-hover:opacity-60"
                       >
                         {copiedHeading === id ? (
                           <Check size={14} className="text-green-500" />
                         ) : (
-                          <LinkIcon size={14} className="text-gray-400 hover:text-purple-500 dark:hover:text-cyan-400" />
+                          <LinkIcon
+                            size={14}
+                            className="text-gray-400 hover:text-purple-500 dark:hover:text-cyan-400"
+                          />
                         )}
                       </button>
                     </span>
@@ -315,7 +333,7 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
               blockquote: ({ children }) => (
                 <blockquote
                   className={cn(
-                    'relative my-8 overflow-hidden rounded-2xl border-l-4 p-5 italic sm:my-10 sm:rounded-3xl sm:p-8 md:p-10 transition-all duration-300',
+                    'relative my-8 overflow-hidden rounded-2xl border-l-4 p-5 italic transition-all duration-300 sm:my-10 sm:rounded-3xl sm:p-8 md:p-10',
                     isDark
                       ? 'border-cyan-400 bg-zinc-950/80 text-zinc-200 shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
                       : 'border-purple-400 bg-gradient-to-br from-purple-50/80 via-pink-50/60 to-blue-50/40 text-gray-700 shadow-inner'
@@ -329,7 +347,12 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
                   >
                     “
                   </div>
-                  <div className={cn('font-normal leading-[1.75]', isDark ? 'text-zinc-200' : 'text-gray-700')}>
+                  <div
+                    className={cn(
+                      'font-normal leading-[1.75]',
+                      isDark ? 'text-zinc-200' : 'text-gray-700'
+                    )}
+                  >
                     {children}
                   </div>
                 </blockquote>
@@ -342,7 +365,7 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
                     target={isExternal ? '_blank' : undefined}
                     rel={isExternal ? 'noopener noreferrer' : undefined}
                     className={cn(
-                      'group relative inline font-bold underline underline-offset-4 decoration-2 transition-colors',
+                      'group relative inline font-bold underline decoration-2 underline-offset-4 transition-colors',
                       isDark
                         ? 'text-cyan-400 decoration-cyan-400/50 hover:text-cyan-300 hover:decoration-cyan-300'
                         : 'text-purple-600 decoration-purple-300 hover:text-purple-700 hover:decoration-purple-500'
@@ -371,10 +394,10 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => copyCode(codeString)}
-                        className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition-all backdrop-blur-md active:scale-95 ${
+                        className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold backdrop-blur-md transition-all active:scale-95 ${
                           copiedCode === codeString
-                            ? 'bg-emerald-500/30 text-emerald-300 border border-emerald-500/40'
-                            : 'bg-white/10 text-white hover:bg-white/20 border border-white/10'
+                            ? 'border border-emerald-500/40 bg-emerald-500/30 text-emerald-300'
+                            : 'border border-white/10 bg-white/10 text-white hover:bg-white/20'
                         }`}
                       >
                         {copiedCode === codeString ? (
@@ -406,7 +429,7 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
                 ) : (
                   <code
                     className={cn(
-                      'break-words rounded-md px-1.5 py-0.5 font-mono text-[14px] font-semibold leading-6 border',
+                      'break-words rounded-md border px-1.5 py-0.5 font-mono text-[14px] font-semibold leading-6',
                       isDark
                         ? 'border-zinc-800 bg-zinc-950 text-cyan-300'
                         : 'border-purple-100 bg-purple-50 text-purple-700'
@@ -438,8 +461,8 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
                   className={cn(
                     'border-b px-4 py-3 text-left font-bold',
                     isDark
-                      ? 'border-zinc-800 text-white bg-zinc-900/80'
-                      : 'border-gray-200 text-gray-900 bg-gray-50'
+                      ? 'border-zinc-800 bg-zinc-900/80 text-white'
+                      : 'border-gray-200 bg-gray-50 text-gray-900'
                   )}
                 >
                   {children}
@@ -457,10 +480,7 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
               ),
               hr: () => (
                 <hr
-                  className={cn(
-                    'my-10 border-t',
-                    isDark ? 'border-zinc-800' : 'border-gray-200'
-                  )}
+                  className={cn('my-10 border-t', isDark ? 'border-zinc-800' : 'border-gray-200')}
                 />
               ),
             }}
@@ -493,7 +513,7 @@ export const BlogPostContent = ({ content }: BlogPostContentProps) => {
               <button
                 onClick={() => setLightbox(null)}
                 aria-label="ปิดรูปภาพขนาดเต็ม"
-                className="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all hover:bg-black/80 hover:scale-110 active:scale-95"
+                className="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all hover:scale-110 hover:bg-black/80 active:scale-95"
               >
                 <X size={20} />
               </button>

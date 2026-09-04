@@ -129,7 +129,10 @@ export const BentoGrid = ({ posts, isDark = false }: BentoGridProps) => {
                   AI Audio
                 </span>
               </div>
-              <motion.div whileHover={{ rotate: 45 }} transition={{ type: 'spring', stiffness: 300 }}>
+              <motion.div
+                whileHover={{ rotate: 45 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
                 <ArrowUpRight className="text-rose-100" size={18} />
               </motion.div>
             </div>
@@ -165,7 +168,10 @@ export const BentoGrid = ({ posts, isDark = false }: BentoGridProps) => {
                   PWA
                 </span>
               </div>
-              <motion.div whileHover={{ rotate: 45 }} transition={{ type: 'spring', stiffness: 300 }}>
+              <motion.div
+                whileHover={{ rotate: 45 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
                 <ArrowUpRight className="text-indigo-100" size={18} />
               </motion.div>
             </div>
@@ -271,7 +277,7 @@ export const BentoGrid = ({ posts, isDark = false }: BentoGridProps) => {
           BgIcon={BookOpen}
           delay={0.42}
           className={cn(
-            'col-span-1 row-span-1 sm:col-span-2 sm:!p-6 md:col-span-3 lg:col-span-3 transition-colors duration-500',
+            'col-span-1 row-span-1 transition-colors duration-500 sm:col-span-2 sm:!p-6 md:col-span-3 lg:col-span-3',
             isDark
               ? '!border-zinc-800 bg-zinc-900/90 text-white shadow-[0_12px_35px_-5px_rgba(0,0,0,0.5)]'
               : '!border-rose-100 bg-gradient-to-br from-rose-50 via-purple-50 to-blue-50 shadow-[0_8px_25px_-5px_rgba(244,63,94,0.1)]'
@@ -285,7 +291,9 @@ export const BentoGrid = ({ posts, isDark = false }: BentoGridProps) => {
               <div
                 className={cn(
                   'rounded-lg p-2 shadow-sm transition-colors',
-                  isDark ? 'bg-zinc-800 text-cyan-400' : 'bg-gradient-to-r from-rose-400 to-purple-400 text-white'
+                  isDark
+                    ? 'bg-zinc-800 text-cyan-400'
+                    : 'bg-gradient-to-r from-rose-400 to-purple-400 text-white'
                 )}
               >
                 <BookOpen className="h-4 w-4" />
@@ -313,7 +321,7 @@ export const BentoGrid = ({ posts, isDark = false }: BentoGridProps) => {
                     key={post.id}
                     href={`/blog/${post.slug}`}
                     className={cn(
-                      'flex w-full items-center gap-2 truncate rounded-xl px-3 py-2 text-left text-sm font-medium transition-all shadow-sm',
+                      'flex w-full items-center gap-2 truncate rounded-xl px-3 py-2 text-left text-sm font-medium shadow-sm transition-all',
                       isDark
                         ? 'border border-zinc-800 bg-zinc-950/70 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-800 hover:text-white'
                         : 'border border-rose-100/50 bg-white/60 text-gray-700 hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600'
@@ -332,17 +340,11 @@ export const BentoGrid = ({ posts, isDark = false }: BentoGridProps) => {
                 <div className="py-4 text-center">
                   <div className="mb-2">
                     <BookOpen
-                      className={cn(
-                        'mx-auto h-8 w-8',
-                        isDark ? 'text-zinc-600' : 'text-rose-300'
-                      )}
+                      className={cn('mx-auto h-8 w-8', isDark ? 'text-zinc-600' : 'text-rose-300')}
                     />
                   </div>
                   <span
-                    className={cn(
-                      'text-sm italic',
-                      isDark ? 'text-zinc-500' : 'text-gray-500'
-                    )}
+                    className={cn('text-sm italic', isDark ? 'text-zinc-500' : 'text-gray-500')}
                   >
                     ไม่มีบทความล่าสุด
                   </span>

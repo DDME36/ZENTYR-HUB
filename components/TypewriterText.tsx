@@ -62,7 +62,7 @@ export const TypewriterText = ({
           }}
           className={
             textClassName ||
-            'inline-block whitespace-nowrap px-2 py-1 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent'
+            'inline-block whitespace-nowrap bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text px-2 py-1 text-transparent'
           }
         >
           {currentText}

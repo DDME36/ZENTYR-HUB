@@ -35,7 +35,7 @@ export default function NotFound() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="rounded-3xl border border-white/60 bg-white/90 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl sm:p-12 dark:border-zinc-800/80 dark:bg-zinc-900/90 dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
+          className="rounded-3xl border border-white/60 bg-white/90 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl dark:border-zinc-800/80 dark:bg-zinc-900/90 dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)] sm:p-12"
         >
           <div className="mb-6">
             <Search className="mx-auto h-16 w-16 text-purple-500 dark:text-cyan-400" />

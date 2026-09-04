@@ -169,15 +169,11 @@ export const ZentyrDynamicLogo = ({
   isDark?: boolean;
   className?: string;
 }) => (
-  <div className={cn('relative flex items-center justify-center select-none group', className)}>
+  <div className={cn('group relative flex select-none items-center justify-center', className)}>
     <div
       className={cn(
         'absolute -inset-0.5 rounded-2xl opacity-60 blur-[6px] transition-all duration-500 group-hover:opacity-100',
-        isBlack
-          ? 'bg-black/30 blur-[4px]'
-          : isDark
-            ? 'bg-cyan-400/30 blur-[6px]'
-            : ''
+        isBlack ? 'bg-black/30 blur-[4px]' : isDark ? 'bg-cyan-400/30 blur-[6px]' : ''
       )}
       style={
         !isBlack && !isDark
@@ -260,7 +256,9 @@ function getTwoTimeTheme(): { id: 'sunset' | 'obsidian'; isDay: boolean; label: 
   return {
     id: isDay ? 'sunset' : 'obsidian',
     isDay,
-    label: isDay ? 'กลางวัน (06:00 - 18:00) ➔ 🌅 Iris Horizon' : 'กลางคืน (18:00 - 06:00) ➔ 🌑 Obsidian Dark',
+    label: isDay
+      ? 'กลางวัน (06:00 - 18:00) ➔ 🌅 Iris Horizon'
+      : 'กลางคืน (18:00 - 06:00) ➔ 🌑 Obsidian Dark',
   };
 }
 
@@ -335,7 +333,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
   return (
     <div
       className={cn(
-        'relative min-h-screen pt-20 sm:pt-24 transition-colors duration-700',
+        'relative min-h-screen pt-20 transition-colors duration-700 sm:pt-24',
         p.isDark ? 'bg-[#09090b] text-zinc-100' : 'bg-[#fafafa] text-gray-800'
       )}
     >
@@ -349,8 +347,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
             backgroundImage:
               'linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px)',
             backgroundSize: '40px 40px',
-            maskImage:
-              'radial-gradient(ellipse 65% 55% at 50% 38%, black 10%, transparent 80%)',
+            maskImage: 'radial-gradient(ellipse 65% 55% at 50% 38%, black 10%, transparent 80%)',
             WebkitMaskImage:
               'radial-gradient(ellipse 65% 55% at 50% 38%, black 10%, transparent 80%)',
           }}
@@ -363,8 +360,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
             backgroundImage:
               'linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px)',
             backgroundSize: '40px 40px',
-            maskImage:
-              'radial-gradient(ellipse 70% 70% at 50% 40%, black 15%, transparent 85%)',
+            maskImage: 'radial-gradient(ellipse 70% 70% at 50% 40%, black 15%, transparent 85%)',
             WebkitMaskImage:
               'radial-gradient(ellipse 70% 70% at 50% 40%, black 15%, transparent 85%)',
           }}
@@ -468,7 +464,11 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
                   ? 'border-zinc-700 bg-zinc-800 text-amber-300 hover:border-zinc-600'
                   : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'
               )}
-              title={p.isDark ? 'สลับเป็นโหมดกลางวัน (Iris Horizon)' : 'สลับเป็นโหมดกลางคืน (Obsidian Dark)'}
+              title={
+                p.isDark
+                  ? 'สลับเป็นโหมดกลางวัน (Iris Horizon)'
+                  : 'สลับเป็นโหมดกลางคืน (Obsidian Dark)'
+              }
             >
               {p.isDark ? <Sun size={16} /> : <Moon size={16} />}
             </button>
@@ -523,7 +523,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
             />
             <div
               className={cn(
-                'absolute left-1/2 top-1/3 -translate-x-1/2 h-64 w-64 rounded-full blur-3xl transition-all duration-500',
+                'absolute left-1/2 top-1/3 h-64 w-64 -translate-x-1/2 rounded-full blur-3xl transition-all duration-500',
                 p.isDark ? 'bg-zinc-800/30' : 'bg-white/40'
               )}
             />
@@ -549,7 +549,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
             >
               <div
                 className={cn(
-                  'flex h-8 w-8 items-center justify-center rounded-xl text-white shadow-sm bg-gradient-to-br transition-all duration-500',
+                  'flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm transition-all duration-500',
                   p.chip1
                 )}
               >
@@ -590,7 +590,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
             >
               <div
                 className={cn(
-                  'flex h-8 w-8 items-center justify-center rounded-xl text-white shadow-sm bg-gradient-to-br transition-all duration-500',
+                  'flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm transition-all duration-500',
                   p.chip2
                 )}
               >
@@ -658,7 +658,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ type: 'spring', damping: 22, stiffness: 130, delay: 0.1 }}
               className={cn(
-                'mb-5 font-display text-3xl font-black leading-[1.3] tracking-tight sm:text-4xl lg:text-5xl transition-colors duration-500',
+                'mb-5 font-display text-3xl font-black leading-[1.3] tracking-tight transition-colors duration-500 sm:text-4xl lg:text-5xl',
                 p.isDark ? 'text-white' : 'text-gray-800'
               )}
             >
@@ -686,7 +686,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ type: 'spring', damping: 22, stiffness: 130, delay: 0.22 }}
               className={cn(
-                'mx-auto mb-8 max-w-xl text-base font-light leading-relaxed sm:text-lg transition-colors duration-500',
+                'mx-auto mb-8 max-w-xl text-base font-light leading-relaxed transition-colors duration-500 sm:text-lg',
                 p.isDark ? 'text-zinc-400' : 'text-gray-500'
               )}
             >
@@ -706,7 +706,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
                 <Link
                   href="/blog"
                   className={cn(
-                    'group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r px-6 py-3.5 text-sm font-semibold transition-all hover:shadow-xl focus-visible:outline-none sm:px-8 sm:py-4 sm:text-base duration-500',
+                    'group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r px-6 py-3.5 text-sm font-semibold transition-all duration-500 hover:shadow-xl focus-visible:outline-none sm:px-8 sm:py-4 sm:text-base',
                     p.buttonGradient
                   )}
                   style={{
@@ -754,13 +754,13 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
             )}
           >
             {/* Top Bar: 2 Favorites Quick Selector (Day vs Night vs Auto 2-Time) */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-b pb-4 border-gray-200/40 dark:border-zinc-800">
+            <div className="flex flex-col items-center justify-between gap-3 border-b border-gray-200/40 pb-4 dark:border-zinc-800 sm:flex-row">
               <div className="flex items-center gap-2.5 text-xs font-bold">
                 <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-purple-500/10 text-purple-600">
                   <Sparkles size={15} />
                 </span>
                 <div>
-                  <span className="font-extrabold text-sm">2 ธีมที่คุณชอบที่สุด:</span>
+                  <span className="text-sm font-extrabold">2 ธีมที่คุณชอบที่สุด:</span>
                   <span className="ml-2 text-[11px] font-normal opacity-75">
                     สลับระหว่าง กลางวัน (Iris) & กลางคืน (Obsidian)
                   </span>
@@ -778,7 +778,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
                   className={cn(
                     'flex items-center gap-1.5 rounded-2xl px-3.5 py-2 text-xs font-bold transition-all duration-300',
                     currentPalette === 'sunset' && !isAutoDayNight
-                      ? 'bg-gradient-to-r from-purple-600 to-rose-600 text-white shadow-md scale-105'
+                      ? 'scale-105 bg-gradient-to-r from-purple-600 to-rose-600 text-white shadow-md'
                       : p.isDark
                         ? 'border border-zinc-800 bg-zinc-800/60 text-zinc-300 hover:border-zinc-700'
                         : 'border border-gray-200 bg-white text-gray-700 hover:border-purple-200'
@@ -800,7 +800,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
                   className={cn(
                     'flex items-center gap-1.5 rounded-2xl px-3.5 py-2 text-xs font-bold transition-all duration-300',
                     currentPalette === 'obsidian' && !isAutoDayNight
-                      ? 'bg-white text-zinc-950 shadow-md scale-105 font-black'
+                      ? 'scale-105 bg-white font-black text-zinc-950 shadow-md'
                       : p.isDark
                         ? 'border border-zinc-800 bg-zinc-800/60 text-zinc-300 hover:border-zinc-700'
                         : 'border border-gray-200 bg-white text-gray-700 hover:border-gray-400'
@@ -826,7 +826,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
                   className={cn(
                     'flex items-center gap-1.5 rounded-2xl px-3.5 py-2 text-xs font-bold transition-all duration-300',
                     isAutoDayNight
-                      ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-md scale-105'
+                      ? 'scale-105 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-md'
                       : p.isDark
                         ? 'border border-zinc-800 bg-zinc-800/60 text-zinc-400 hover:text-white'
                         : 'border border-gray-200 bg-white text-gray-600 hover:text-black'
@@ -877,7 +877,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
 
             {/* Auto 2-Time Live Notification */}
             {isAutoDayNight && (
-              <div className="rounded-xl border border-blue-500/20 bg-blue-500/10 px-3.5 py-2 text-center text-xs font-mono text-cyan-400 animate-pulse">
+              <div className="animate-pulse rounded-xl border border-blue-500/20 bg-blue-500/10 px-3.5 py-2 text-center font-mono text-xs text-cyan-400">
                 ● ระบบ Auto 2 เวลาทำงานอยู่: {timeStatusText}
               </div>
             )}
@@ -897,7 +897,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
             </p>
             <h2
               className={cn(
-                'mt-2 font-display text-2xl font-black tracking-tight sm:text-4xl transition-colors duration-500',
+                'mt-2 font-display text-2xl font-black tracking-tight transition-colors duration-500 sm:text-4xl',
                 p.isDark ? 'text-white' : 'text-gray-800'
               )}
             >
@@ -905,7 +905,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
             </h2>
             <p
               className={cn(
-                'mx-auto mt-3 max-w-xl text-sm leading-6 sm:text-base transition-colors duration-500',
+                'mx-auto mt-3 max-w-xl text-sm leading-6 transition-colors duration-500 sm:text-base',
                 p.isDark ? 'text-zinc-400' : 'text-gray-500'
               )}
             >
@@ -941,7 +941,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
               />
               <span
                 className={cn(
-                  'font-display text-3xl font-black tracking-tight bg-gradient-to-r bg-clip-text text-transparent',
+                  'bg-gradient-to-r bg-clip-text font-display text-3xl font-black tracking-tight text-transparent',
                   p.brandGradient
                 )}
               >
@@ -986,9 +986,7 @@ export const ZentyrPreview = ({ posts }: ZentyrPreviewProps) => {
               href="/"
               className={cn(
                 'inline-flex items-center gap-2 px-2 py-2.5 text-xs font-bold transition-colors',
-                p.isDark
-                  ? 'text-zinc-500 hover:text-zinc-300'
-                  : 'text-gray-400 hover:text-gray-700'
+                p.isDark ? 'text-zinc-500 hover:text-zinc-300' : 'text-gray-400 hover:text-gray-700'
               )}
             >
               กลับหน้าเดิม (PUNN) <ArrowUpRight size={14} />

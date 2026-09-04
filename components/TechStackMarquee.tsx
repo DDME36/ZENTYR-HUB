@@ -10,42 +10,48 @@ const researchTopics = [
     icon: Brain,
     color: 'text-white',
     bg: 'from-purple-500 to-violet-600',
-    shadow: 'shadow-[0_8px_25px_-4px_rgba(147,51,234,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(147,51,234,0.42)]',
+    shadow:
+      'shadow-[0_8px_25px_-4px_rgba(147,51,234,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(147,51,234,0.42)]',
   },
   {
     name: 'เว็บเทคโนโลยี',
     icon: Code2,
     color: 'text-white',
     bg: 'from-blue-500 to-cyan-600',
-    shadow: 'shadow-[0_8px_25px_-4px_rgba(59,130,246,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(59,130,246,0.42)]',
+    shadow:
+      'shadow-[0_8px_25px_-4px_rgba(59,130,246,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(59,130,246,0.42)]',
   },
   {
     name: 'ประสิทธิภาพ',
     icon: Zap,
     color: 'text-white',
     bg: 'from-amber-400 to-orange-500',
-    shadow: 'shadow-[0_8px_25px_-4px_rgba(245,158,11,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(245,158,11,0.42)]',
+    shadow:
+      'shadow-[0_8px_25px_-4px_rgba(245,158,11,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(245,158,11,0.42)]',
   },
   {
     name: 'นวัตกรรม',
     icon: Sparkles,
     color: 'text-white',
     bg: 'from-pink-500 to-rose-600',
-    shadow: 'shadow-[0_8px_25px_-4px_rgba(244,63,94,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(244,63,94,0.42)]',
+    shadow:
+      'shadow-[0_8px_25px_-4px_rgba(244,63,94,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(244,63,94,0.42)]',
   },
   {
     name: 'คลาวด์และเดฟออปส์',
     icon: Rocket,
     color: 'text-white',
     bg: 'from-sky-500 to-blue-600',
-    shadow: 'shadow-[0_8px_25px_-4px_rgba(14,165,233,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(14,165,233,0.42)]',
+    shadow:
+      'shadow-[0_8px_25px_-4px_rgba(14,165,233,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(14,165,233,0.42)]',
   },
   {
     name: 'ระบบข้อมูล',
     icon: Database,
     color: 'text-white',
     bg: 'from-indigo-500 to-purple-600',
-    shadow: 'shadow-[0_8px_25px_-4px_rgba(99,102,241,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(99,102,241,0.42)]',
+    shadow:
+      'shadow-[0_8px_25px_-4px_rgba(99,102,241,0.28)] hover:shadow-[0_16px_35px_-4px_rgba(99,102,241,0.42)]',
   },
 ];
 
@@ -67,7 +73,7 @@ export const TechStackMarquee = ({ isDark = false }: TechStackMarqueeProps) => {
         >
           <h2
             className={cn(
-              'mb-2 font-display text-2xl font-bold sm:text-3xl transition-colors duration-500',
+              'mb-2 font-display text-2xl font-bold transition-colors duration-500 sm:text-3xl',
               isDark ? 'text-white' : 'text-gray-800'
             )}
           >
@@ -123,7 +129,12 @@ export const TechStackMarquee = ({ isDark = false }: TechStackMarqueeProps) => {
                   </div>
 
                   <div className="relative z-10 flex min-h-24 flex-col items-center justify-center gap-3">
-                    <div className={cn('text-3xl drop-shadow-sm', isDark ? 'text-zinc-900' : topic.color)}>
+                    <div
+                      className={cn(
+                        'text-3xl drop-shadow-sm',
+                        isDark ? 'text-zinc-900' : topic.color
+                      )}
+                    >
                       <Icon strokeWidth={2.2} />
                     </div>
                     <span

@@ -23,7 +23,7 @@ interface ZentyrV2Props {
 
 // Zentyr Next-Gen Monogram
 const ZentyrNextGenLogo = ({ className = 'w-10 h-10' }: { className?: string }) => (
-  <div className={cn('relative flex items-center justify-center select-none group', className)}>
+  <div className={cn('group relative flex select-none items-center justify-center', className)}>
     <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-cyan-400 via-purple-500 to-rose-500 opacity-70 blur-md transition-all duration-500 group-hover:opacity-100 group-hover:blur-lg" />
     <div className="relative flex h-full w-full items-center justify-center rounded-2xl border border-white/90 bg-white/90 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-xl transition-transform duration-300 group-hover:scale-105">
       <svg viewBox="0 0 32 32" fill="none" className="h-[60%] w-[60%]">
@@ -144,7 +144,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
         <div className="absolute -left-32 -top-32 h-[520px] w-[520px] rounded-full bg-gradient-to-br from-cyan-300/35 via-sky-200/30 to-purple-300/25 blur-[120px]" />
         <div className="absolute -right-32 top-1/4 h-[580px] w-[580px] rounded-full bg-gradient-to-bl from-rose-300/30 via-purple-300/25 to-indigo-200/25 blur-[130px]" />
-        <div className="absolute left-1/3 bottom-10 h-[480px] w-[480px] rounded-full bg-gradient-to-tr from-emerald-200/25 via-teal-200/20 to-blue-200/25 blur-[110px]" />
+        <div className="absolute bottom-10 left-1/3 h-[480px] w-[480px] rounded-full bg-gradient-to-tr from-emerald-200/25 via-teal-200/20 to-blue-200/25 blur-[110px]" />
       </div>
 
       {/* ========================================================= */}
@@ -153,34 +153,43 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
       <header className="pointer-events-none fixed inset-x-0 top-0 z-[100] flex justify-center p-3 sm:p-5">
         <div className="pointer-events-auto flex h-16 w-full max-w-6xl items-center justify-between rounded-full border border-white/80 bg-white/85 px-4 shadow-[0_16px_45px_-12px_rgba(30,41,59,0.08)] backdrop-blur-2xl transition-all sm:px-6">
           {/* Brand Monogram */}
-          <Link href="/zentyr-v2" className="flex items-center gap-3 group">
+          <Link href="/zentyr-v2" className="group flex items-center gap-3">
             <ZentyrNextGenLogo className="h-10 w-10" />
             <div className="flex flex-col">
-              <span className="font-display text-lg font-black tracking-wider text-gray-900 group-hover:text-purple-600 transition-colors">
+              <span className="font-display text-lg font-black tracking-wider text-gray-900 transition-colors group-hover:text-purple-600">
                 ZENTYR
               </span>
-              <span className="text-[10px] font-bold tracking-widest text-gray-600 uppercase">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-gray-600">
                 Digital Atelier
               </span>
             </div>
           </Link>
 
           {/* Navigation Matrix */}
-          <nav className="hidden md:flex items-center gap-1 rounded-full border border-gray-100 bg-gray-50/70 p-1 text-xs font-bold text-gray-600">
-            <a href="#stage" className="rounded-full px-4 py-1.5 hover:text-black hover:bg-white transition-all">
+          <nav className="hidden items-center gap-1 rounded-full border border-gray-100 bg-gray-50/70 p-1 text-xs font-bold text-gray-600 md:flex">
+            <a
+              href="#stage"
+              className="rounded-full px-4 py-1.5 transition-all hover:bg-white hover:text-black"
+            >
               Live Stage
             </a>
-            <a href="#specimens" className="rounded-full px-4 py-1.5 hover:text-black hover:bg-white transition-all">
+            <a
+              href="#specimens"
+              className="rounded-full px-4 py-1.5 transition-all hover:bg-white hover:text-black"
+            >
               Specimens
             </a>
-            <Link href="/blog" className="rounded-full px-4 py-1.5 hover:text-black hover:bg-white transition-all">
+            <Link
+              href="/blog"
+              className="rounded-full px-4 py-1.5 transition-all hover:bg-white hover:text-black"
+            >
               Dispatches
             </Link>
             <a
               href="https://satayupongpan.site/"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full px-4 py-1.5 hover:text-black hover:bg-white transition-all"
+              className="rounded-full px-4 py-1.5 transition-all hover:bg-white hover:text-black"
             >
               Creator
             </a>
@@ -190,7 +199,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
           <div className="flex items-center gap-2">
             <Link
               href="/zentyr-preview"
-              className="inline-flex items-center gap-1.5 rounded-full border border-purple-200/80 bg-purple-50/80 px-3.5 py-1.5 text-xs font-bold text-purple-700 hover:bg-purple-100 transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 rounded-full border border-purple-200/80 bg-purple-50/80 px-3.5 py-1.5 text-xs font-bold text-purple-700 shadow-sm transition-colors hover:bg-purple-100"
               title="สลับไปดูแบบที่ 1 (Classic Refined)"
             >
               <Compass size={13} />
@@ -200,7 +209,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
 
             <Link
               href="/"
-              className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-bold text-gray-500 hover:text-gray-900 transition-colors"
+              className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-bold text-gray-500 transition-colors hover:text-gray-900"
               title="ดูหน้าเดิม PUNN HUB"
             >
               <span className="hidden sm:inline">หน้าเดิม (PUNN)</span>
@@ -213,18 +222,18 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
       {/* ========================================================= */}
       {/* 2. HERO ATELIER STAGE                                     */}
       {/* ========================================================= */}
-      <main className="relative z-10 pt-28 pb-20 sm:pt-36">
+      <main className="relative z-10 pb-20 pt-28 sm:pt-36">
         <section id="stage" className="mx-auto max-w-6xl px-5">
           {/* Top Status & Specimen Tag */}
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200/70 pb-5">
-            <div className="inline-flex items-center gap-2 rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-1 text-xs font-mono font-semibold text-gray-700 shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-1 font-mono text-xs font-semibold text-gray-700 shadow-sm">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
               <span>ZENTYR // ATELIER 2.0</span>
               <span className="text-gray-300">|</span>
               <span className="text-gray-500">BANGKOK, TH</span>
             </div>
 
-            <div className="text-xs font-mono text-gray-600 hidden sm:block">
+            <div className="hidden font-mono text-xs text-gray-600 sm:block">
               ENGINEERED BY SATAYU PONGPAN • 2026
             </div>
           </div>
@@ -236,7 +245,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
               <span>Experimental Software & Digital Laboratory</span>
             </div>
 
-            <h1 className="mt-4 font-display text-[clamp(3.5rem,11vw,7.5rem)] font-black tracking-[-0.05em] leading-[0.92] text-gray-900">
+            <h1 className="mt-4 font-display text-[clamp(3.5rem,11vw,7.5rem)] font-black leading-[0.92] tracking-[-0.05em] text-gray-900">
               Z E N T Y R
             </h1>
 
@@ -277,7 +286,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                 })}
               </div>
 
-              <div className="text-xs font-mono text-gray-600">
+              <div className="font-mono text-xs text-gray-600">
                 ACTIVE STAGE: {activePreset.code}
               </div>
             </div>
@@ -353,7 +362,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                     }}
                   >
                     {/* Background Graphic Grid */}
-                    <div className="pointer-events-none absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] opacity-15 [background-size:16px_16px]" />
 
                     {/* Interactive Content Based on Specimen */}
                     {activePreset.id === 'memokard' && (
@@ -370,7 +379,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                           onClick={() => setFlashcardFlipped(!flashcardFlipped)}
                           className="cursor-pointer rounded-2xl border border-white/30 bg-black/20 p-6 backdrop-blur-md transition-all duration-300 hover:border-white/50 hover:bg-black/25"
                         >
-                          <div className="text-[11px] font-mono text-emerald-200">
+                          <div className="font-mono text-[11px] text-emerald-200">
                             QUESTION #{flashcardFlipped ? 'REVEALED' : 'HIDDEN'}
                           </div>
                           <div className="mt-2 font-display text-lg font-bold sm:text-xl">
@@ -378,27 +387,33 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                               ? 'อัลกอริทึม FSRS (Free Spaced Repetition Scheduler) ช่วยคำนวณรอบทบทวนตามความจำจริงของผู้เรียน'
                               : 'ทำไม MemoKard ถึงเลือกใช้ FSRS แทน Anki SM-2?'}
                           </div>
-                          <div className="mt-4 text-[11px] text-emerald-200 flex items-center justify-between">
-                            <span>{flashcardFlipped ? '✅ คลิกเพื่อซ่อนเฉลย' : '🔍 คลิกเพื่อดูคำตอบ'}</span>
-                            <span className="rounded bg-white/20 px-2 py-0.5 text-[10px]">FSRS v4</span>
+                          <div className="mt-4 flex items-center justify-between text-[11px] text-emerald-200">
+                            <span>
+                              {flashcardFlipped ? '✅ คลิกเพื่อซ่อนเฉลย' : '🔍 คลิกเพื่อดูคำตอบ'}
+                            </span>
+                            <span className="rounded bg-white/20 px-2 py-0.5 text-[10px]">
+                              FSRS v4
+                            </span>
                           </div>
                         </div>
 
                         {/* Rating Buttons */}
                         <div className="grid grid-cols-4 gap-2 text-center text-xs font-bold">
-                          <div className="rounded-xl bg-red-500/30 border border-red-300/30 p-2 text-red-100">
+                          <div className="rounded-xl border border-red-300/30 bg-red-500/30 p-2 text-red-100">
                             Again
-                            <span className="block text-[9px] font-normal opacity-75">&lt; 10m</span>
+                            <span className="block text-[9px] font-normal opacity-75">
+                              &lt; 10m
+                            </span>
                           </div>
-                          <div className="rounded-xl bg-amber-500/30 border border-amber-300/30 p-2 text-amber-100">
+                          <div className="rounded-xl border border-amber-300/30 bg-amber-500/30 p-2 text-amber-100">
                             Hard
                             <span className="block text-[9px] font-normal opacity-75">1.2d</span>
                           </div>
-                          <div className="rounded-xl bg-emerald-500/30 border border-emerald-300/30 p-2 text-emerald-100">
+                          <div className="rounded-xl border border-emerald-300/30 bg-emerald-500/30 p-2 text-emerald-100">
                             Good
                             <span className="block text-[9px] font-normal opacity-75">3.5d</span>
                           </div>
-                          <div className="rounded-xl bg-cyan-500/30 border border-cyan-300/30 p-2 text-cyan-100">
+                          <div className="rounded-xl border border-cyan-300/30 bg-cyan-500/30 p-2 text-cyan-100">
                             Easy
                             <span className="block text-[9px] font-normal opacity-75">7.0d</span>
                           </div>
@@ -417,25 +432,29 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
 
                         {/* Simulated Audio Spectrum Equalizer */}
                         <div className="flex h-24 items-end justify-between gap-1 rounded-2xl border border-white/25 bg-black/25 p-4">
-                          {[40, 65, 80, 50, 95, 75, 60, 85, 45, 90, 70, 55, 80, 60, 75, 50, 85, 65].map(
-                            (height, i) => (
-                              <motion.span
-                                key={i}
-                                animate={{ height: [`${height * 0.4}%`, `${height}%`, `${height * 0.3}%`] }}
-                                transition={{
-                                  duration: 1.2 + (i % 5) * 0.2,
-                                  repeat: Infinity,
-                                  ease: 'easeInOut',
-                                }}
-                                className="w-full rounded-full bg-gradient-to-t from-white/40 to-white"
-                              />
-                            )
-                          )}
+                          {[
+                            40, 65, 80, 50, 95, 75, 60, 85, 45, 90, 70, 55, 80, 60, 75, 50, 85, 65,
+                          ].map((height, i) => (
+                            <motion.span
+                              key={i}
+                              animate={{
+                                height: [`${height * 0.4}%`, `${height}%`, `${height * 0.3}%`],
+                              }}
+                              transition={{
+                                duration: 1.2 + (i % 5) * 0.2,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                              }}
+                              className="w-full rounded-full bg-gradient-to-t from-white/40 to-white"
+                            />
+                          ))}
                         </div>
 
                         <div className="flex items-center justify-between rounded-xl bg-white/10 px-4 py-2 text-xs backdrop-blur-sm">
                           <span>Target Voice: Trained Idol RVC</span>
-                          <span className="font-mono text-[11px] text-rose-200">Pitch Shift: +12</span>
+                          <span className="font-mono text-[11px] text-rose-200">
+                            Pitch Shift: +12
+                          </span>
                         </div>
                       </div>
                     )}
@@ -444,7 +463,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                       <div className="relative z-10 space-y-5">
                         <div className="flex items-center justify-between text-xs text-indigo-100">
                           <span className="font-mono">ALGO FEED // REALTIME</span>
-                          <span className="rounded-full bg-emerald-400/30 border border-emerald-300/40 text-emerald-100 px-2.5 py-0.5 text-[10px] font-bold">
+                          <span className="rounded-full border border-emerald-300/40 bg-emerald-400/30 px-2.5 py-0.5 text-[10px] font-bold text-emerald-100">
                             +14.8% DETECTED
                           </span>
                         </div>
@@ -454,7 +473,9 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                           <div className="flex items-baseline justify-between">
                             <div>
                               <div className="text-2xl font-black">$ZTY / USD</div>
-                              <div className="text-xs text-emerald-200">Bullish Breakout Signal</div>
+                              <div className="text-xs text-emerald-200">
+                                Bullish Breakout Signal
+                              </div>
                             </div>
                             <div className="text-right font-mono text-xs text-indigo-200">
                               Vol: 4.8M (240% avg)
@@ -462,7 +483,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                           </div>
 
                           {/* Chart SVG */}
-                          <svg viewBox="0 0 400 100" fill="none" className="mt-3 w-full h-16">
+                          <svg viewBox="0 0 400 100" fill="none" className="mt-3 h-16 w-full">
                             <path
                               d="M0 80 Q 80 85, 140 60 T 260 40 T 350 15 L 400 10"
                               stroke="#a5b4fc"
@@ -494,10 +515,10 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
         {/* ========================================================= */}
         {/* 3. SPECIMEN ARCHIVE (NEW ASYMMETRIC BENTO)                */}
         {/* ========================================================= */}
-        <section id="specimens" className="mx-auto max-w-6xl px-5 mt-24">
+        <section id="specimens" className="mx-auto mt-24 max-w-6xl px-5">
           <div className="flex items-center justify-between border-b border-gray-200/70 pb-4">
             <div>
-              <p className="text-xs font-mono font-bold uppercase tracking-widest text-purple-600">
+              <p className="font-mono text-xs font-bold uppercase tracking-widest text-purple-600">
                 ARCHIVE // 02
               </p>
               <h2 className="mt-1 font-display text-2xl font-black tracking-tight text-gray-900 sm:text-3xl">
@@ -505,9 +526,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
               </h2>
             </div>
 
-            <div className="text-xs font-mono text-gray-600">
-              EXPLORE ALL EXPERIMENTS
-            </div>
+            <div className="font-mono text-xs text-gray-600">EXPLORE ALL EXPERIMENTS</div>
           </div>
 
           {/* New Asymmetric Bento Grid */}
@@ -534,7 +553,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                 <span className="font-mono text-gray-600">Discord API</span>
                 <Link
                   href="/blog/PUNNActivityStudio"
-                  className="font-bold text-blue-600 hover:underline inline-flex items-center gap-1"
+                  className="inline-flex items-center gap-1 font-bold text-blue-600 hover:underline"
                 >
                   อ่านคู่มือ <ArrowUpRight size={13} />
                 </Link>
@@ -544,7 +563,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
             {/* Card B: Creator Dossier (Satayu) */}
             <div className="rounded-3xl border border-purple-200/80 bg-gradient-to-br from-purple-50/50 via-white to-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
               <div className="flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-purple-600 text-white font-display font-black text-sm">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-purple-600 font-display text-sm font-black text-white">
                   SP
                 </div>
                 <span className="rounded-md bg-purple-100 px-2 py-0.5 text-[10px] font-bold text-purple-700">
@@ -552,9 +571,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                 </span>
               </div>
 
-              <h3 className="mt-4 font-display text-lg font-black text-gray-900">
-                Satayu Pongpan
-              </h3>
+              <h3 className="mt-4 font-display text-lg font-black text-gray-900">Satayu Pongpan</h3>
               <p className="mt-1 text-xs leading-relaxed text-gray-500">
                 Software Developer & Creative Technologist ผู้สร้างโปรเจกต์ ZENTYR
               </p>
@@ -564,7 +581,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                   href="https://github.com/DDME36"
                   target="_blank"
                   rel="noreferrer"
-                  className="font-bold text-gray-700 hover:text-black inline-flex items-center gap-1"
+                  className="inline-flex items-center gap-1 font-bold text-gray-700 hover:text-black"
                 >
                   <Github size={13} /> GitHub
                 </a>
@@ -572,7 +589,7 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                   href="https://satayupongpan.site/"
                   target="_blank"
                   rel="noreferrer"
-                  className="font-bold text-purple-600 hover:underline inline-flex items-center gap-1"
+                  className="inline-flex items-center gap-1 font-bold text-purple-600 hover:underline"
                 >
                   Portfolio <ExternalLink size={13} />
                 </a>
@@ -594,7 +611,8 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
                 Modern Web Stack
               </h3>
               <p className="mt-1 text-xs leading-relaxed text-gray-500">
-                ขับเคลื่อนด้วย Next.js 16, React 19, Tailwind CSS และรันไทม์ Bun สำหรับ ISR ความเร็วสูง
+                ขับเคลื่อนด้วย Next.js 16, React 19, Tailwind CSS และรันไทม์ Bun สำหรับ ISR
+                ความเร็วสูง
               </p>
 
               <div className="mt-6 flex flex-wrap gap-1.5 border-t border-gray-100 pt-4">
@@ -614,10 +632,10 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
         {/* ========================================================= */}
         {/* 4. RECENT DISPATCHES (ARTICLES STREAM)                    */}
         {/* ========================================================= */}
-        <section className="mx-auto max-w-6xl px-5 mt-20">
+        <section className="mx-auto mt-20 max-w-6xl px-5">
           <div className="flex items-center justify-between border-b border-gray-200/70 pb-4">
             <div>
-              <p className="text-xs font-mono font-bold uppercase tracking-widest text-purple-600">
+              <p className="font-mono text-xs font-bold uppercase tracking-widest text-purple-600">
                 DISPATCHES // 03
               </p>
               <h2 className="mt-1 font-display text-2xl font-black tracking-tight text-gray-900 sm:text-3xl">
@@ -635,35 +653,33 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
           </div>
 
           {/* Editorial Stream List */}
-          <div className="mt-6 divide-y divide-gray-100 rounded-3xl border border-gray-200/80 bg-white shadow-sm overflow-hidden">
+          <div className="mt-6 divide-y divide-gray-100 overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-sm">
             {articleList.map((post, idx) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-5 sm:p-6 transition-colors hover:bg-purple-50/40"
+                className="group flex flex-col justify-between gap-3 p-5 transition-colors hover:bg-purple-50/40 sm:flex-row sm:items-center sm:p-6"
               >
                 <div className="flex items-start gap-4">
-                  <span className="font-mono text-xs font-bold text-gray-600 pt-1">
-                    0{idx + 1}
-                  </span>
+                  <span className="pt-1 font-mono text-xs font-bold text-gray-600">0{idx + 1}</span>
                   <div>
                     <span className="rounded bg-gray-100 px-2 py-0.5 text-[10px] font-bold text-gray-600">
                       {post.tags[0] || 'Technical'}
                     </span>
-                    <h4 className="mt-1.5 font-display text-base font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
+                    <h4 className="mt-1.5 font-display text-base font-bold text-gray-900 transition-colors group-hover:text-purple-600">
                       {post.title}
                     </h4>
                     {post.excerpt && (
-                      <p className="mt-1 text-xs text-gray-500 line-clamp-1 max-w-xl">
+                      <p className="mt-1 line-clamp-1 max-w-xl text-xs text-gray-500">
                         {post.excerpt}
                       </p>
                     )}
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 text-xs text-gray-600 pl-8 sm:pl-0">
+                <div className="flex items-center gap-4 pl-8 text-xs text-gray-600 sm:pl-0">
                   <span className="font-mono">{post.date}</span>
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-50 text-gray-400 group-hover:bg-purple-600 group-hover:text-white transition-all">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-50 text-gray-400 transition-all group-hover:bg-purple-600 group-hover:text-white">
                     <ArrowRight size={14} />
                   </div>
                 </div>
@@ -677,41 +693,44 @@ export const ZentyrV2 = ({ posts }: ZentyrV2Props) => {
       {/* 5. ATELIER FOOTER                                         */}
       {/* ========================================================= */}
       <footer className="border-t border-gray-200/80 bg-white/80 py-16 backdrop-blur-md">
-        <div className="mx-auto max-w-6xl px-5 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-5 sm:flex-row">
           <div className="flex items-center gap-3">
             <ZentyrNextGenLogo className="h-8 w-8" />
             <div>
-              <div className="font-display font-black text-gray-900 tracking-wider text-base">
+              <div className="font-display text-base font-black tracking-wider text-gray-900">
                 ZENTYR
               </div>
-              <div className="text-[11px] text-gray-600 font-mono">
+              <div className="font-mono text-[11px] text-gray-600">
                 DIGITAL ATELIER BY SATAYU PONGPAN
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-4 text-xs font-bold text-gray-600">
-            <Link href="/zentyr-preview" className="hover:text-purple-600 transition-colors">
+            <Link href="/zentyr-preview" className="transition-colors hover:text-purple-600">
               แบบที่ 1 (Classic)
             </Link>
-            <Link href="/" className="hover:text-purple-600 transition-colors">
+            <Link href="/" className="transition-colors hover:text-purple-600">
               หน้าเดิม (PUNN)
             </Link>
             <a
               href="https://github.com/DDME36"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-purple-600 transition-colors inline-flex items-center gap-1"
+              className="inline-flex items-center gap-1 transition-colors hover:text-purple-600"
             >
               <Github size={14} /> GitHub
             </a>
-            <Link href="/feed.xml" className="hover:text-orange-500 transition-colors inline-flex items-center gap-1">
+            <Link
+              href="/feed.xml"
+              className="inline-flex items-center gap-1 transition-colors hover:text-orange-500"
+            >
               <Rss size={14} /> RSS
             </Link>
           </div>
         </div>
 
-        <div className="mt-8 text-center text-[11px] font-mono text-gray-600">
+        <div className="mt-8 text-center font-mono text-[11px] text-gray-600">
           © {new Date().getFullYear()} ZENTYR // ALL SYSTEMS OPERATIONAL
         </div>
       </footer>
